@@ -1,0 +1,82 @@
+POST /api/2.3/auctions/301d66e275cb4861ba502c1eaafa88ae/bids HTTP/1.0
+Authorization: Basic YnJva2VyOg==
+Content-Length: 723
+Content-Type: application/json
+Host: api-sandbox.ea.openprocurement.org
+
+{
+  "data": {
+    "qualified": true, 
+    "value": {
+      "amount": 501
+    }, 
+    "tenderers": [
+      {
+        "contactPoint": {
+          "telephone": "+380 (322) 91-69-30", 
+          "name": "Андрій Олексюк", 
+          "email": "aagt@gmail.com"
+        }, 
+        "identifier": {
+          "scheme": "UA-EDR", 
+          "id": "00137226", 
+          "uri": "http://www.sc.gov.ua/"
+        }, 
+        "name": "ДКП «Книга»", 
+        "address": {
+          "countryName": "Україна", 
+          "postalCode": "79013", 
+          "region": "м. Львів", 
+          "streetAddress": "вул. Островського, 34", 
+          "locality": "м. Львів"
+        }
+      }
+    ]
+  }
+}
+
+
+201 Created
+Content-Type: application/json; charset=UTF-8
+Location: http://api-sandbox.ea.openprocurement.org/api/2.3/auctions/301d66e275cb4861ba502c1eaafa88ae/bids/0d76a3f619044106b9bcdc0e57e93dad
+
+{
+  "access": {
+    "token": "73842c515600468a8829fea44817fce1"
+  }, 
+  "data": {
+    "status": "active", 
+    "value": {
+      "currency": "UAH", 
+      "amount": 501.0, 
+      "valueAddedTaxIncluded": true
+    }, 
+    "date": "2017-11-30T16:56:27.113380+02:00", 
+    "qualified": true, 
+    "tenderers": [
+      {
+        "contactPoint": {
+          "email": "aagt@gmail.com", 
+          "telephone": "+380 (322) 91-69-30", 
+          "name": "Андрій Олексюк"
+        }, 
+        "identifier": {
+          "scheme": "UA-EDR", 
+          "id": "00137226", 
+          "uri": "http://www.sc.gov.ua/"
+        }, 
+        "name": "ДКП «Книга»", 
+        "address": {
+          "postalCode": "79013", 
+          "countryName": "Україна", 
+          "streetAddress": "вул. Островського, 34", 
+          "region": "м. Львів", 
+          "locality": "м. Львів"
+        }
+      }
+    ], 
+    "owner": "broker", 
+    "id": "0d76a3f619044106b9bcdc0e57e93dad"
+  }
+}
+
