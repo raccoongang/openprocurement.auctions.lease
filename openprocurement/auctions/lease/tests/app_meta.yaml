@@ -1,0 +1,19 @@
+---
+plugins:
+  auctions.core:
+    plugins:
+      auctions.lease:
+        aliases: []
+        use_default: true
+        migration: false
+config:
+  auth:
+    type: file
+    src: auth.ini
+  db:
+    type: couchdb
+    db_name: lease_tests
+    url: localhost:5984
+    writer:
+      name: op
+      password: op

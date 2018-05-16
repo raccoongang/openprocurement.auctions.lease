@@ -1,6 +1,12 @@
+import os
+
 import logging
 
 from pyramid.interfaces import IRequest
+
+from openprocurement.auctions.core.interfaces import IAuctionManager
+
+from openprocurement.auctions.core.includeme import get_evenly_plugins
 
 from openprocurement.auctions.core.includeme import (
     IContentConfigurator,
@@ -11,42 +17,55 @@ from openprocurement.auctions.core.plugins.awarding.v2_1.adapters import (
 )
 
 from openprocurement.auctions.lease.adapters import (
-    AuctionRubbleOtherConfigurator
+    AuctionLeaseConfigurator,
+    AuctionLeaseManagerAdapter
 )
 from openprocurement.auctions.lease.constants import (
-    DEFAULT_PROCUREMENT_METHOD_TYPE_LEASE
+    DEFAULT_PROCUREMENT_METHOD_TYPE_LEASE,
+    VIEW_LOCATIONS
 )
 from openprocurement.auctions.lease.models import (
-    IRubbleAuction,
+    Auction,
+    ILeaseAuction,
     propertyLease
 )
 
 LOGGER = logging.getLogger(__name__)
 
 
-def includeme_lease(config, plugin_config=None):
-    procurement_method_types = plugin_config.get('aliases', [])
-    if plugin_config.get('use_default', False):
+def includeme_lease(config, plugin_map):
+    procurement_method_types = plugin_map.get('aliases', [])
+    if plugin_map.get('use_default', False):
         procurement_method_types.append(
             DEFAULT_PROCUREMENT_METHOD_TYPE_LEASE
         )
     for procurementMethodType in procurement_method_types:
-        config.add_auction_procurementMethodType(propertyLease,
+        config.add_auction_procurementMethodType(Auction,
                                                  procurementMethodType)
 
-    config.scan("openprocurement.auctions.lease.views.property")
+    # add views
+    for view_location in VIEW_LOCATIONS:
+        config.scan(view_location)
 
     # Register adapters
     config.registry.registerAdapter(
-        AuctionRubbleOtherConfigurator,
-        (IRubbleAuction, IRequest),
+        AuctionLeaseConfigurator,
+        (ILeaseAuction, IRequest),
         IContentConfigurator
     )
     config.registry.registerAdapter(
         AwardingNextCheckV2_1,
-        (IRubbleAuction,),
+        (ILeaseAuction,),
         IAwardingNextCheck
     )
+    config.registry.registerAdapter(
+        AuctionLeaseManagerAdapter,
+        (ILeaseAuction, ),
+        IAuctionManager
+    )
+    # migrate data
+    if plugin_map['migration'] and not os.environ.get('MIGRATION_SKIP'):
+        get_evenly_plugins(config, plugin_map['plugins'], 'openprocurement.auctions.lease.plugins')
 
     LOGGER.info("Included openprocurement.auctions.lease.property plugin",
                 extra={'MESSAGE_ID': 'included_plugin'})
