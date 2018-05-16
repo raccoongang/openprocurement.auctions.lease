@@ -55,14 +55,25 @@ test_auction_data = {
         "amount": 35,
         "currency": u"UAH"
     },
+    "contractTerms": {
+        "contractType": "lease",
+        "leaseTerms": {
+            "leaseDuration": "P10Y"
+        }
+    },
     "items": [
         {
             "description": u"Земля для військовослужбовців",
             "classification": {
-                "scheme": u"CPV",
-                "id": u"66113000-5",
-                "description": u"Земельні ділянки"
+                "scheme": "CAV-PS",
+                "id": "04000000-8",
+                "description": "Земельні ділянки"
             },
+            "additionalClassifications": [{
+                "scheme": "CPVS",
+                "id": "PA01-7",
+                "description": "This field is required."
+            }],
             "unit": {
                 "name": u"item",
                 "code": u"44617100-9"

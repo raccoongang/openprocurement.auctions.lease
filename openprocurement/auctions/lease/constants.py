@@ -23,6 +23,8 @@ DGF_ADDRESS_REQUIRED_FROM = datetime(2018, 2, 9, tzinfo=TZ)
 #codes
 CAVPS_CODES = read_json('cav_ps.json')
 CPVS_CODES = read_json('cpvs.json')
+CAVPS_PROPERTY_CODES = read_json('cav_ps_property.json')
+CPVS_PROPERTY_CODES = read_json('cpvs_property.json')
 
 ORA_CODES[0:0] = ["UA-IPN", "UA-FIN"]
 

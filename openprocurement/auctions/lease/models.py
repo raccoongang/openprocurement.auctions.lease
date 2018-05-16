@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, time
 
 from schematics.exceptions import ValidationError
 from schematics.transforms import blacklist, whitelist
-from schematics.types import StringType, IntType, BooleanType
+from schematics.types import StringType, IntType, BooleanType, BaseType
 from schematics.types.compound import ModelType
 from schematics.types.serializable import serializable
 from pyramid.security import Allow
@@ -30,7 +30,9 @@ from openprocurement.auctions.core.models import (
     dgfOrganization as Organization,
     dgfCDB2Complaint as Complaint,
     Identifier,
-    ListType
+    ListType,
+    dgfCDB2CPVCAVClassification,
+    dgfCDB2AdditionalClassification
 )
 from openprocurement.auctions.core.plugins.awarding.v2_1.models import Award
 from openprocurement.auctions.core.plugins.contracting.v2_1.models import Contract
@@ -43,15 +45,24 @@ from openprocurement.auctions.flash.models import (
     Auction as BaseAuction, Bid as BaseBid,
 )
 
+from openprocurement.api.models.schematics_extender import (
+    Model,
+    IsoDurationType
+)
+
 from .constants import (
     DGF_ID_REQUIRED_FROM,
     MINIMAL_EXPOSITION_PERIOD,
     MINIMAL_EXPOSITION_REQUIRED_FROM,
-    MINIMAL_PERIOD_FROM_RECTIFICATION_END
+    MINIMAL_PERIOD_FROM_RECTIFICATION_END,
+    CAVPS_PROPERTY_CODES,
+    CPVS_PROPERTY_CODES,
+    CAVPS_CODES,
+    CPVS_CODES
 )
 from .utils import get_auction_creation_date, generate_rectificationPeriod
 
-  
+
 def bids_validation_wrapper(validation_func):
     def validator(klass, data, value):
         orig_data = data
@@ -69,6 +80,9 @@ def bids_validation_wrapper(validation_func):
             return
         return validation_func(klass, orig_data, value)
     return validator
+
+def set_time_to_eight_pm(value):
+    return value.replace(hour=20, minute=0, second=0, microsecond=0)
 
 
 class ProcuringEntity(flashProcuringEntity):
@@ -124,8 +138,8 @@ class AuctionAuctionPeriod(Period):
             return
         if self.startDate and get_now() > calc_auction_end_time(auction.numberOfBids, self.startDate):
             start_after = calc_auction_end_time(auction.numberOfBids, self.startDate)
-        elif auction.tenderPeriod and auction.tenderPeriod.endDate:
-            start_after = auction.tenderPeriod.endDate
+        elif auction.enquiryPeriod and auction.enquiryPeriod.endDate:
+            start_after = auction.enquiryPeriod.endDate
         else:
             return
         return rounding_shouldStartAfter(start_after, auction).isoformat()
@@ -143,16 +157,46 @@ class RectificationPeriod(Period):
 create_role = (blacklist(
     'owner_token', 'owner', '_attachments', 'revisions', 'date', 'dateModified', 'doc_id', 'auctionID', 'bids',
     'documents', 'awards', 'questions', 'complaints', 'auctionUrl', 'status',
-    'enquiryPeriod', 'tenderPeriod', 'awardPeriod', 'procurementMethod', 'eligibilityCriteria',
+    'enquiryPeriod', 'awardPeriod', 'procurementMethod', 'eligibilityCriteria',
     'eligibilityCriteria_en', 'eligibilityCriteria_ru', 'awardCriteria', 'submissionMethod', 'cancellations',
     'numberOfBidders', 'contracts') + schematics_embedded_role)
 edit_role = (edit_role + blacklist('enquiryPeriod', 'tenderPeriod', 'auction_value', 'auction_minimalStep', 'auction_guarantee', 'eligibilityCriteria', 'eligibilityCriteria_en', 'eligibilityCriteria_ru', 'awardCriteriaDetails', 'awardCriteriaDetails_en', 'awardCriteriaDetails_ru', 'procurementMethodRationale', 'procurementMethodRationale_en', 'procurementMethodRationale_ru', 'submissionMethodDetails', 'submissionMethodDetails_en', 'submissionMethodDetails_ru', 'minNumberOfQualifiedBids'))
 Administrator_role = (Administrator_role + whitelist('awards'))
 
 
-
 class IRubbleAuction(IAuction):
-    """Marker interface for Rubble auctions"""
+    """Marker interface for Lease auctions"""
+
+
+class PropertyLeaseClassification(dgfCDB2CPVCAVClassification):
+    scheme = StringType(required=True, choices=[u'CAV-PS'])
+
+    def validate_id(self, data, code):
+        if code not in CAVPS_PROPERTY_CODES:
+            raise ValidationError(BaseType.MESSAGES['choices'].format(unicode(CAVPS_PROPERTY_CODES)))
+
+
+class PropertyItem(Item):
+    """A property item to be leased."""
+    classification = ModelType(PropertyLeaseClassification, required=True)
+    additionalClassifications = ListType(ModelType(dgfCDB2AdditionalClassification), default=list())
+
+    def validate_additionalClassifications(self, data, codes):
+        if [code for code in codes if (code['scheme'] == u'CPVS' and code['id'] == u'PA01-7')]:
+            return
+        else:
+            codes.append({'scheme': u'CPVS', 'id': u'PA01-7', 'description': u'description'})
+
+
+class LeaseTerms(Model):
+
+    leaseDuration = IsoDurationType(required=True)
+
+
+class ContractTerms(Model):
+
+    contractType = StringType(required=True, choices=['lease'])
+    leaseTerms = ModelType(LeaseTerms, required=True)
 
 
 @implementer(IRubbleAuction)
@@ -161,7 +205,7 @@ class Auction(BaseAuction):
     class Options:
         roles = {
             'create': create_role,
-            'edit_active.tendering': (blacklist('enquiryPeriod', 'tenderPeriod', 'rectificationPeriod', 'auction_value', 'auction_minimalStep', 'auction_guarantee', 'eligibilityCriteria', 'eligibilityCriteria_en', 'eligibilityCriteria_ru', 'minNumberOfQualifiedBids') + edit_role),
+            'edit_active.tendering': (blacklist('enquiryPeriod', 'tenderPeriod', 'rectificationPeriod', 'auction_value', 'auction_minimalStep', 'auction_guarantee', 'eligibilityCriteria', 'eligibilityCriteria_en', 'eligibilityCriteria_ru', 'minNumberOfQualifiedBids', 'contractTerms') + edit_role),
             'Administrator': (whitelist('rectificationPeriod') + Administrator_role),
         }
 
@@ -184,8 +228,9 @@ class Auction(BaseAuction):
     questions = ListType(ModelType(Question), default=list())
     features = ListType(ModelType(Feature), validators=[validate_features_uniq, validate_not_available])
     lots = ListType(ModelType(Lot), default=list(), validators=[validate_lots_uniq, validate_not_available])
-    items = ListType(ModelType(Item), required=True, min_size=1, validators=[validate_items_uniq])
+    items = ListType(ModelType(PropertyItem), required=True, min_size=1, validators=[validate_items_uniq])
     minNumberOfQualifiedBids = IntType(choices=[1, 2])
+    contractTerms = ModelType(ContractTerms, required=True)
 
     def __acl__(self):
         return [
@@ -202,10 +247,19 @@ class Auction(BaseAuction):
         now = get_now()
         start_date = TZ.localize(self.auctionPeriod.startDate.replace(tzinfo=None))
         self.tenderPeriod.startDate = self.enquiryPeriod.startDate = now
-        pause_between_periods = start_date - (start_date.replace(hour=20, minute=0, second=0, microsecond=0) - timedelta(days=1))
+        pause_between_periods = start_date - (set_time_to_eight_pm(start_date) - timedelta(days=1))
         end_date = calculate_business_date(start_date, -pause_between_periods, self)
         self.enquiryPeriod.endDate = end_date
-        self.tenderPeriod.endDate = self.enquiryPeriod.endDate
+        workingDay_before_startDate = set_time_to_eight_pm(calculate_business_date(start_date, -timedelta(days=1), self, working_days=True))
+        three_workingDay_before_startDate = calculate_business_date(workingDay_before_startDate, -timedelta(days=3), self, working_days=True)
+        if not self.tenderPeriod.endDate:
+            self.tenderPeriod.endDate = workingDay_before_startDate
+        else:
+            if self.tenderPeriod.endDate and set_time_to_eight_pm(self.tenderPeriod.endDate) == three_workingDay_before_startDate:
+                self.tenderPeriod.endDate = set_time_to_eight_pm(self.tenderPeriod.endDate)
+            else:
+                # self.tenderPeriod.endDate = workingDay_before_startDate
+                raise ValidationError(u"3 days validation")
         if not self.rectificationPeriod:
             self.rectificationPeriod = generate_rectificationPeriod(self)
         self.rectificationPeriod.startDate = now
@@ -217,7 +271,6 @@ class Auction(BaseAuction):
                 lot.date = now
 
     def validate_tenderPeriod(self, data, period):
-        """Auction start date must be not closer than MINIMAL_EXPOSITION_PERIOD days and not a holiday"""
         if not (period and period.startDate and period.endDate):
             return
         if get_auction_creation_date(data) < MINIMAL_EXPOSITION_REQUIRED_FROM:

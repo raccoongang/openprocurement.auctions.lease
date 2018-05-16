@@ -10,6 +10,6 @@ from openprocurement.auctions.core.plugins.awarding.v2_1.adapters import (
 
 class AuctionRubbleOtherConfigurator(AuctionConfigurator,
                                      AwardingV2_1ConfiguratorMixin):
-    name = 'Auction Rubble Configurator'
+    name = 'Auction Lease Configurator'
     model = propertyLease
 

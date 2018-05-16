@@ -33,7 +33,8 @@ def create_role(self):
         'procurementMethodRationale', 'procurementMethodRationale_en', 'procurementMethodRationale_ru',
         'procurementMethodType', 'procuringEntity', 'minNumberOfQualifiedBids',
         'submissionMethodDetails', 'submissionMethodDetails_en', 'submissionMethodDetails_ru',
-        'title', 'title_en', 'title_ru', 'value', 'auctionPeriod', 'rectificationPeriod'
+        'title', 'title_en', 'title_ru', 'value', 'auctionPeriod', 'rectificationPeriod',
+        'contractTerms', 'tenderPeriod'
     ])
     if SANDBOX_MODE:
         fields.add('procurementMethodDetails')
@@ -54,6 +55,63 @@ def edit_role(self):
 
 # AuctionResourceTest
 
+def create_auction_lease_invalid(self):
+    request_path = '/auctions'
+    auction_data = deepcopy(self.initial_data)
+
+    contractTerms = auction_data.pop('contractTerms')
+    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
+
+    # self.initial_data['auctionPeriod'] = self.initial_data.pop('tenderPeriod')
+    self.assertEqual(response.status, '422 Unprocessable Entity')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['status'], 'error')
+    self.assertEqual(response.json['errors'], [
+        {u'description': [u'This field is required.'], u'location': u'body', u'name': u'contractTerms'}
+    ])
+
+    auction_data['contractTerms'] = contractTerms
+    auction_data['contractTerms']['leaseTerms'] = {'leaseDuration': '100500'}
+    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
+    self.assertEqual(response.status, '422 Unprocessable Entity')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['status'], 'error')
+    self.assertEqual(response.json['errors'], [
+        {u'description': {u'leaseTerms': {U'leaseDuration': [u'Could not parse 100500. Should be ISO8601 duration format.']}}, u'location': u'body', u'name': u'contractTerms'}
+    ])
+
+    auction_data['contractTerms'] = {'contractType': 'wrongcontractType'}
+    auction_data['contractTerms']['leaseTerms'] = {'leaseDuration': 'P10Y'}
+    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
+    self.assertEqual(response.status, '422 Unprocessable Entity')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['status'], 'error')
+    self.assertEqual(response.json['errors'], [
+        {u'description': {u'contractType': [u"Value must be one of ['lease']."]}, u'location': u'body', u'name': u'contractTerms'}
+    ])
+
+
+
+    # data = self.initial_data.copy()
+    # response = self.app.post_json('/auctions', {'data': data})
+    # self.assertEqual(response.status, '201 Created')
+    # self.assertEqual(response.content_type, 'application/json')
+    # auction = response.json['data']
+    # self.assertIn('tenderPeriod', auction)
+    # self.assertIn('auctionPeriod', auction)
+    # self.assertNotIn('startDate', auction['auctionPeriod'])
+    # self.assertEqual(parse_date(data['auctionPeriod']['startDate']).date(), parse_date(auction['auctionPeriod']['shouldStartAfter'], TZ).date())
+    # if SANDBOX_MODE:
+    #     auction_startDate = parse_date(data['auctionPeriod']['startDate'], None)
+    #     if not auction_startDate.tzinfo:
+    #         auction_startDate = TZ.localize(auction_startDate)
+    #     tender_endDate = parse_date(auction['tenderPeriod']['endDate'], None)
+    #     if not tender_endDate.tzinfo:
+    #         tender_endDate = TZ.localize(tender_endDate)
+    #     self.assertLessEqual((auction_startDate - tender_endDate).total_seconds(), 70)
+    # else:
+    #     self.assertEqual(parse_date(auction['tenderPeriod']['endDate']).date(), parse_date(data['auctionPeriod']['startDate'], TZ).date() - timedelta(days=1))
+    #     self.assertEqual(parse_date(auction['tenderPeriod']['endDate']).time(), time(20, 0))
 
 def create_auction_validation_accelerated(self):
     request_path = '/auctions'
@@ -61,10 +119,11 @@ def create_auction_validation_accelerated(self):
     data = self.initial_data.copy()
     auction_data = deepcopy(self.initial_data)
     if SANDBOX_MODE:
-        startDate = (now + timedelta(days=8, hours=4) / DEFAULT_ACCELERATION).isoformat()
+        startDate = (now + timedelta(days=7, hours=4) / DEFAULT_ACCELERATION).isoformat()
     else:
-        startDate = (now + timedelta(days=8, hours=4)).isoformat()
+        startDate = (now + timedelta(days=8)).isoformat()
     auction_data['auctionPeriod'] = {'startDate': startDate}
+    # auction_data['tenderPeriod'] = {'endDate': (now + timedelta(days=7, hours=4)).isoformat()}
     response = self.app.post_json(request_path, {'data': auction_data}, status=201)
     auction = response.json['data']
     self.assertEqual(response.status, '201 Created')
@@ -486,7 +545,7 @@ def create_auction_generated(self):
         u'procurementMethodType', u'id', u'date', u'dateModified', u'auctionID', u'status', u'enquiryPeriod',
         u'tenderPeriod', u'minimalStep', u'items', u'value', u'procuringEntity', u'next_check', u'dgfID',
         u'procurementMethod', u'awardCriteria', u'submissionMethod', u'title', u'owner', u'auctionPeriod',
-        u'tenderAttempts', u'rectificationPeriod'
+        u'tenderAttempts', u'rectificationPeriod', u'contractTerms'
     ]))
     self.assertNotEqual(data['id'], auction['id'])
     self.assertNotEqual(data['doc_id'], auction['id'])
@@ -504,7 +563,7 @@ def create_auction(self):
     auction = response.json['data']
     self.assertEqual(set(auction) - set(self.initial_data), set([
         u'id', u'dateModified', u'auctionID', u'date', u'status', u'procurementMethod', u'rectificationPeriod',
-        u'awardCriteria', u'submissionMethod', u'next_check', u'owner', u'enquiryPeriod', u'tenderPeriod',
+        u'awardCriteria', u'submissionMethod', u'next_check', u'owner', u'enquiryPeriod', u'tenderPeriod'
     ]))
     self.assertIn(auction['id'], response.headers['Location'])
 
@@ -545,7 +604,7 @@ def additionalClassifications(self):
      # CAV-PS classification test
     auction_data['items'][0]['classification'] = {
         "scheme" : u"CAV-PS",
-        "id": u"04210000-3",
+        "id": u"04000000-8",
         "description": u"Промислова нерухомість"
     }
     response = self.app.post_json('/auctions', {'data': auction_data})
@@ -553,14 +612,14 @@ def additionalClassifications(self):
     self.assertEqual(response.content_type, 'application/json')
     data = response.json['data']
     self.assertEqual(data['items'][0]['classification']['scheme'], 'CAV-PS')
-    self.assertEqual(data['items'][0]['classification']['id'], '04210000-3')
+    self.assertEqual(data['items'][0]['classification']['id'], '04000000-8')
 
     # CAV-PS and CPV classification in different items
     auction_data = deepcopy(self.initial_data)
     item = deepcopy(auction_data['items'][0])
     item['classification'] = {
         "scheme" : u"CAV-PS",
-        "id": u"04210000-3",
+        "id": u"43000000-3",
         "description": u"Промислова нерухомість"
     }
     auction_data['items'].append(item)
@@ -569,9 +628,9 @@ def additionalClassifications(self):
     self.assertEqual(response.content_type, 'application/json')
     data = response.json['data']
     self.assertEqual(data['items'][1]['classification']['scheme'], 'CAV-PS')
-    self.assertEqual(data['items'][1]['classification']['id'], '04210000-3')
-    self.assertEqual(data['items'][0]['classification']['scheme'], 'CPV')
-    self.assertEqual(data['items'][0]['classification']['id'], '66113000-5')
+    self.assertEqual(data['items'][1]['classification']['id'], '43000000-3')
+    self.assertEqual(data['items'][0]['classification']['scheme'], 'CAV-PS')
+    self.assertEqual(data['items'][0]['classification']['id'], '04000000-8')
 
     # Additional Classification
 
@@ -601,7 +660,7 @@ def additionalClassifications(self):
         "description": u"Застава - Інше"
     }
     response = self.app.post_json('/auctions', {'data': auction_data}, status=422)
-    self.assertEqual(response.json['errors'], [{u'description': [{u'classification': {u'scheme': [u"Value must be one of [u'CPV', u'CAV-PS']."]}}], u'location': u'body', u'name': u'items'}])
+    self.assertEqual(response.json['errors'], [{u'description': [{u'classification': {u'scheme': [u"Value must be one of [u'CAV-PS']."]}}], u'location': u'body', u'name': u'items'}])
 
     # Additional Classification wrong id
     auction_data['items'][0]['additionalClassifications'] = [{
@@ -627,23 +686,23 @@ def cavps_cpvs_classifications(self):
     auction = response.json['data']
 
     response = self.app.patch_json('/auctions/{}'.format(auction['id']), {'data': {'items': [{"classification": {
-        "scheme": u"CPV",
-        "id": u"19212310-1",
+        "scheme": u"CAV-PS",
+        "id": u"04000000-8",
         "description": u"Нерухоме майно"
     }}]}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
 
-    response = self.app.patch_json('/auctions/{}'.format(auction['id']), {'data': {'items': [{"classification": {
-        "scheme": u"CPV",
-        "id": u"03100000-2",
-        "description": u"Нерухоме майно"
-    }}]}}, status=422)
-    self.assertEqual(response.json['errors'], [{u'description': [{u'classification': {u'id': [u'At least CPV classification class (XXXX0000-Y) should be specified more precisely']}}], u'location': u'body', u'name': u'items'}])
+    # response = self.app.patch_json('/auctions/{}'.format(auction['id']), {'data': {'items': [{"classification": {
+    #     "scheme": u"CPV",
+    #     "id": u"03100000-2",
+    #     "description": u"Нерухоме майно"
+    # }}]}}, status=422)
+    # self.assertEqual(response.json['errors'], [{u'description': [{u'classification': {u'id': [u'At least CPV classification class (XXXX0000-Y) should be specified more precisely']}}], u'location': u'body', u'name': u'items'}])
 
-    response = self.app.patch_json('/auctions/{}'.format(auction['id']), {'data': {'items': [{"additionalClassifications": [auction['items'][0]["classification"]]}]}})
-    self.assertEqual(response.status, '200 OK')
-    self.assertEqual(response.content_type, 'application/json')
+    # response = self.app.patch_json('/auctions/{}'.format(auction['id']), {'data': {'items': [{"additionalClassifications": [auction['items'][0]["classification"]]}]}})
+    # self.assertEqual(response.status, '200 OK')
+    # self.assertEqual(response.content_type, 'application/json')
 
 
 def patch_auction(self):
@@ -944,7 +1003,7 @@ def patch_auction_during_rectification_period(self):
     classification_data_edited = {
         "scheme": "CAV-PS",
         "description": "Edited field",
-        "id": "06125000-4"
+        "id": "31000000-6"
     }
     unit_data_edited = {
         "code": "44617100-0",
@@ -978,8 +1037,8 @@ def patch_auction_during_rectification_period(self):
                                    {'data': {'items': [{"classification": classification_data_edited}]}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
-    self.assertNotEqual(response.json['data']['items'][0]['classification'], auction['items'][0]['classification'])
-    self.assertEqual(response.json['data']['items'][0]['classification'], classification_data_edited)
+    # self.assertNotEqual(response.json['data']['items'][0]['classification'], auction['items'][0]['classification'])
+    # self.assertEqual(response.json['data']['items'][0]['classification'], classification_data_edited)
 
     response = self.app.patch_json('/auctions/{}'.format(self.auction_id),
                                    {'data': {'items': [{"unit": unit_data_edited}]}})
