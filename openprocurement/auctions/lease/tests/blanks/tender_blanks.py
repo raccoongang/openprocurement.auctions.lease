@@ -55,64 +55,6 @@ def edit_role(self):
 
 # AuctionResourceTest
 
-def create_auction_lease_invalid(self):
-    request_path = '/auctions'
-    auction_data = deepcopy(self.initial_data)
-
-    contractTerms = auction_data.pop('contractTerms')
-    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
-
-    # self.initial_data['auctionPeriod'] = self.initial_data.pop('tenderPeriod')
-    self.assertEqual(response.status, '422 Unprocessable Entity')
-    self.assertEqual(response.content_type, 'application/json')
-    self.assertEqual(response.json['status'], 'error')
-    self.assertEqual(response.json['errors'], [
-        {u'description': [u'This field is required.'], u'location': u'body', u'name': u'contractTerms'}
-    ])
-
-    auction_data['contractTerms'] = contractTerms
-    auction_data['contractTerms']['leaseTerms'] = {'leaseDuration': '100500'}
-    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
-    self.assertEqual(response.status, '422 Unprocessable Entity')
-    self.assertEqual(response.content_type, 'application/json')
-    self.assertEqual(response.json['status'], 'error')
-    self.assertEqual(response.json['errors'], [
-        {u'description': {u'leaseTerms': {U'leaseDuration': [u'Could not parse 100500. Should be ISO8601 duration format.']}}, u'location': u'body', u'name': u'contractTerms'}
-    ])
-
-    auction_data['contractTerms'] = {'contractType': 'wrongcontractType'}
-    auction_data['contractTerms']['leaseTerms'] = {'leaseDuration': 'P10Y'}
-    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
-    self.assertEqual(response.status, '422 Unprocessable Entity')
-    self.assertEqual(response.content_type, 'application/json')
-    self.assertEqual(response.json['status'], 'error')
-    self.assertEqual(response.json['errors'], [
-        {u'description': {u'contractType': [u"Value must be one of ['lease']."]}, u'location': u'body', u'name': u'contractTerms'}
-    ])
-
-
-
-    # data = self.initial_data.copy()
-    # response = self.app.post_json('/auctions', {'data': data})
-    # self.assertEqual(response.status, '201 Created')
-    # self.assertEqual(response.content_type, 'application/json')
-    # auction = response.json['data']
-    # self.assertIn('tenderPeriod', auction)
-    # self.assertIn('auctionPeriod', auction)
-    # self.assertNotIn('startDate', auction['auctionPeriod'])
-    # self.assertEqual(parse_date(data['auctionPeriod']['startDate']).date(), parse_date(auction['auctionPeriod']['shouldStartAfter'], TZ).date())
-    # if SANDBOX_MODE:
-    #     auction_startDate = parse_date(data['auctionPeriod']['startDate'], None)
-    #     if not auction_startDate.tzinfo:
-    #         auction_startDate = TZ.localize(auction_startDate)
-    #     tender_endDate = parse_date(auction['tenderPeriod']['endDate'], None)
-    #     if not tender_endDate.tzinfo:
-    #         tender_endDate = TZ.localize(tender_endDate)
-    #     self.assertLessEqual((auction_startDate - tender_endDate).total_seconds(), 70)
-    # else:
-    #     self.assertEqual(parse_date(auction['tenderPeriod']['endDate']).date(), parse_date(data['auctionPeriod']['startDate'], TZ).date() - timedelta(days=1))
-    #     self.assertEqual(parse_date(auction['tenderPeriod']['endDate']).time(), time(20, 0))
-
 def create_auction_validation_accelerated(self):
     request_path = '/auctions'
     now = get_now()
@@ -374,6 +316,36 @@ def create_auction_invalid(self):
     self.assertEqual(response.json['status'], 'error')
     self.assertEqual(response.json['errors'], [
         {u'description': {u'contactPoint': {u'email': [u'telephone or email should be present']}}, u'location': u'body', u'name': u'procuringEntity'}
+    ])
+
+    auction_data = deepcopy(self.initial_data)
+    contractTerms = auction_data.pop('contractTerms')
+    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
+    self.assertEqual(response.status, '422 Unprocessable Entity')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['status'], 'error')
+    self.assertEqual(response.json['errors'], [
+        {u'description': [u'This field is required.'], u'location': u'body', u'name': u'contractTerms'}
+    ])
+
+    auction_data['contractTerms'] = contractTerms
+    auction_data['contractTerms']['leaseTerms'] = {'leaseDuration': '100500'}
+    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
+    self.assertEqual(response.status, '422 Unprocessable Entity')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['status'], 'error')
+    self.assertEqual(response.json['errors'], [
+        {u'description': {u'leaseTerms': {U'leaseDuration': [u'Could not parse 100500. Should be ISO8601 duration format.']}}, u'location': u'body', u'name': u'contractTerms'}
+    ])
+
+    auction_data['contractTerms'] = {'contractType': 'wrongcontractType'}
+    auction_data['contractTerms']['leaseTerms'] = {'leaseDuration': 'P10Y'}
+    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
+    self.assertEqual(response.status, '422 Unprocessable Entity')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['status'], 'error')
+    self.assertEqual(response.json['errors'], [
+        {u'description': {u'contractType': [u"Value must be one of ['lease']."]}, u'location': u'body', u'name': u'contractTerms'}
     ])
 
 
