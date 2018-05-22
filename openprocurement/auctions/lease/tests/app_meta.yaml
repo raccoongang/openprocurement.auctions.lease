@@ -4,7 +4,7 @@ plugins:
     plugins:
       auctions.lease:
         plugins:
-          rubble.lease:
+          lease.migration:
         aliases: []
         use_default: true
         migration: false
