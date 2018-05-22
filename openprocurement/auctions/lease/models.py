@@ -255,9 +255,8 @@ class Auction(BaseAuction):
         pause_between_periods = start_date - (start_date.replace(hour=20, minute=0, second=0, microsecond=0) - timedelta(days=1))
         end_date = calculate_business_date(start_date, -pause_between_periods, self)
         self.enquiryPeriod.endDate = end_date
-        workingDay_before_startDate = calculate_business_date(start_date, -timedelta(days=1), self, working_days=True)
         if not self.tenderPeriod.endDate:
-            self.tenderPeriod.endDate = set_specific_hour(workingDay_before_startDate, hour=20)
+            self.tenderPeriod.endDate = end_date
         if not self.rectificationPeriod:
             self.rectificationPeriod = generate_rectificationPeriod(self)
         self.rectificationPeriod.startDate = now
