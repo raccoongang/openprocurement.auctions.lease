@@ -58,7 +58,8 @@ from openprocurement.auctions.lease.tests.blanks.tender_blanks import (
     # AuctionProcessTest
     one_valid_bid_auction,
     one_invalid_bid_auction,
-    first_bid_auction
+    first_bid_auction,
+    create_auction_lease_invalid
 )
 
 
@@ -69,6 +70,12 @@ class AuctionTest(BaseWebTest):
     test_create_role = snitch(create_role)
     test_edit_role = snitch(edit_role)
 
+class AuctionLeaseResourceTest(BaseWebTest):
+    initial_data = test_auction_data
+    initial_organization = test_organization
+    initial_status = 'active.tendering'
+
+    test_create_auction_lease_invalid = snitch(create_auction_lease_invalid)
 
 class AuctionResourceTest(BaseWebTest):
     initial_data = test_auction_data
@@ -130,6 +137,7 @@ def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(AuctionProcessTest))
     suite.addTest(unittest.makeSuite(AuctionResourceTest))
+    suite.addTest(unittest.makeSuite(AuctionLeaseResourceTest))
     suite.addTest(unittest.makeSuite(AuctionFieldsEditingTest))
     suite.addTest(unittest.makeSuite(AuctionTest))
     return suite

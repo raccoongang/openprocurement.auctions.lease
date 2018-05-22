@@ -66,7 +66,7 @@ test_auction_data = {
             "description": u"Земля для військовослужбовців",
             "classification": {
                 "scheme": "CAV-PS",
-                "id": "04000000-8",
+                "id": "04121000-2",
                 "description": "Земельні ділянки"
             },
             "additionalClassifications": [{

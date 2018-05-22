@@ -37,3 +37,7 @@ CPV_NON_SPECIFIC_LOCATION_UNITS = ('45', '48', '50', '51', '55', '60', '63', '64
 CAV_NON_SPECIFIC_LOCATION_UNITS = ('07', '08')
 
 DEFAULT_PROCUREMENT_METHOD_TYPE_LEASE = "propertyLease"
+
+VIEW_LOCATIONS = [
+    "openprocurement.auctions.lease.views",
+]

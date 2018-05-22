@@ -55,6 +55,57 @@ def edit_role(self):
 
 # AuctionResourceTest
 
+def create_auction_lease_invalid(self):
+    request_path = '/auctions'
+    auction_data = deepcopy(self.initial_data)
+
+    contractTerms = auction_data.pop('contractTerms')
+    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
+
+    self.assertEqual(response.status, '422 Unprocessable Entity')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['status'], 'error')
+    self.assertEqual(response.json['errors'], [
+        {u'description': [u'This field is required.'], u'location': u'body', u'name': u'contractTerms'}
+    ])
+
+    auction_data['contractTerms'] = contractTerms
+    auction_data['contractTerms']['leaseTerms'] = {'leaseDuration': '100500'}
+    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
+    self.assertEqual(response.status, '422 Unprocessable Entity')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['status'], 'error')
+    self.assertEqual(response.json['errors'], [
+        {u'description': {u'leaseTerms': {U'leaseDuration': [u'Could not parse 100500. Should be ISO8601 duration format.']}}, u'location': u'body', u'name': u'contractTerms'}
+    ])
+
+    auction_data['contractTerms'] = {'contractType': 'wrongcontractType'}
+    auction_data['contractTerms']['leaseTerms'] = {'leaseDuration': 'P10Y'}
+    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
+    self.assertEqual(response.status, '422 Unprocessable Entity')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['status'], 'error')
+    self.assertEqual(response.json['errors'], [
+        {u'description': {u'contractType': [u"Value must be one of ['lease']."]}, u'location': u'body', u'name': u'contractTerms'}
+    ])
+
+    auction_data = deepcopy(self.initial_data)
+    auction_data['tenderPeriod'] = {'endDate': '2020-10-01T00:00:00'}
+    auction_data['auctionPeriod'] = {'startDate': '2020-10-10T00:00:00'}
+    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
+    self.assertEqual(response.status, '422 Unprocessable Entity')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['status'], 'error')
+    self.assertEqual(response.json['errors'], [
+        {u'description': u'the pause between tenderPeriod.endDate and auctionPeriod.startDate should be either 3 or 0 days', u'location': u'body', u'name': u'data'}
+    ])
+
+    auction_data = deepcopy(self.initial_data)
+    auction_data['tenderPeriod'] = {'endDate': '2018-07-23'}
+    auction_data['auctionPeriod'] = {'startDate': '2018-07-27'}
+    response = self.app.post_json(request_path, {'data': auction_data}, status=201)
+    self.assertEqual(response.status, '201 Created')
+
 def create_auction_validation_accelerated(self):
     request_path = '/auctions'
     now = get_now()
@@ -318,36 +369,6 @@ def create_auction_invalid(self):
         {u'description': {u'contactPoint': {u'email': [u'telephone or email should be present']}}, u'location': u'body', u'name': u'procuringEntity'}
     ])
 
-    auction_data = deepcopy(self.initial_data)
-    contractTerms = auction_data.pop('contractTerms')
-    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
-    self.assertEqual(response.status, '422 Unprocessable Entity')
-    self.assertEqual(response.content_type, 'application/json')
-    self.assertEqual(response.json['status'], 'error')
-    self.assertEqual(response.json['errors'], [
-        {u'description': [u'This field is required.'], u'location': u'body', u'name': u'contractTerms'}
-    ])
-
-    auction_data['contractTerms'] = contractTerms
-    auction_data['contractTerms']['leaseTerms'] = {'leaseDuration': '100500'}
-    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
-    self.assertEqual(response.status, '422 Unprocessable Entity')
-    self.assertEqual(response.content_type, 'application/json')
-    self.assertEqual(response.json['status'], 'error')
-    self.assertEqual(response.json['errors'], [
-        {u'description': {u'leaseTerms': {U'leaseDuration': [u'Could not parse 100500. Should be ISO8601 duration format.']}}, u'location': u'body', u'name': u'contractTerms'}
-    ])
-
-    auction_data['contractTerms'] = {'contractType': 'wrongcontractType'}
-    auction_data['contractTerms']['leaseTerms'] = {'leaseDuration': 'P10Y'}
-    response = self.app.post_json(request_path, {'data': auction_data}, status=422)
-    self.assertEqual(response.status, '422 Unprocessable Entity')
-    self.assertEqual(response.content_type, 'application/json')
-    self.assertEqual(response.json['status'], 'error')
-    self.assertEqual(response.json['errors'], [
-        {u'description': {u'contractType': [u"Value must be one of ['lease']."]}, u'location': u'body', u'name': u'contractTerms'}
-    ])
-
 
 @unittest.skipIf(get_now() < DGF_ID_REQUIRED_FROM, "Can`t create auction without dgfID only from {}".format(DGF_ID_REQUIRED_FROM))
 def required_dgf_id(self):
@@ -403,8 +424,8 @@ def required_dgf_item_address(self):
 
     # CPV specific location code test (address is required)
     auction_data['items'][0]['classification'] = {
-        "scheme": u"CPV",
-        "id": u"34965000-9",
+        "scheme": u"CAV-PS",
+        "id": u"04210000-3",
         "description": u"Всебічно направлений далекомірний радіомаяк"
     }
     response = self.app.post_json('/auctions', {'data': auction_data}, status=422)
@@ -412,32 +433,6 @@ def required_dgf_item_address(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['status'], 'error')
     self.assertEqual(response.json['errors'], [{"location": "body", "name": "items", "description": [{"address": ["This field is required."]}]}])
-
-    auction_data['items'][0]["address"] = address
-
-    response = self.app.post_json('/auctions', {'data': auction_data})
-    self.assertEqual(response.status, '201 Created')
-    self.assertEqual(response.content_type, 'application/json')
-
-    del auction_data['items'][0]["address"]
-
-    # CAV-PS/CPV non specific location code test (address is not required)
-    auction_data['items'][0]['classification'] = {
-        "scheme": u"CPV",
-        "id": u"90470000-2",
-        "description": u"Послуги з чищення каналізаційних колекторів"
-    }
-    item = deepcopy(auction_data['items'][0])
-    item['classification'] = {
-        "scheme": u"CAV-PS",
-        "id": u"07227000-6",
-        "description": u"Застава - Інше"
-    }
-    auction_data['items'].append(item)
-
-    response = self.app.post_json('/auctions', {'data': auction_data})
-    self.assertEqual(response.status, '201 Created')
-    self.assertEqual(response.content_type, 'application/json')
 
     auction_data['items'][0]["address"] = address
 
@@ -576,7 +571,7 @@ def additionalClassifications(self):
      # CAV-PS classification test
     auction_data['items'][0]['classification'] = {
         "scheme" : u"CAV-PS",
-        "id": u"04000000-8",
+        "id": u"04121000-2",
         "description": u"Промислова нерухомість"
     }
     response = self.app.post_json('/auctions', {'data': auction_data})
@@ -584,14 +579,14 @@ def additionalClassifications(self):
     self.assertEqual(response.content_type, 'application/json')
     data = response.json['data']
     self.assertEqual(data['items'][0]['classification']['scheme'], 'CAV-PS')
-    self.assertEqual(data['items'][0]['classification']['id'], '04000000-8')
+    self.assertEqual(data['items'][0]['classification']['id'], '04121000-2')
 
     # CAV-PS and CPV classification in different items
     auction_data = deepcopy(self.initial_data)
     item = deepcopy(auction_data['items'][0])
     item['classification'] = {
         "scheme" : u"CAV-PS",
-        "id": u"43000000-3",
+        "id": u"06112000-0",
         "description": u"Промислова нерухомість"
     }
     auction_data['items'].append(item)
@@ -600,9 +595,9 @@ def additionalClassifications(self):
     self.assertEqual(response.content_type, 'application/json')
     data = response.json['data']
     self.assertEqual(data['items'][1]['classification']['scheme'], 'CAV-PS')
-    self.assertEqual(data['items'][1]['classification']['id'], '43000000-3')
+    self.assertEqual(data['items'][1]['classification']['id'], '06112000-0')
     self.assertEqual(data['items'][0]['classification']['scheme'], 'CAV-PS')
-    self.assertEqual(data['items'][0]['classification']['id'], '04000000-8')
+    self.assertEqual(data['items'][0]['classification']['id'], '04121000-2')
 
     # Additional Classification
 
@@ -659,7 +654,7 @@ def cavps_cpvs_classifications(self):
 
     response = self.app.patch_json('/auctions/{}'.format(auction['id']), {'data': {'items': [{"classification": {
         "scheme": u"CAV-PS",
-        "id": u"04000000-8",
+        "id": u"04121000-2",
         "description": u"Нерухоме майно"
     }}]}})
     self.assertEqual(response.status, '200 OK')
@@ -975,7 +970,7 @@ def patch_auction_during_rectification_period(self):
     classification_data_edited = {
         "scheme": "CAV-PS",
         "description": "Edited field",
-        "id": "31000000-6"
+        "id": "04121000-2"
     }
     unit_data_edited = {
         "code": "44617100-0",

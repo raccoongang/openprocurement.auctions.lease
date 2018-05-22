@@ -9,14 +9,17 @@ from schematics.types.serializable import serializable
 from pyramid.security import Allow
 from zope.interface import implementer
 
+from openprocurement.api.models.auction_models import (
+    Classification
+)
+
 from openprocurement.auctions.core.includeme import IAwardingNextCheck
 from openprocurement.auctions.core.models import (
     get_auction,
     Lot,
     Period,
-    Cancellation as BaseCancellation,
     Question as BaseQuestion,
-    flashProcuringEntity,
+    ProcuringEntity as flashProcuringEntity,
     Feature,
     validate_items_uniq,
     validate_features_uniq, validate_lots_uniq,
@@ -32,7 +35,8 @@ from openprocurement.auctions.core.models import (
     Identifier,
     ListType,
     dgfCDB2CPVCAVClassification,
-    dgfCDB2AdditionalClassification
+    dgfCDB2AdditionalClassification,
+    Bid as BaseBid
 )
 from openprocurement.auctions.core.plugins.awarding.v2_1.models import Award
 from openprocurement.auctions.core.plugins.contracting.v2_1.models import Contract
@@ -42,12 +46,16 @@ from openprocurement.auctions.core.utils import (
 )
 
 from openprocurement.auctions.flash.models import (
-    Auction as BaseAuction, Bid as BaseBid,
+    Auction as BaseAuction
 )
 
 from openprocurement.api.models.schematics_extender import (
     Model,
     IsoDurationType
+)
+
+from openprocurement.api.models.auction_models import (
+    Cancellation as BaseCancellation,
 )
 
 from .constants import (
@@ -61,6 +69,7 @@ from .constants import (
     CPVS_CODES
 )
 from .utils import get_auction_creation_date, generate_rectificationPeriod
+from openprocurement.api.utils import get_now, set_specific_hour
 
 
 def bids_validation_wrapper(validation_func):
@@ -164,16 +173,12 @@ edit_role = (edit_role + blacklist('enquiryPeriod', 'tenderPeriod', 'auction_val
 Administrator_role = (Administrator_role + whitelist('awards'))
 
 
-class IRubbleAuction(IAuction):
+class ILeaseAuction(IAuction):
     """Marker interface for Lease auctions"""
 
 
 class PropertyLeaseClassification(dgfCDB2CPVCAVClassification):
     scheme = StringType(required=True, choices=[u'CAV-PS'])
-
-    def validate_id(self, data, code):
-        if code not in CAVPS_PROPERTY_CODES:
-            raise ValidationError(BaseType.MESSAGES['choices'].format(unicode(CAVPS_PROPERTY_CODES)))
 
 
 class PropertyItem(Item):
@@ -199,7 +204,7 @@ class ContractTerms(Model):
     leaseTerms = ModelType(LeaseTerms, required=True)
 
 
-@implementer(IRubbleAuction)
+@implementer(ILeaseAuction)
 class Auction(BaseAuction):
     """Data regarding auction process - publicly inviting prospective contractors to submit bids for evaluation and selecting a winner or winners."""
     class Options:
@@ -247,19 +252,12 @@ class Auction(BaseAuction):
         now = get_now()
         start_date = TZ.localize(self.auctionPeriod.startDate.replace(tzinfo=None))
         self.tenderPeriod.startDate = self.enquiryPeriod.startDate = now
-        pause_between_periods = start_date - (set_time_to_eight_pm(start_date) - timedelta(days=1))
+        pause_between_periods = start_date - (start_date.replace(hour=20, minute=0, second=0, microsecond=0) - timedelta(days=1))
         end_date = calculate_business_date(start_date, -pause_between_periods, self)
         self.enquiryPeriod.endDate = end_date
-        workingDay_before_startDate = set_time_to_eight_pm(calculate_business_date(start_date, -timedelta(days=1), self, working_days=True))
-        three_workingDay_before_startDate = calculate_business_date(workingDay_before_startDate, -timedelta(days=3), self, working_days=True)
+        workingDay_before_startDate = calculate_business_date(start_date, -timedelta(days=1), self, working_days=True)
         if not self.tenderPeriod.endDate:
-            self.tenderPeriod.endDate = workingDay_before_startDate
-        else:
-            if self.tenderPeriod.endDate and set_time_to_eight_pm(self.tenderPeriod.endDate) == three_workingDay_before_startDate:
-                self.tenderPeriod.endDate = set_time_to_eight_pm(self.tenderPeriod.endDate)
-            else:
-                # self.tenderPeriod.endDate = workingDay_before_startDate
-                raise ValidationError(u"3 days validation")
+            self.tenderPeriod.endDate = set_specific_hour(workingDay_before_startDate, hour=20)
         if not self.rectificationPeriod:
             self.rectificationPeriod = generate_rectificationPeriod(self)
         self.rectificationPeriod.startDate = now
