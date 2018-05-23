@@ -10,9 +10,6 @@ entry_points = {
     'openprocurement.api.migrations': [
         'auctions = openprocurement.auctions.lease.migration:migrate_data'
     ],
-    # 'openprocurement.auctions.lease.plugins': [
-    #     'auctions = openprocurement.auctions.lease.migration:migrate_data'
-    # ],
     'openprocurement.tests': [
         'auctions.lease = openprocurement.auctions.lease.tests.main:suite'
     ]

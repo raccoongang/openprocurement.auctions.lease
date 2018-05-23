@@ -3,8 +3,6 @@ plugins:
   auctions.core:
     plugins:
       auctions.lease:
-        plugins:
-          lease.migration:
         aliases: []
         use_default: true
         migration: false

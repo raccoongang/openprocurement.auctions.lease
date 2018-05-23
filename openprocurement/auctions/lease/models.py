@@ -90,9 +90,6 @@ def bids_validation_wrapper(validation_func):
         return validation_func(klass, orig_data, value)
     return validator
 
-def set_time_to_eight_pm(value):
-    return value.replace(hour=20, minute=0, second=0, microsecond=0)
-
 
 class ProcuringEntity(flashProcuringEntity):
     identifier = ModelType(Identifier, required=True)
@@ -186,12 +183,6 @@ class PropertyItem(Item):
     classification = ModelType(PropertyLeaseClassification, required=True)
     additionalClassifications = ListType(ModelType(dgfCDB2AdditionalClassification), default=list())
 
-    def validate_additionalClassifications(self, data, codes):
-        if [code for code in codes if (code['scheme'] == u'CPVS' and code['id'] == u'PA01-7')]:
-            return
-        else:
-            codes.append({'scheme': u'CPVS', 'id': u'PA01-7', 'description': u'description'})
-
 
 class LeaseTerms(Model):
 
@@ -255,8 +246,6 @@ class Auction(BaseAuction):
         pause_between_periods = start_date - (start_date.replace(hour=20, minute=0, second=0, microsecond=0) - timedelta(days=1))
         end_date = calculate_business_date(start_date, -pause_between_periods, self)
         self.enquiryPeriod.endDate = end_date
-        if not self.tenderPeriod.endDate:
-            self.tenderPeriod.endDate = end_date
         if not self.rectificationPeriod:
             self.rectificationPeriod = generate_rectificationPeriod(self)
         self.rectificationPeriod.startDate = now
