@@ -69,7 +69,6 @@ from .constants import (
     CPVS_CODES
 )
 from .utils import get_auction_creation_date, generate_rectificationPeriod
-from openprocurement.api.utils import get_now, set_specific_hour
 
 
 def bids_validation_wrapper(validation_func):

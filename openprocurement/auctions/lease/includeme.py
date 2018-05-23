@@ -10,7 +10,6 @@ from openprocurement.auctions.core.plugins.awarding.v1.adapters import (
     AwardingNextCheckV1,
 )
 from openprocurement.auctions.core.includeme import get_evenly_plugins
-from openprocurement.auctions.lease.models import Auction, ILeaseAuction
 
 from openprocurement.auctions.core.includeme import (
     IContentConfigurator,
@@ -29,6 +28,7 @@ from openprocurement.auctions.lease.constants import (
     VIEW_LOCATIONS
 )
 from openprocurement.auctions.lease.models import (
+    Auction,
     ILeaseAuction,
     propertyLease
 )

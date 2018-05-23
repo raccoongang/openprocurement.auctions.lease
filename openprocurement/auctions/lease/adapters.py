@@ -11,7 +11,7 @@ from openprocurement.auctions.core.plugins.awarding.v2_1.adapters import (
 from openprocurement.auctions.core.utils import (
     SANDBOX_MODE, TZ, calculate_business_date, get_request_from_root, get_now,
 )
-from openprocurement.api.utils import get_now, set_specific_hour
+from openprocurement.api.utils import set_specific_hour
 
 
 class AuctionLeaseConfigurator(AuctionConfigurator, AwardingV2_1ConfiguratorMixin):
