@@ -233,14 +233,8 @@ class Auction(BaseAuction):
             (Allow, '{}_{}'.format(self.owner, self.owner_token), 'upload_auction_documents'),
         ]
 
-    def initialize(self):
-        now = get_now()
-        self.auctionPeriod.startDate = None
-        self.auctionPeriod.endDate = None
-        self.date = now
-        if self.lots:
-            for lot in self.lots:
-                lot.date = now
+    def initialize(self): # TODO: get rid of this method
+        pass
 
     def validate_tenderPeriod(self, data, period):
         if not (period and period.startDate and period.endDate):

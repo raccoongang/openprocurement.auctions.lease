@@ -90,8 +90,8 @@ def create_auction_lease_invalid(self):
     ])
 
     auction_data = deepcopy(self.initial_data)
-    auction_data['tenderPeriod'] = {'endDate': '2020-10-01T00:00:00'}
-    auction_data['auctionPeriod'] = {'startDate': '2020-10-10T00:00:00'}
+    auction_data['tenderPeriod'] = {'endDate': '2020-10-01'}
+    auction_data['auctionPeriod'] = {'startDate': '2020-10-10'}
     response = self.app.post_json(request_path, {'data': auction_data}, status=422)
     self.assertEqual(response.status, '422 Unprocessable Entity')
     self.assertEqual(response.content_type, 'application/json')
