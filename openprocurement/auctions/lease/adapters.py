@@ -11,6 +11,7 @@ from openprocurement.auctions.core.utils import (
     SANDBOX_MODE, TZ, calculate_business_date, get_request_from_root, get_now,
 )
 from openprocurement.api.utils import set_specific_hour
+from .utils import get_auction_creation_date, generate_rectificationPeriod
 
 
 class AuctionLeaseConfigurator(AuctionConfigurator, AwardingV2_1ConfiguratorMixin):
@@ -39,6 +40,9 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
             auction.tenderPeriod = type(auction).tenderPeriod.model_class()
             auction.tenderPeriod.startDate = now
             auction.tenderPeriod.endDate = end_date
+            if not auction.rectificationPeriod:
+                auction.rectificationPeriod = generate_rectificationPeriod(auction)
+            auction.rectificationPeriod.startDate = now
             return
         four_workingDays_before_startDate = calculate_business_date(auction.auctionPeriod.startDate, -timedelta(days=4), auction, working_days=True, specific_hour=20)
         if auction.tenderPeriod.endDate:
@@ -48,6 +52,9 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
             else:
                 auction.tenderPeriod.startDate = now
                 auction.tenderPeriod.endDate = four_workingDays_before_startDate
+                if not auction.rectificationPeriod:
+                    auction.rectificationPeriod = generate_rectificationPeriod(auction)
+                auction.rectificationPeriod.startDate = now
 
 
     def change_auction(self, request):

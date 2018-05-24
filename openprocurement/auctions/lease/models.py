@@ -68,7 +68,7 @@ from .constants import (
     CAVPS_CODES,
     CPVS_CODES
 )
-from .utils import get_auction_creation_date, generate_rectificationPeriod
+from .utils import get_auction_creation_date
 
 
 def bids_validation_wrapper(validation_func):
@@ -235,9 +235,6 @@ class Auction(BaseAuction):
 
     def initialize(self):
         now = get_now()
-        if not self.rectificationPeriod:
-            self.rectificationPeriod = generate_rectificationPeriod(self)
-        self.rectificationPeriod.startDate = now
         self.auctionPeriod.startDate = None
         self.auctionPeriod.endDate = None
         self.date = now
