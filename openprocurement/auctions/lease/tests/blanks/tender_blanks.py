@@ -100,6 +100,12 @@ def create_auction_lease_invalid(self):
         {u'description': u'the pause between tenderPeriod.endDate and auctionPeriod.startDate should be either 3 or 0 days', u'location': u'body', u'name': u'data'}
     ])
 
+    auction_data = deepcopy(self.initial_data)
+    auction_data['tenderPeriod'] = {'endDate': '2020-10-19'}
+    auction_data['auctionPeriod'] = {'startDate': '2020-10-23'}
+    response = self.app.post_json(request_path, {'data': auction_data}, status=201)
+    self.assertEqual(response.status, '201 Created')
+
 
 def create_auction_validation_accelerated(self):
     request_path = '/auctions'

@@ -28,26 +28,22 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
         start_date = TZ.localize(auction.auctionPeriod.startDate.replace(tzinfo=None))
         pause_between_periods = start_date - (set_specific_hour(start_date, hour=20) - timedelta(days=1))
         end_date = calculate_business_date(start_date, -pause_between_periods, auction)
-        four_workingDays_before_startDate = calculate_business_date(auction.auctionPeriod.startDate, -timedelta(days=4), auction, working_days=True, specific_hour=20)
+        four_workingDays_before_startDate = calculate_business_date(auction.auctionPeriod.startDate, -timedelta(days=4), None, working_days=True)
         if auction.tenderPeriod and auction.tenderPeriod.endDate:
             if auction.tenderPeriod.endDate.date() != four_workingDays_before_startDate.date():
                 request.errors.add('body', 'data', 'the pause between tenderPeriod.endDate and auctionPeriod.startDate should be either 3 or 0 days')
                 request.errors.status = 422
             else:
-                auction.tenderPeriod.startDate = now
-                auction.tenderPeriod.endDate = four_workingDays_before_startDate
+                auction.tenderPeriod.endDate = calculate_business_date(auction.auctionPeriod.startDate, -timedelta(days=4), auction, working_days=True, specific_hour=20)
         else:
             auction.tenderPeriod = type(auction).tenderPeriod.model_class()
-            auction.tenderPeriod.startDate = now
             auction.tenderPeriod.endDate = end_date
         if not auction.enquiryPeriod:
             auction.enquiryPeriod = type(auction).enquiryPeriod.model_class()
-        auction.enquiryPeriod.startDate = now
         auction.enquiryPeriod.endDate = end_date
         if not auction.rectificationPeriod:
             auction.rectificationPeriod = generate_rectificationPeriod(auction)
-        auction.rectificationPeriod.startDate = now
-        auction.date = now
+        auction.tenderPeriod.startDate = auction.enquiryPeriod.startDate = auction.rectificationPeriod.startDate = auction.date = now
         auction.auctionPeriod.startDate = None
         auction.auctionPeriod.endDate = None
         if auction.lots:
