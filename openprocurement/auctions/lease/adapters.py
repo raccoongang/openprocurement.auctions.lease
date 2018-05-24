@@ -11,7 +11,8 @@ from openprocurement.auctions.core.utils import (
     SANDBOX_MODE, TZ, calculate_business_date, get_request_from_root, get_now,
 )
 from openprocurement.api.utils import set_specific_hour
-from .utils import get_auction_creation_date, generate_rectificationPeriod
+from .utils import generate_rectificationPeriod
+from .constants import ADDITIONAL_LEASE_CLASSIFICATION_MANDATORY
 
 
 class AuctionLeaseConfigurator(AuctionConfigurator, AwardingV2_1ConfiguratorMixin):
@@ -54,8 +55,13 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
                 lot.date = now
 
         for item in auction['items']:
-            if not [additionalClassification for additionalClassification in item['additionalClassifications'] if (additionalClassification['scheme'] == u'CPVS' and additionalClassification['id'] == u'PA01-7')]:
-                item['additionalClassifications'].append({'scheme': u'CPVS', 'id': u'PA01-7', 'description': u'Property lease'})
+            lease_classification_added = False
+            for additionalClassification in item['additionalClassifications']:
+                if (additionalClassification['scheme'] == u'CPVS' and additionalClassification['id'] == u'PA01-7'):
+                    lease_classification_added = True
+            if not lease_classification_added:
+                item['additionalClassifications'].append(ADDITIONAL_LEASE_CLASSIFICATION_MANDATORY)
+
 
     def change_auction(self, request):
         pass

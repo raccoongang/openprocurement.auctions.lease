@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 
 from openprocurement.auctions.core.constants import TZ, ORA_CODES, read_json
@@ -41,3 +42,5 @@ DEFAULT_PROCUREMENT_METHOD_TYPE_LEASE = "propertyLease"
 VIEW_LOCATIONS = [
     "openprocurement.auctions.lease.views",
 ]
+
+ADDITIONAL_LEASE_CLASSIFICATION_MANDATORY = {'scheme': u'CPVS', 'id': u'PA01-7', 'description': u'Оренда'}
