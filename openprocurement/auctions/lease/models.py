@@ -180,7 +180,6 @@ class PropertyLeaseClassification(dgfCDB2CPVCAVClassification):
 class PropertyItem(Item):
     """A property item to be leased."""
     classification = ModelType(PropertyLeaseClassification, required=True)
-    additionalClassifications = ListType(ModelType(dgfCDB2AdditionalClassification), default=list())
 
 
 class LeaseTerms(Model):
@@ -235,16 +234,7 @@ class Auction(BaseAuction):
         ]
 
     def initialize(self):
-        if not self.enquiryPeriod:
-            self.enquiryPeriod = type(self).enquiryPeriod.model_class()
-        if not self.tenderPeriod:
-            self.tenderPeriod = type(self).tenderPeriod.model_class()
         now = get_now()
-        start_date = TZ.localize(self.auctionPeriod.startDate.replace(tzinfo=None))
-        self.tenderPeriod.startDate = self.enquiryPeriod.startDate = now
-        pause_between_periods = start_date - (start_date.replace(hour=20, minute=0, second=0, microsecond=0) - timedelta(days=1))
-        end_date = calculate_business_date(start_date, -pause_between_periods, self)
-        self.enquiryPeriod.endDate = end_date
         if not self.rectificationPeriod:
             self.rectificationPeriod = generate_rectificationPeriod(self)
         self.rectificationPeriod.startDate = now
