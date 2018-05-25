@@ -28,11 +28,12 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
         start_date = TZ.localize(auction.auctionPeriod.startDate.replace(tzinfo=None))
         pause_between_periods = start_date - (set_specific_hour(start_date, hour=20) - timedelta(days=1))
         end_date = calculate_business_date(start_date, -pause_between_periods, auction)
-        four_workingDays_before_startDate = calculate_business_date(auction.auctionPeriod.startDate, -timedelta(days=4), None, working_days=True)
         if auction.tenderPeriod and auction.tenderPeriod.endDate:
+            four_workingDays_before_startDate = calculate_business_date(auction.auctionPeriod.startDate, -timedelta(days=4), None, working_days=True)
             if auction.tenderPeriod.endDate.date() != four_workingDays_before_startDate.date():
                 request.errors.add('body', 'data', 'the pause between tenderPeriod.endDate and auctionPeriod.startDate should be either 3 or 0 days')
                 request.errors.status = 422
+                return
             else:
                 auction.tenderPeriod.endDate = calculate_business_date(auction.auctionPeriod.startDate, -timedelta(days=4), auction, working_days=True, specific_hour=20)
         else:
@@ -51,11 +52,10 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
                 lot.date = now
 
         for item in auction['items']:
-            lease_classification_added = False
             for additionalClassification in item['additionalClassifications']:
                 if (additionalClassification['scheme'] == u'CPVS' and additionalClassification['id'] == u'PA01-7'):
-                    lease_classification_added = True
-            if not lease_classification_added:
+                    break
+            else:
                 item['additionalClassifications'].append(ADDITIONAL_LEASE_CLASSIFICATION_MANDATORY)
 
 
