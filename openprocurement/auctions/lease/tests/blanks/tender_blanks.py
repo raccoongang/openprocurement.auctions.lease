@@ -612,6 +612,18 @@ def additionalClassifications(self):
     self.assertEqual(data['items'][0]['additionalClassifications'][0]['scheme'], 'CPVS')
     self.assertEqual(data['items'][0]['additionalClassifications'][0]['id'], 'PA01-7')
 
+    auction_data['items'][0]['additionalClassifications'] = [{
+        "scheme" : u"CPVS",
+        "id": u"HA28-9",
+        "description": u"Add lease mandatory additional classificator"
+    }]
+    response = self.app.post_json('/auctions', {'data': auction_data}, status=201)
+    data = response.json['data']
+    self.assertEqual(data['items'][0]['additionalClassifications'][0]['scheme'], 'CPVS')
+    self.assertEqual(data['items'][0]['additionalClassifications'][0]['id'], 'HA28-9')
+    self.assertEqual(data['items'][0]['additionalClassifications'][1]['scheme'], 'CPVS')
+    self.assertEqual(data['items'][0]['additionalClassifications'][1]['id'], 'PA01-7')
+
     # CAV-PS classification fail test
     auction_data['items'][0]['classification'] = {
         "scheme" : u"CAV-PS",

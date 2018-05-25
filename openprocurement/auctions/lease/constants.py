@@ -2,6 +2,10 @@
 from datetime import datetime, timedelta
 
 from openprocurement.auctions.core.constants import TZ, ORA_CODES, read_json
+from openprocurement.auctions.core.models import (
+    dgfCDB2CPVCAVClassification,
+    dgfCDB2AdditionalClassification,
+)
 
 #document types
 DOCUMENT_TYPE_OFFLINE = ['x_dgfAssetFamiliarization']
@@ -43,4 +47,7 @@ VIEW_LOCATIONS = [
     "openprocurement.auctions.lease.views",
 ]
 
-ADDITIONAL_LEASE_CLASSIFICATION_MANDATORY = {'scheme': u'CPVS', 'id': u'PA01-7', 'description': u'Оренда'}
+MANDATORY_ADDITIONAL_CLASSIFICATOR = dgfCDB2AdditionalClassification()
+MANDATORY_ADDITIONAL_CLASSIFICATOR['scheme'] = u'CPVS'
+MANDATORY_ADDITIONAL_CLASSIFICATOR['id'] = u'PA01-7'
+MANDATORY_ADDITIONAL_CLASSIFICATOR['description'] = u'Оренда'

@@ -12,7 +12,7 @@ from openprocurement.auctions.core.utils import (
 )
 from openprocurement.api.utils import set_specific_hour
 from .utils import generate_rectificationPeriod
-from .constants import ADDITIONAL_LEASE_CLASSIFICATION_MANDATORY
+from .constants import MANDATORY_ADDITIONAL_CLASSIFICATOR
 
 
 class AuctionLeaseConfigurator(AuctionConfigurator, AwardingV2_1ConfiguratorMixin):
@@ -56,7 +56,7 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
                 if (additionalClassification['scheme'] == u'CPVS' and additionalClassification['id'] == u'PA01-7'):
                     break
             else:
-                item['additionalClassifications'].append(ADDITIONAL_LEASE_CLASSIFICATION_MANDATORY)
+                item['additionalClassifications'].append(MANDATORY_ADDITIONAL_CLASSIFICATOR)
 
 
     def change_auction(self, request):
