@@ -68,11 +68,11 @@ msgstr ""
 "Якщо поле залишилось незаповненим, то порядок дій такий же, як і при наявності двох учасників."
 
 msgid ""
-"You can also fill in the field, assigning the value "1". This will show "
+"You can also fill in the field, assigning the value \"1\". This will show "
 "that the only one bidder is needed for the procedure to be successful. "
 "Therewith the auction is omitted and that bid turns to a qualified award."
 msgstr ""
-"При присвоєнні полю значення "1" пропозиція учасника торгів автоматично стає "
+"При присвоєнні полю значення \"1\" пропозиція учасника торгів автоматично стає "
 "award'ом, що пройшов етап кваліфікації. Сам же аукціон в такому випадку відсутній. Процедура вважається успішною."
 
 msgid "Bid guarantee"
