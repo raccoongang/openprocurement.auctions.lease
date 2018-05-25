@@ -3,7 +3,7 @@
 
 .. index:: Complaint, dispute
 
-.. _complaint:
+.. _Complaint:
 
 Complaint
 =========
@@ -28,32 +28,32 @@ Schema
     Description of the issue.
 
 :date:
-    string, :ref:`date`, auto-generated
+    string, :ref:`Date`, auto-generated
 
     Date of posting.
 
 :dateSubmitted:
-    string, :ref:`date`, auto-generated
+    string, :ref:`Date`, auto-generated
 
     Date when claim was submitted.
 
 :dateAnswered:
-    string, :ref:`date`, auto-generated
+    string, :ref:`Date`, auto-generated
 
     Date when Organizer answered the claim.
 
 :dateEscalated:
-    string, :ref:`date`, auto-generated
+    string, :ref:`Date`, auto-generated
 
     Date of claim to complaint escalation.
 
 :dateDecision:
-    string, :ref:`date`, auto-generated
+    string, :ref:`Date`, auto-generated
 
     Date of complaint decision.
 
 :dateCanceled:
-    string, :ref:`date`, auto-generated
+    string, :ref:`Date`, auto-generated
 
     Date of cancelling.
 
@@ -114,7 +114,7 @@ Schema
 .. :relatedLot:
     string
 
-    ID of related :ref:`lot`.
+    ID of related :ref:`Lot`.
 
 :auctionerAction:
     string
@@ -122,6 +122,6 @@ Schema
     Participants's action.
 
 :auctionerActionDate:
-    string, :ref:`date`, auto-generated
+    string, :ref:`Date`, auto-generated
 
     Date of participant's action.

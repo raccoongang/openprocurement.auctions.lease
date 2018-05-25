@@ -17,8 +17,8 @@ msgstr ""
 msgid "Award Workflow"
 msgstr "Схема роботи кваліфікації"
 
-msgid "For a more detailed information see :ref:`award`"
-msgstr "Для більш детальної інформації зверніться до секції :ref:`award`"
+msgid "For a more detailed information see :ref:`Award`"
+msgstr "Для більш детальної інформації зверніться до секції :ref:`Award`"
 
 msgid ":ref:`Qualification`"
 msgstr ""

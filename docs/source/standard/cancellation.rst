@@ -2,7 +2,7 @@
 .. include:: defs.hrst
 
 .. index:: Cancellation
-.. _cancellation:
+.. _Cancellation:
 
 Cancellation
 ============
@@ -34,7 +34,7 @@ Schema
     with decision to cancel the Auction.
 
 :date:
-    string, :ref:`date`
+    string, :ref:`Date`
 
     Cancellation date.
 
@@ -44,9 +44,10 @@ Schema
     Possible values are:
 
     * `auction`
+
 ..    * `lot`
 
 .. :relatedLot:
     string
 
-    ID of related :ref:`lot`.
+    ID of related :ref:`Lot`.

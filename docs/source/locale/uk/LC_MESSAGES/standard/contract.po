@@ -98,8 +98,8 @@ msgstr ":ref:`Period`"
 msgid "|ocdsDescription| The start and end date for the contract."
 msgstr "|ocdsDescription| Дата початку та завершення договору."
 
-msgid "string, :ref:`date`"
-msgstr "рядок, :ref:`date`"
+msgid "string, :ref:`Date`"
+msgstr "рядок, :ref:`Date`"
 
 msgid ""
 "|ocdsDescription| The date the contract was signed. In the case of multiple "

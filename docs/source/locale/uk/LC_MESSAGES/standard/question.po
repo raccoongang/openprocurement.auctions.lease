@@ -44,8 +44,8 @@ msgstr "рядок"
 msgid "Description of the question."
 msgstr "Опис запитання."
 
-msgid "string, :ref:`date`, auto-generated"
-msgstr "рядок, :ref:`date`, генерується автоматично"
+msgid "string, :ref:`Date`, auto-generated"
+msgstr "рядок, :ref:`Date`, генерується автоматично"
 
 msgid "Date of posting."
 msgstr "Дата публікації."
@@ -65,11 +65,11 @@ msgstr "UID, генерується автоматично"
 msgid "Answer for the question."
 msgstr "Відповідь на задане питання."
 
-msgid "ID of related :ref:`item`."
-msgstr "Ідентифікатор пов'язаних об'єктів :ref:`item`."
+msgid "ID of related :ref:`Item`."
+msgstr "Ідентифікатор пов'язаних об'єктів :ref:`Item`."
 
 #~ msgid "`lot`"
 #~ msgstr "`lot`"
 
-#~ msgid "ID of related :ref:`lot` or :ref:`item`."
-#~ msgstr "Ідентифікатор пов'язаних об'єктів :ref:`lot` або :ref:`item`."
+#~ msgid "ID of related :ref:`Lot` or :ref:`Item`."
+#~ msgstr "Ідентифікатор пов'язаних об'єктів :ref:`Lot` або :ref:`Item`."

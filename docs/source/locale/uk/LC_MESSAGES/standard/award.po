@@ -98,8 +98,8 @@ msgstr ""
 msgid "List of :ref:`Complaint` objects"
 msgstr "Список об’єктів :ref:`Complaint`"
 
-msgid ":ref:`period`"
-msgstr ":ref:`period`"
+msgid ":ref:`Period`"
+msgstr ":ref:`Period`"
 
 msgid "|ocdsDescription| Identifier for this award."
 msgstr "|ocdsDescription| Ідентифікатор цього рішення."
@@ -119,5 +119,5 @@ msgstr ""
 msgid "The time frame when complaints can be submitted."
 msgstr "Період часу, під час якого можна подавати скарги."
 
-#~ msgid "ID of related :ref:`lot`."
-#~ msgstr "ID пов’язаного :ref:`lot`."
+#~ msgid "ID of related :ref:`Lot`."
+#~ msgstr "ID пов’язаного :ref:`Lot`."

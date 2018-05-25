@@ -39,8 +39,8 @@ msgstr "Заголовок скарги."
 msgid "Description of the issue."
 msgstr "Опис запитання."
 
-msgid "string, :ref:`date`, auto-generated"
-msgstr "рядок, :ref:`date`, генерується автоматично"
+msgid "string, :ref:`Date`, auto-generated"
+msgstr "рядок, :ref:`Date`, генерується автоматично"
 
 msgid "Date of posting."
 msgstr "Дата подання."
@@ -126,5 +126,5 @@ msgstr "UID, генерується автоматично"
 msgid "Reviewer's decision."
 msgstr "Рішення органу оскарження."
 
-#~ msgid "ID of related :ref:`lot`."
-#~ msgstr "ID пов’язаного :ref:`lot`."
+#~ msgid "ID of related :ref:`Lot`."
+#~ msgstr "ID пов’язаного :ref:`Lot`."

@@ -21,8 +21,8 @@ msgstr "Period"
 msgid "Schema"
 msgstr "Схема"
 
-msgid "string, :ref:`date`"
-msgstr "рядок, :ref:`date`"
+msgid "string, :ref:`Date`"
+msgstr "рядок, :ref:`Date`"
 
 msgid "|ocdsDescription| The start date for the period."
 msgstr "|ocdsDescription| Початкова дата періоду."

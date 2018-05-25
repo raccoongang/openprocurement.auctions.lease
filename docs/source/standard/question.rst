@@ -1,7 +1,7 @@
 .. . Kicking page rebuild 2014-10-30 17:00:08
 
 .. index:: Question, Answer, Author
-.. _question:
+.. _Question:
 
 Question
 ========
@@ -28,7 +28,7 @@ Schema
     Description of the question.
 
 :date:
-    string, :ref:`date`, auto-generated
+    string, :ref:`Date`, auto-generated
 
     Date of posting.
 
@@ -44,12 +44,13 @@ Schema
 
     * `auction`
     * `item`
+
 ..    * `lot`
 
 :relatedItem:
     string
 
-    ID of related :ref:`item`.
+    ID of related :ref:`Item`.
 
-..    ID of related :ref:`lot` or :ref:`item`.
+..    ID of related :ref:`Lot` or :ref:`Item`.
 

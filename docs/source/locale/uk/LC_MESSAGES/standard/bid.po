@@ -23,8 +23,8 @@ msgstr "Схема"
 msgid "List of :ref:`Organization` objects"
 msgstr "Список об’єктів :ref:`Organization` "
 
-msgid "string, :ref:`date`, auto-generated"
-msgstr "рядок, :ref:`date`, генерується автоматично"
+msgid "string, :ref:`Date`, auto-generated"
+msgstr "рядок, :ref:`Date`, генерується автоматично"
 
 msgid "string"
 msgstr "рядок"
@@ -129,5 +129,5 @@ msgstr ""
 #~ "`valueAddedTaxIncluded` повинно або бути відсутнім, або відповідати "
 #~ "`Lot.value.valueAddedTaxIncluded`"
 
-#~ msgid "ID of related :ref:`lot`."
-#~ msgstr "ID пов’язаного :ref:`lot`."
+#~ msgid "ID of related :ref:`Lot`."
+#~ msgstr "ID пов’язаного :ref:`Lot`."
