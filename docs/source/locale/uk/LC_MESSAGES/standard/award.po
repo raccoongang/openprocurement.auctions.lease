@@ -122,8 +122,8 @@ msgid "List of :ref:`Complaint` objects"
 msgstr "Список об’єктів :ref:`Complaint`"
 
 #: ../../source/standard/award.rst:83
-msgid ":ref:`period`"
-msgstr ":ref:`period`"
+msgid ":ref:`Period`"
+msgstr ":ref:`Period`"
 
 #: ../../source/standard/award.rst:16
 msgid "|ocdsDescription| Identifier for this award."

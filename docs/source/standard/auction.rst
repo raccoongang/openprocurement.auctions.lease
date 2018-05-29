@@ -2,7 +2,7 @@
 .. include:: defs.hrst
 
 .. index:: Auction, Auction
-.. _auction:
+.. _Auction:
 
 Auction
 =======
@@ -45,7 +45,7 @@ Schema
 
    
 :value:
-   :ref:`value`, required, editable during enquiryPeriod
+   :ref:`Value`, required, editable during enquiryPeriod
 
    Total available auction budget. Bids lower than ``value`` will be rejected.
 
@@ -58,7 +58,7 @@ Schema
     Bid guarantee
 
 :items:
-   list of :ref:`item` objects, required, editable during enquiryPeriod
+   list of :ref:`Item` objects, required, editable during enquiryPeriod
 
    List that contains single item being sold. 
 
@@ -71,23 +71,23 @@ Schema
    Features of auction.
 
 :documents:
-   List of :ref:`document` objects
+   List of :ref:`Document` objects
  
    |ocdsDescription|
    All documents and attachments related to the auction.
 
 :questions:
-   List of :ref:`question` objects
+   List of :ref:`Question` objects
 
    Questions to ``procuringEntity`` and answers to them.
 
 :complaints:
-   List of :ref:`complaint` objects
+   List of :ref:`Complaint` objects
 
    Complaints to auction conditions and their resolutions.
 
 :bids:
-   List of :ref:`bid` objects
+   List of :ref:`Bid` objects
 
    A list of all bids placed in the auction with information about participants, their proposals and other qualification documentation.
 
@@ -105,7 +105,7 @@ Schema
    for the procedure to be successful. Therewith the auction is omitted and that bid turns to a qualified award.
    
 :minimalStep:
-   :ref:`value`, required, editable during enquiryPeriod
+   :ref:`Value`, required, editable during enquiryPeriod
 
    The minimal step of auction. Validation rules:
 
@@ -114,7 +114,7 @@ Schema
    * `valueAddedTaxIncluded` should either be absent or match `Auction.value.valueAddedTaxIncluded`
 
 :awards:
-    List of :ref:`award` objects
+    List of :ref:`Award` objects
 
     All qualifications (disqualifications and awards).
 
@@ -122,7 +122,7 @@ Schema
     List of :ref:`Contract` objects
 
 :enquiryPeriod:
-   :ref:`period`
+   :ref:`Period`
 
    Period when questions are allowed.
 
@@ -130,7 +130,7 @@ Schema
    The period during which enquiries may be made and will be answered.
 
 :tenderPeriod:
-   :ref:`period`
+   :ref:`Period`
 
    Period when bids can be submitted.
 
@@ -138,7 +138,7 @@ Schema
    The period when the auction is open for submissions. The end date is the closing date for auction submissions.
 
 :auctionPeriod:
-   :ref:`period`, required
+   :ref:`Period`, required
 
    Period when Auction is conducted. `startDate` should be provided.
 
@@ -148,7 +148,7 @@ Schema
     A web address where auction is accessible for view.
 
 :awardPeriod:
-   :ref:`period`, read-only
+   :ref:`Period`, read-only
 
    Awarding process period.
 
@@ -189,7 +189,7 @@ Schema
     * ``eligibilityCriteria_en`` (English) - Only licensed financial institutions are eligible to participate.
     
 .. :lots:
-   List of :ref:`lot` objects.
+   List of :ref:`Lot` objects.
 
    Contains all auction lots.
 

@@ -121,8 +121,8 @@ msgid "|ocdsDescription| The start and end date for the contract."
 msgstr "|ocdsDescription| Дата початку та завершення договору."
 
 #: ../../source/standard/contract.rst:82 ../../source/standard/contract.rst:88
-msgid "string, :ref:`date`"
-msgstr "рядок, :ref:`date`"
+msgid "string, :ref:`Date`"
+msgstr "рядок, :ref:`Date`"
 
 #: ../../source/standard/contract.rst:84
 msgid ""

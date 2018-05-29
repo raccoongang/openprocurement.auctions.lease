@@ -54,8 +54,8 @@ msgid "Description of the question."
 msgstr "Опис запитання."
 
 #: ../../source/standard/question.rst:31
-msgid "string, :ref:`date`, auto-generated"
-msgstr "рядок, :ref:`date`, генерується автоматично"
+msgid "string, :ref:`Date`, auto-generated"
+msgstr "рядок, :ref:`Date`, генерується автоматично"
 
 #: ../../source/standard/question.rst:33
 msgid "Date of posting."
@@ -82,8 +82,8 @@ msgid "Answer for the question."
 msgstr "Відповідь на задане питання."
 
 #: ../../source/standard/question.rst:52
-msgid "ID of related :ref:`item`."
-msgstr "Ідентифікатор пов'язаних об'єктів :ref:`item`."
+msgid "ID of related :ref:`Item`."
+msgstr "Ідентифікатор пов'язаних об'єктів :ref:`Item`."
 
 #~ msgid "`lot`"
 #~ msgstr "`lot`"

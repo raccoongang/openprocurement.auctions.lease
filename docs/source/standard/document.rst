@@ -17,7 +17,7 @@ Schema
 :documentType:
     string
 
-    Possible values for :ref:`auction`
+    Possible values for :ref:`Auction`
 
 
     * `notice` - **Auction notice**
@@ -56,7 +56,7 @@ Schema
 
       A non-disclosure agreement between a participant and a bank/Deposit Guarantee Fund.
 
-    Possible values for :ref:`award`
+    Possible values for :ref:`Award`
 
 
     * `winningBid` - **Winning Bid**
@@ -73,7 +73,7 @@ Schema
     * `contractAnnexe` - **Annexes to the Contract**
 
 
-    Possible values for :ref:`bid`
+    Possible values for :ref:`Bid`
 
 
     * `commercialProposal` - **Сommercial proposal**
@@ -119,13 +119,13 @@ Schema
     Direct link to the document or attachment.
 
 :datePublished:
-    string, :ref:`date`
+    string, :ref:`Date`
 
     |ocdsDescription|
     The date on which the document was first published.
 
 :dateModified:
-    string, :ref:`date`
+    string, :ref:`Date`
 
     |ocdsDescription|
     Date that the document was last modified
@@ -149,9 +149,9 @@ Schema
 :relatedItem:
     string
 
-    ID of related :ref:`item`.
+    ID of related :ref:`Item`.
 
-..    ID of related :ref:`lot` or :ref:`item`.
+..    ID of related :ref:`Lot` or :ref:`Item`.
 
     * `biddingDocuments` - **Bidding Documents**
 

@@ -170,7 +170,7 @@ Uploading illustration
 Organizer can upload illustration files into the created auction. Uploading should
 follow the :ref:`upload` rules.
 
-In order to specify illustration display order, `index` field can be used (for details see :ref:`document`). Since this illustration should be displayed first, it has ``"index": 1``.
+In order to specify illustration display order, `index` field can be used (for details see :ref:`Document`). Since this illustration should be displayed first, it has ``"index": 1``.
 
 .. include:: tutorial/upload-first-auction-illustration.http
    :code:
@@ -416,7 +416,7 @@ Only the request that has been activated (3rd step above) has power to
 cancel auction.  I.e.  you have to not only prepare cancellation request but
 to activate it as well.
 
-See :ref:`cancellation` data structure for details.
+See :ref:`Cancellation` data structure for details.
 
 Preparing the cancellation request
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

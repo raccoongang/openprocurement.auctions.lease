@@ -41,7 +41,7 @@ Schema
     Contract description
 
 :value:
-    `Value` object, auto-generated, read-only
+    :ref:`Value` object, auto-generated, read-only
 
     |ocdsDescription|
     The total value of this contract.
@@ -79,13 +79,13 @@ Schema
     The start and end date for the contract.
 
 :dateSigned:
-    string, :ref:`date`
+    string, :ref:`Date`
 
     |ocdsDescription|
     The date the contract was signed. In the case of multiple signatures, the date of the last signature.
 
 :date:
-    string, :ref:`date`
+    string, :ref:`Date`
 
     The date when the contract was changed or activated.
 

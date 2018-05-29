@@ -26,8 +26,8 @@ msgstr "Схема"
 
 #: ../../source/standard/util.rst:14 ../../source/standard/util.rst:20
 #: ../../source/standard/util.rst:70
-msgid "string, :ref:`date`"
-msgstr "рядок, :ref:`date`"
+msgid "string, :ref:`Date`"
+msgstr "рядок, :ref:`Date`"
 
 #: ../../source/standard/util.rst:16
 msgid "|ocdsDescription| The start date for the period."

@@ -91,7 +91,7 @@ Schema
 .. :relatedLot:
     string
 
-    ID of related :ref:`lot`.
+    ID of related :ref:`Lot`.
 
 
 .. _Classification:

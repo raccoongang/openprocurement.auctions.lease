@@ -2,7 +2,7 @@
 .. include:: defs.hrst
 
 .. index:: Period, startDate, endDate
-.. _period:
+.. _Period:
 
 Period
 ======
@@ -11,13 +11,13 @@ Schema
 ------
 
 :startDate:
-    string, :ref:`date`
+    string, :ref:`Date`
 
     |ocdsDescription|
     The start date for the period.
 
 :endDate:
-    string, :ref:`date`
+    string, :ref:`Date`
 
     |ocdsDescription|
     The end date for the period.
@@ -32,7 +32,7 @@ Date
 Date/time in :ref:`date-format`.
 
 .. index:: Value, Currency, VAT
-.. _value:
+.. _Value:
 
 Value
 =====
@@ -67,7 +67,7 @@ Schema
 ------
 
 :date:
-    string, :ref:`date`
+    string, :ref:`Date`
 
     Date when changes were recorded.
 
@@ -75,7 +75,7 @@ Schema
     List of `Change` objects
 
 
-.. _guarantee:
+.. _Guarantee:
 
 Guarantee
 =========

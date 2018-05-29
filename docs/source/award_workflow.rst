@@ -3,7 +3,7 @@
 Award Workflow
 ==============
 
-For a more detailed information see :ref:`award`
+For a more detailed information see :ref:`Award`
 
     * :ref:`Qualification`
     * :ref:`Confirming_qualification`

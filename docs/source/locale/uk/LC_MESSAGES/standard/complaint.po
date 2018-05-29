@@ -53,8 +53,8 @@ msgstr "Опис запитання."
 #: ../../source/standard/complaint.rst:51
 #: ../../source/standard/complaint.rst:56
 #: ../../source/standard/complaint.rst:125
-msgid "string, :ref:`date`, auto-generated"
-msgstr "рядок, :ref:`date`, генерується автоматично"
+msgid "string, :ref:`Date`, auto-generated"
+msgstr "рядок, :ref:`Date`, генерується автоматично"
 
 #: ../../source/standard/complaint.rst:33
 msgid "Date of posting."

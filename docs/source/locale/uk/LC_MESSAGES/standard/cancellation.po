@@ -57,8 +57,8 @@ msgstr ""
 "організатора про скасування аукціону."
 
 #: ../../source/standard/cancellation.rst:37
-msgid "string, :ref:`date`"
-msgstr "рядок, :ref:`date`"
+msgid "string, :ref:`Date`"
+msgstr "рядок, :ref:`Date`"
 
 #: ../../source/standard/cancellation.rst:39
 msgid "Cancellation date."

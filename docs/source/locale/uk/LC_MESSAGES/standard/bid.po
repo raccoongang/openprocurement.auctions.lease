@@ -27,8 +27,8 @@ msgid "List of :ref:`Organization` objects"
 msgstr "Список об’єктів :ref:`Organization` "
 
 #: ../../source/standard/bid.rst:17
-msgid "string, :ref:`date`, auto-generated"
-msgstr "рядок, :ref:`date`, генерується автоматично"
+msgid "string, :ref:`Date`, auto-generated"
+msgstr "рядок, :ref:`Date`, генерується автоматично"
 
 #: ../../source/standard/bid.rst:25
 msgid "string"

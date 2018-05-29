@@ -19,8 +19,8 @@ msgid "Award Workflow"
 msgstr "Схема роботи кваліфікації"
 
 #: ../../source/award_workflow.rst:6
-msgid "For a more detailed information see :ref:`award`"
-msgstr "Для більш детальної інформації зверніться до секції :ref:`award`"
+msgid "For a more detailed information see :ref:`Award`"
+msgstr "Для більш детальної інформації зверніться до секції :ref:`Award`"
 
 #: ../../source/award_workflow.rst:8
 msgid ":ref:`Qualification`"

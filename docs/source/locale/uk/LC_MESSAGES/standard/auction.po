@@ -43,8 +43,8 @@ msgstr ":ref:`ProcuringEntity`, обов'язково"
 msgid "Organization conducting the auction."
 msgstr "Організатор (організація, що проводить аукціон)."
 
-msgid ":ref:`value`, required, editable during enquiryPeriod"
-msgstr ":ref:`value`, обов'язково, доступне для редагування впродовж enquiryPeriod"
+msgid ":ref:`Value`, required, editable during enquiryPeriod"
+msgstr ":ref:`Value`, обов'язково, доступне для редагування впродовж enquiryPeriod"
 
 msgid ":ref:`Guarantee`, editable during enquiryPeriod"
 msgstr ":ref:`Guarantee`, доступне для редагування впродовж enquiryPeriod"
@@ -78,8 +78,8 @@ msgstr ""
 msgid "Bid guarantee"
 msgstr "Гарантійний внесок"
 
-msgid "list of :ref:`item` objects, required, editable during enquiryPeriod"
-msgstr "список об’єктів :ref:`item`, обов’язково, доступне для редагування впродовж enquiryPeriod"
+msgid "list of :ref:`Item` objects, required, editable during enquiryPeriod"
+msgstr "список об’єктів :ref:`Item`, обов’язково, доступне для редагування впродовж enquiryPeriod"
 
 msgid ""
 "|ocdsDescription| The goods and services to be purchased, broken into line "
@@ -99,32 +99,32 @@ msgid "Features of auction."
 msgstr "Властивості аукціону."
 
 #: ../../source/standard/auction.rst:74
-msgid "List of :ref:`document` objects"
-msgstr "Список об’єктів :ref:`document`"
+msgid "List of :ref:`Document` objects"
+msgstr "Список об’єктів :ref:`Document`"
 
 #: ../../source/standard/auction.rst:76
 msgid "|ocdsDescription| All documents and attachments related to the auction."
 msgstr "|ocdsDescription| Всі документи та додатки пов’язані із аукціоном."
 
 #: ../../source/standard/auction.rst:80
-msgid "List of :ref:`question` objects"
-msgstr "Список об’єктів :ref:`question`"
+msgid "List of :ref:`Question` objects"
+msgstr "Список об’єктів :ref:`Question`"
 
 #: ../../source/standard/auction.rst:82
 msgid "Questions to ``procuringEntity`` and answers to them."
 msgstr "Питання до організатора ``procuringEntity`` і відповіді на них."
 
 #: ../../source/standard/auction.rst:85
-msgid "List of :ref:`complaint` objects"
-msgstr "Список об’єктів :ref:`complaint`"
+msgid "List of :ref:`Complaint` objects"
+msgstr "Список об’єктів :ref:`Complaint`"
 
 #: ../../source/standard/auction.rst:87
 msgid "Complaints to auction conditions and their resolutions."
 msgstr "Скарги на умови аукціону та їх вирішення."
 
 #: ../../source/standard/auction.rst:90
-msgid "List of :ref:`bid` objects"
-msgstr "Список об’єктів :ref:`bid`"
+msgid "List of :ref:`Bid` objects"
+msgstr "Список об’єктів :ref:`Bid`"
 
 #: ../../source/standard/auction.rst:94
 msgid ""
@@ -149,8 +149,8 @@ msgstr ""
 "з `Auction.value.valueAddedTaxIncluded`"
 
 #: ../../source/standard/auction.rst:107
-msgid "List of :ref:`award` objects"
-msgstr "Список об’єктів :ref:`award`"
+msgid "List of :ref:`Award` objects"
+msgstr "Список об’єктів :ref:`Award`"
 
 #: ../../source/standard/auction.rst:109
 msgid "All qualifications (disqualifications and awards)."
@@ -161,8 +161,8 @@ msgid "List of :ref:`Contract` objects"
 msgstr "Список об’єктів :ref:`Contract`"
 
 #: ../../source/standard/auction.rst:131
-msgid ":ref:`period`, required"
-msgstr ":ref:`period`, обов'язково"
+msgid ":ref:`Period`, required"
+msgstr ":ref:`Period`, обов'язково"
 
 #: ../../source/standard/auction.rst:119
 msgid ""
@@ -181,8 +181,8 @@ msgstr ""
 "Кінцева дата - це дата, коли перестають прийматись пропозиції."
 
 #: ../../source/standard/auction.rst:141
-msgid ":ref:`period`, read-only"
-msgstr ":ref:`period`, лише для читання"
+msgid ":ref:`Period`, read-only"
+msgstr ":ref:`Period`, лише для читання"
 
 #: ../../source/standard/auction.rst:136
 msgid "url"
@@ -319,8 +319,8 @@ msgid "|ocdsDescription| The total estimated value of the procurement."
 msgstr "|ocdsDescription| Загальна кошторисна вартість закупівлі."
 
 #: ../../source/standard/auction.rst:115 ../../source/standard/auction.rst:123
-msgid ":ref:`period`"
-msgstr ":ref:`period`"
+msgid ":ref:`Period`"
+msgstr ":ref:`Period`"
 
 #: ../../source/standard/auction.rst:117
 msgid "Period when questions are allowed."

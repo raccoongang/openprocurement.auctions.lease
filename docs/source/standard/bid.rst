@@ -2,7 +2,7 @@
 
 .. index:: Bid, Parameter, LotValue, bidder, participant, pretendent
 
-.. _bid:
+.. _Bid:
 
 Bid
 ===
@@ -14,7 +14,7 @@ Schema
     List of :ref:`Organization` objects
 
 :date:
-    string, :ref:`date`, auto-generated
+    string, :ref:`Date`, auto-generated
     
     Date when bid has been submitted.
 
@@ -98,10 +98,10 @@ Schema
    :relatedLot:
     string
 
-    ID of related :ref:`lot`.
+    ID of related :ref:`Lot`.
 
    :date:
-    string, :ref:`date`, auto-generated
+    string, :ref:`Date`, auto-generated
 
    :participationUrl:
     URL

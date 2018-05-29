@@ -2,7 +2,7 @@
 .. include:: defs.hrst
 
 .. index:: Award
-.. _award:
+.. _Award:
 
 Award
 =====
@@ -53,7 +53,7 @@ Schema
     The date of the contract award.
     
 :value:
-    `Value` object, auto-generated, read-only
+    :ref:`Value` object, auto-generated, read-only
     
     |ocdsDescription|
     The total value of this award.
@@ -80,11 +80,11 @@ Schema
     List of :ref:`Complaint` objects
 
 :complaintPeriod:
-    :ref:`period`
+    :ref:`Period`
 
     The time frame when complaints can be submitted.
 
 .. :lotID:
     string
 
-    ID of related :ref:`lot`.
+    ID of related :ref:`Lot`.
