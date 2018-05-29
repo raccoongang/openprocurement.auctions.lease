@@ -1,21 +1,22 @@
-GET /api/2.3/auctions HTTP/1.0
+GET /api/2.4/auctions HTTP/1.0
 Authorization: Basic YnJva2VyOg==
 Host: api-sandbox.ea.openprocurement.org
 
 
 200 OK
-Content-Type: application/json; charset=UTF-8
+Content-Type: application/json
+X-Content-Type-Options: nosniff
 
 {
   "next_page": {
-    "path": "/api/2.3/auctions?offset=2017-11-30T16%3A56%3A25.621767%2B02%3A00", 
-    "uri": "http://api-sandbox.ea.openprocurement.org/api/2.3/auctions?offset=2017-11-30T16%3A56%3A25.621767%2B02%3A00", 
-    "offset": "2017-11-30T16:56:25.621767+02:00"
+    "path": "/api/2.4/auctions?offset=2018-05-28T19%3A03%3A04.492942%2B03%3A00", 
+    "uri": "http://api-sandbox.ea.openprocurement.org/api/2.4/auctions?offset=2018-05-28T19%3A03%3A04.492942%2B03%3A00", 
+    "offset": "2018-05-28T19:03:04.492942+03:00"
   }, 
   "data": [
     {
-      "id": "301d66e275cb4861ba502c1eaafa88ae", 
-      "dateModified": "2017-11-30T16:56:25.621767+02:00"
+      "id": "246d20f56b0a4601bd4b5ddd3ac636e9", 
+      "dateModified": "2018-05-28T19:03:04.492942+03:00"
     }
   ]
 }

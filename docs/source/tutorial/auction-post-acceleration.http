@@ -1,19 +1,27 @@
-POST /api/2.3/auctions?opt_pretty=1 HTTP/1.0
+POST /api/2.4/auctions?opt_pretty=1 HTTP/1.0
 Authorization: Basic YnJva2VyOg==
-Content-Length: 2036
+Content-Length: 2262
 Content-Type: application/json
 Host: api-sandbox.ea.openprocurement.org
 
 {
   "data": {
+    "contractTerms": {
+      "contractType": "lease", 
+      "leaseTerms": {
+        "leaseDuration": "P10Y"
+      }
+    }, 
     "title": "футляри до державних нагород", 
     "minimalStep": {
       "currency": "UAH", 
       "amount": 35
     }, 
-    "procurementMethodDetails": "quick, accelerator=1440", 
+    "auctionPeriod": {
+      "startDate": "2018-06-09T19:02:59.179463"
+    }, 
     "tenderAttempts": 1, 
-    "procurementMethodType": "dgfOtherAssets", 
+    "procurementMethodType": "propertyLease", 
     "value": {
       "currency": "UAH", 
       "amount": 100
@@ -37,31 +45,38 @@ Host: api-sandbox.ea.openprocurement.org
         "locality": "м. Київ"
       }
     }, 
-    "submissionMethodDetails": "quick", 
     "mode": "test", 
-    "auctionPeriod": {
-      "startDate": "2017-11-30T17:01:17.205813"
-    }, 
     "items": [
       {
+        "description": "Земля для військовослужбовців", 
         "classification": {
-          "scheme": "CPV", 
-          "id": "66113000-5", 
+          "scheme": "CAV-PS", 
+          "id": "04121000-2", 
           "description": "Земельні ділянки"
         }, 
-        "quantity": 5, 
-        "description": "Земля для військовослужбовців", 
-        "unit": {
-          "code": "44617100-9", 
-          "name": "item"
-        }, 
+        "additionalClassifications": [
+          {
+            "scheme": "CPVS", 
+            "id": "PA01-7", 
+            "description": "Оренда"
+          }
+        ], 
         "address": {
           "countryName": "Україна", 
           "postalCode": "79000", 
           "region": "м. Київ", 
           "streetAddress": "вул. Банкова 1", 
           "locality": "м. Київ"
-        }
+        }, 
+        "contractPeriod": {
+          "startDate": "2018-05-30T19:02:58.713827", 
+          "endDate": "2018-06-02T19:02:58.713827"
+        }, 
+        "unit": {
+          "code": "44617100-9", 
+          "name": "item"
+        }, 
+        "quantity": 5.001
       }
     ], 
     "dgfID": "219560"
@@ -70,22 +85,23 @@ Host: api-sandbox.ea.openprocurement.org
 
 
 201 Created
-Content-Type: application/json; charset=UTF-8
-Location: http://api-sandbox.ea.openprocurement.org/api/2.3/auctions/731dc3a4c39a4e0fa97816efac9797d4
+Content-Type: application/json
+Location: http://api-sandbox.ea.openprocurement.org/api/2.4/auctions/bacab87b56264568b59082d8ff724cce
+X-Content-Type-Options: nosniff
 
 {
   "access": {
-    "token": "0a74311e81c84f619214161e9a0dd1ef"
+    "token": "8164da3243104386b02a54665528347a"
   }, 
   "data": {
     "procurementMethod": "open", 
-    "auctionID": "UA-PS-2017-11-30-000001", 
+    "auctionID": "UA-EA-2018-05-28-000001", 
     "enquiryPeriod": {
-      "startDate": "2017-11-30T16:56:20.188830+02:00", 
-      "endDate": "2017-11-30T17:00:24.652197+02:00"
+      "startDate": "2018-05-28T19:03:01.837027+03:00", 
+      "endDate": "2018-06-08T20:00:00+03:00"
     }, 
     "submissionMethod": "electronicAuction", 
-    "next_check": "2017-11-30T17:00:24.652197+02:00", 
+    "next_check": "2018-06-08T20:00:00+03:00", 
     "procuringEntity": {
       "contactPoint": {
         "name": "Державне управління справами", 
@@ -107,31 +123,51 @@ Location: http://api-sandbox.ea.openprocurement.org/api/2.3/auctions/731dc3a4c39
     }, 
     "owner": "broker", 
     "title_en": "[TESTING] ", 
-    "id": "731dc3a4c39a4e0fa97816efac9797d4", 
+    "id": "bacab87b56264568b59082d8ff724cce", 
     "title": "[ТЕСТУВАННЯ] футляри до державних нагород", 
     "tenderAttempts": 1, 
-    "procurementMethodDetails": "quick, accelerator=1440", 
-    "dateModified": "2017-11-30T16:56:20.192610+02:00", 
+    "dateModified": "2018-05-28T19:03:01.845486+03:00", 
     "status": "active.tendering", 
     "tenderPeriod": {
-      "startDate": "2017-11-30T16:56:20.188830+02:00", 
-      "endDate": "2017-11-30T17:00:24.652197+02:00"
+      "startDate": "2018-05-28T19:03:01.837027+03:00", 
+      "endDate": "2018-06-08T20:00:00+03:00"
     }, 
     "auctionPeriod": {
-      "shouldStartAfter": "2017-11-30T17:00:24.652197+02:00"
+      "shouldStartAfter": "2018-06-09T00:00:00+03:00"
     }, 
-    "procurementMethodType": "dgfOtherAssets", 
+    "procurementMethodType": "propertyLease", 
     "dgfID": "219560", 
-    "date": "2017-11-30T16:56:20.188830+02:00", 
-    "submissionMethodDetails": "quick", 
+    "date": "2018-05-28T19:03:01.837027+03:00", 
+    "rectificationPeriod": {
+      "startDate": "2018-05-28T19:03:01.837027+03:00", 
+      "endDate": "2018-06-03T20:00:00+03:00"
+    }, 
+    "contractTerms": {
+      "contractType": "lease", 
+      "leaseTerms": {
+        "leaseDuration": "P10Y"
+      }
+    }, 
+    "minimalStep": {
+      "currency": "UAH", 
+      "amount": 35.0, 
+      "valueAddedTaxIncluded": true
+    }, 
     "items": [
       {
         "description": "Земля для військовослужбовців", 
         "classification": {
-          "scheme": "CPV", 
+          "scheme": "CAV-PS", 
           "description": "Земельні ділянки", 
-          "id": "66113000-5"
+          "id": "04121000-2"
         }, 
+        "additionalClassifications": [
+          {
+            "scheme": "CPVS", 
+            "id": "PA01-7", 
+            "description": "Оренда"
+          }
+        ], 
         "address": {
           "postalCode": "79000", 
           "countryName": "Україна", 
@@ -139,22 +175,21 @@ Location: http://api-sandbox.ea.openprocurement.org/api/2.3/auctions/731dc3a4c39
           "region": "м. Київ", 
           "locality": "м. Київ"
         }, 
-        "id": "27e42212d979407a84f6ff1a6ed55e4e", 
+        "quantity": 5.001, 
+        "id": "4b1b5fe3c5b34c589d56658bfef148a9", 
         "unit": {
           "code": "44617100-9", 
           "name": "item"
         }, 
-        "quantity": 5
+        "contractPeriod": {
+          "startDate": "2018-05-30T19:02:58.713827+03:00", 
+          "endDate": "2018-06-02T19:02:58.713827+03:00"
+        }
       }
     ], 
     "value": {
       "currency": "UAH", 
       "amount": 100.0, 
-      "valueAddedTaxIncluded": true
-    }, 
-    "minimalStep": {
-      "currency": "UAH", 
-      "amount": 35.0, 
       "valueAddedTaxIncluded": true
     }, 
     "mode": "test", 

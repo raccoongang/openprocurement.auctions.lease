@@ -1,32 +1,33 @@
-GET /api/2.3/auctions/301d66e275cb4861ba502c1eaafa88ae/contracts/ada81c2080f143a387863faae3db1f81/documents HTTP/1.0
+GET /api/2.4/auctions/246d20f56b0a4601bd4b5ddd3ac636e9/contracts/1bb4e628954a47f3a89125866c880f00/documents HTTP/1.0
 Authorization: Basic YnJva2VyOg==
 Host: api-sandbox.ea.openprocurement.org
 
 
 200 OK
-Content-Type: application/json; charset=UTF-8
+Content-Type: application/json
+X-Content-Type-Options: nosniff
 
 {
   "data": [
     {
       "hash": "md5:00000000000000000000000000000000", 
       "format": "application/msword", 
-      "url": "http://public.docs-sandbox.ea.openprocurement.org/get/5bd3f7a02ff44727b232621207f1b851?KeyID=8473a74a&Signature=JQHt0PL4w47AD3VLzHc10HkPeKF1%252BHLSabNSU66N7xOOgzeZ5ABgvszpMW%252Bf1dAvGCTqIVBaD2EYUV1iUuYZAQ%253D%253D", 
+      "url": "http://public.docs-sandbox.ea.openprocurement.org/get/896d489da9d74cc9b38e1b8acb6caf01?KeyID=7149c8cc&Signature=%2FPNXKssC1k3uSmpkRC5HNRsKm%2FqqhKJCfz7iGpg4NvXw5zpliC1cbosi9mcf5XA%252BAYoV7%2FVHlpyb1tY7n%2FS0Dw%253D%253D", 
       "title": "contract_first_document.doc", 
       "documentOf": "tender", 
-      "datePublished": "2017-11-30T16:56:28.913379+02:00", 
-      "dateModified": "2017-11-30T16:56:28.913410+02:00", 
-      "id": "1702fe06543e4c10b6f0bcb0aa694e8c"
+      "datePublished": "2018-05-28T19:03:06.977922+03:00", 
+      "dateModified": "2018-05-28T19:03:06.977944+03:00", 
+      "id": "8f222525b9e14ddcbc45f735d686ec53"
     }, 
     {
       "hash": "md5:00000000000000000000000000000000", 
       "format": "application/msword", 
-      "url": "http://public.docs-sandbox.ea.openprocurement.org/get/4d1df678191e499cbb764244f4469b22?KeyID=8473a74a&Signature=jAmAX7MaWviKJdsUEYM2RR8oXbt8vNobcDP6zqadHWj%252BoQKkUnjVwDry6HmSExDU7DJCqVN9ReLo4mMzNmibBQ%253D%253D", 
+      "url": "http://public.docs-sandbox.ea.openprocurement.org/get/56888ce263254954812bd739c579b282?KeyID=7149c8cc&Signature=KpqYmCHeGiflvKB6J6m36no4so%2FXztSIKeEsGa2e1QwOZZVYoxXKwVuL0oIqLDmJDY1eCeM2NJ2fd5qOvgHnCw%253D%253D", 
       "title": "contract_second_document.doc", 
       "documentOf": "tender", 
-      "datePublished": "2017-11-30T16:56:29.118456+02:00", 
-      "dateModified": "2017-11-30T16:56:29.118484+02:00", 
-      "id": "5c42650d4e074aae85732d8655eec1b7"
+      "datePublished": "2018-05-28T19:03:07.239455+03:00", 
+      "dateModified": "2018-05-28T19:03:07.239484+03:00", 
+      "id": "8b9fef12b1bf4667aea993380a35f276"
     }
   ]
 }

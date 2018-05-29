@@ -1,4 +1,4 @@
-PATCH /api/2.3/auctions/301d66e275cb4861ba502c1eaafa88ae/bids/afaa508128da4829b9202fe300965bf4?acc_token=a94a2b6627aa46f3bbb83ff885e3beae HTTP/1.0
+PATCH /api/2.4/auctions/246d20f56b0a4601bd4b5ddd3ac636e9/bids/4ed57eda57b941399523f19f03b9ada4?acc_token=650aaa4270024deaac41cb856120c3c5 HTTP/1.0
 Authorization: Basic YnJva2VyOg==
 Content-Length: 30
 Content-Type: application/json
@@ -12,7 +12,8 @@ Host: api-sandbox.ea.openprocurement.org
 
 
 200 OK
-Content-Type: application/json; charset=UTF-8
+Content-Type: application/json
+X-Content-Type-Options: nosniff
 
 {
   "data": {
@@ -22,7 +23,7 @@ Content-Type: application/json; charset=UTF-8
       "amount": 500.0, 
       "valueAddedTaxIncluded": true
     }, 
-    "date": "2017-11-30T16:56:26.821209+02:00", 
+    "date": "2018-05-28T19:03:05.400869+03:00", 
     "qualified": true, 
     "tenderers": [
       {
@@ -47,7 +48,7 @@ Content-Type: application/json; charset=UTF-8
       }
     ], 
     "owner": "broker", 
-    "id": "afaa508128da4829b9202fe300965bf4"
+    "id": "4ed57eda57b941399523f19f03b9ada4"
   }
 }
 

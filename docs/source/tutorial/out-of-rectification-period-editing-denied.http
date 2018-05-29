@@ -1,35 +1,47 @@
-PATCH /api/2.3/auctions/aad622eb435a443e8a7afd5432c5d4e6?acc_token=8f2c28a574a647ab8f3dfaeadbbbadb2 HTTP/1.0
+PATCH /api/2.4/auctions/246d20f56b0a4601bd4b5ddd3ac636e9?acc_token=06bf67377235444180324a6ec7a7b41d HTTP/1.0
 Authorization: Basic YnJva2VyOg==
-Content-Length: 2076
+Content-Length: 2230
 Content-Type: application/json
 Host: api-sandbox.ea.openprocurement.org
 
 {
   "data": {
+    "contractTerms": {
+      "contractType": "lease", 
+      "leaseTerms": {
+        "leaseDuration": "P10Y"
+      }
+    }, 
     "title": "футляри до державних нагород", 
     "minimalStep": {
       "currency": "UAH", 
       "amount": 35
     }, 
-    "procurementMethodDetails": "quick, accelerator=1440", 
+    "auctionPeriod": {
+      "startDate": "2018-06-11"
+    }, 
     "tenderAttempts": 1, 
-    "procurementMethodType": "dgfOtherAssets", 
+    "procurementMethodType": "propertyLease", 
     "value": {
       "currency": "UAH", 
       "amount": 100
     }, 
     "dgfID": "219560", 
-    "auctionPeriod": {
-      "startDate": "2017-12-04"
-    }, 
     "items": [
       {
         "description": "Земля для військовослужбовців", 
         "classification": {
-          "scheme": "CPV", 
-          "id": "66113000-5", 
+          "scheme": "CAV-PS", 
+          "id": "04121000-2", 
           "description": "Земельні ділянки"
         }, 
+        "additionalClassifications": [
+          {
+            "scheme": "CPVS", 
+            "id": "PA01-7", 
+            "description": "Оренда"
+          }
+        ], 
         "address": {
           "countryName": "Україна", 
           "postalCode": "79000", 
@@ -38,8 +50,8 @@ Host: api-sandbox.ea.openprocurement.org
           "locality": "м. Київ"
         }, 
         "contractPeriod": {
-          "startDate": "2017-11-22T15:29:31.486546", 
-          "endDate": "2017-11-25T15:29:31.486546"
+          "startDate": "2018-05-30T19:02:58.713827", 
+          "endDate": "2018-06-02T19:02:58.713827"
         }, 
         "unit": {
           "code": "44617100-9", 
@@ -72,13 +84,14 @@ Host: api-sandbox.ea.openprocurement.org
 
 
 403 Forbidden
-Content-Type: application/json; charset=UTF-8
+Content-Type: application/json
+X-Content-Type-Options: nosniff
 
 {
   "status": "error", 
   "errors": [
     {
-      "description": "Auction can be edited only during the rectification period: from (2017-11-06T15:29:31.491067+02:00) to (2017-11-20T15:28:31.491067+02:00).",
+      "description": "Auction can be edited only during the rectification period: from (2018-05-14T19:03:04.732774+03:00) to (2018-05-22T19:03:04.732774+03:00).", 
       "location": "body", 
       "name": "data"
     }
