@@ -1,7 +1,7 @@
 # Zoriana Zaiats <sorenabell@quintagroup.com>, 2016.
 msgid ""
 msgstr ""
-"Project-Id-Version: openprocurement.auctions.dgf 0.1\n"
+"Project-Id-Version: openprocurement.auctions.lease 1.1.1-sale\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-12 15:36+0300\n"
 "PO-Revision-Date: 2016-10-13 17:22+0200\n"
