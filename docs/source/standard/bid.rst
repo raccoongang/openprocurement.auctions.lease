@@ -1,5 +1,3 @@
-.. . Kicking page rebuild 2014-10-30 17:00:08
-
 .. index:: Bid, Parameter, LotValue, bidder, participant, pretendent
 
 .. _Bid:
@@ -10,12 +8,26 @@ Bid
 Schema
 ------
 
+:status:
+    string, default='active'
+
+    Possible values are:
+
+    * `draft`
+    * `active`
+
 :tenderers:
-    List of :ref:`Organization` objects
+    List of :ref:`Organization` objects, required
+
+:documents:
+    List of :ref:`Document` objects
+
+:qualified:
+    bool, required
 
 :date:
     string, :ref:`Date`, auto-generated
-    
+
     Date when bid has been submitted.
 
 :id:
@@ -34,12 +46,9 @@ Schema
 
     Validation rules:
 
-    * `amount` should be less than `Auction.value.amout`
-    * `currency` should either be absent or match `Auction.value.currency`
-    * `valueAddedTaxIncluded` should either be absent or match `Auction.value.valueAddedTaxIncluded`
-
-:documents:
-    List of :ref:`Document` objects
+    * ``amount`` should be less than ``Auction.value.amout``
+    * ``currency`` should either be absent or match ``Auction.value.currency``
+    * ``valueAddedTaxIncluded`` should either be absent or match ``Auction.value.valueAddedTaxIncluded``
 
 :parameters:
     List of :ref:`Parameter` objects
@@ -52,13 +61,8 @@ Schema
 
     A web address for participation in auction.
 
-:qualified:
-    bool, required
-
 :eligible:
     bool
-
-    Required for `dgfFinancialAssets` procedure.
 
 .. _Parameter:
 
@@ -86,7 +90,7 @@ Schema
    Schema
    ------
 
-   :value:
+:value:
     :ref:`Value`, required
 
     Validation rules:
@@ -95,15 +99,15 @@ Schema
     * `currency` should either be absent or match `Lot.value.currency`
     * `valueAddedTaxIncluded` should either be absent or match `Lot.value.valueAddedTaxIncluded`
 
-   :relatedLot:
+:relatedLot:
     string
 
     ID of related :ref:`Lot`.
 
-   :date:
+:date:
     string, :ref:`Date`, auto-generated
 
-   :participationUrl:
+:participationUrl:
     URL
 
     A web address for participation in auction.
