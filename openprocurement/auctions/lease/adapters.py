@@ -31,7 +31,7 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
         if auction.tenderPeriod and auction.tenderPeriod.endDate:
             four_workingDays_before_startDate = calculate_business_date(auction.auctionPeriod.startDate, -timedelta(days=4), None, working_days=True)
             if auction.tenderPeriod.endDate.date() != four_workingDays_before_startDate.date():
-                request.errors.add('body', 'data', 'the pause between tenderPeriod.endDate and auctionPeriod.startDate should be either 3 or 0 days')
+                request.errors.add('body', 'data', 'The only possible value for tenderPeriod.endDate is {}'.format(four_workingDays_before_startDate))
                 request.errors.status = 422
                 return
             else:

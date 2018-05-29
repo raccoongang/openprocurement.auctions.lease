@@ -96,9 +96,7 @@ def create_auction_lease_invalid(self):
     self.assertEqual(response.status, '422 Unprocessable Entity')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['status'], 'error')
-    self.assertEqual(response.json['errors'], [
-        {u'description': u'the pause between tenderPeriod.endDate and auctionPeriod.startDate should be either 3 or 0 days', u'location': u'body', u'name': u'data'}
-    ])
+    self.assertRegexpMatches(response.json['errors'][0]['description'], u'The only possible value for tenderPeriod.endDate is*')
 
     auction_data = deepcopy(self.initial_data)
     auction_data['tenderPeriod'] = {'endDate': '2020-10-19'}
