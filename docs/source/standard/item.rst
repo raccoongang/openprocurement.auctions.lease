@@ -1,7 +1,6 @@
-.. . Kicking page rebuild 2014-10-30 17:00:08
 .. include:: defs.hrst
 
-.. index:: Item, Parameter, Classification, CAV, Unit
+.. index:: Item, PropertyLeaseClassification, CAV, CPV, Unit
 
 .. _Item:
 
@@ -12,62 +11,42 @@ Schema
 ------
 
 :id:
-    string, auto-generated
+    string, required, auto-generated
 
 :description:
     string, multilingual, required
 
-    |ocdsDescription|
-    A description of the goods, services to be provided.
-    
+    A description of the property to be leased.
+
     Auction subject / asset description.
 
 :classification:
-    :ref:`Classification`
+    :ref:`PropertyLeaseClassification`, required
 
     |ocdsDescription|
-    The primary classification for the item. See the `itemClassificationScheme` to 
+    The primary classification for the item. See the `itemClassificationScheme` to
     identify preferred classification lists.
 
-    Possible variants of available primary classifiers are CPV and CAV-PS. 
-    Additionally, there is a validation for the input of these classifiers due to which 
+    The only primary classifier is CAV-PS.
+    Additionally, there is a validation for the input of this classifier due to which
     the accuracy of at least a class has to be used.
 
 :additionalClassifications:
-    List of :ref:`Classification` objects
-    
+
+    List of :ref:`dgfCDB2CPVCAVClassification` objects
+
     Additional classifier is CPVS. The property can be leased, when entering value PA01-7
     in the classifier CPVS field.
 
     |ocdsDescription|
-    An array of additional classifications for the item. See the
-    `itemClassificationScheme` codelist for common options to use in OCDS. 
+    An array of additional classifications for the item.
+    See the `itemClassificationScheme` codelist for common options to use in OCDS.
 
-:unit:
-    :ref:`Unit`
-
-    |ocdsDescription| 
-    Description of the unit which the good comes in e.g.  hours, kilograms. 
-    Made up of a unit name, and the value of a single unit.
-
-:quantity:
-    integer
-
-    |ocdsDescription|
-    The number of units required
-    
-:contractPeriod:
-     :ref:`Period`
-     
-     The period which is used to indicate the duration of a contract within which it is valid.
-     Contract period represents the start and end date for the contract signed after the property or asset has been sold.
-     It is also can be used to specify the timeframe of a contact for a lease.
-     
 :address:
     :ref:`Address`
 
     Address, where the item is located.
-    Classification codes (CAV-PS) for which `item.address` object is optional are given below:
+    Classification codes (CAV-PS) for which ``item.address`` object is optional are given below:
 
     :download:`CPV <../tutorial/cpv_codes_item_address_optional.json>`
 
@@ -88,40 +67,70 @@ Schema
 
     `location` usually takes precedence over `address` if both are present.
 
+:contractPeriod:
+     :ref:`Period`
+
+     The period which is used to indicate the duration of a contract within which it is valid.
+     Contract period represents the start and end date for the contract signed after the property or asset has been sold.
+     It is also can be used to specify the timeframe of a contact for a lease.
+
+:unit:
+    :ref:`Unit`
+
+    |ocdsDescription|
+    Description of the unit which the good comes in e.g.  hours, kilograms.
+    Made up of a unit name, and the value of a single unit.
+
+:quantity:
+    decimal
+
+    |ocdsDescription|
+    The number of units required
+
 .. :relatedLot:
     string
 
     ID of related :ref:`Lot`.
 
 
-.. _Classification:
+.. _PropertyLeaseClassification:
 
-Classification
-==============
+PropertyLeaseClassification
+===========================
 
 Schema
 ------
 
 :scheme:
-    string
+    string, required
 
     |ocdsDescription|
     A classification should be drawn from an existing scheme or list of
-    codes.  This field is used to indicate the scheme/codelist from which
-    the classification is drawn.  For line item classifications, this value
-    should represent a known Item Classification Scheme wherever possible.
+    codes. This field is used to indicate the scheme/codelist from which
+    the classification is drawn. For line item classifications, this value
+    should represent a known PropertyItem Classification Scheme wherever possible.
 
 :id:
-    string
+    string, required
 
     |ocdsDescription|
     The classification code drawn from the selected scheme.
 
 :description:
-    string
+    string, required
 
     |ocdsDescription|
     A textual description or title for the code.
+
+:description_en:
+    string
+
+    A textual description or title for the code in English.
+
+:description_ru:
+    string
+
+    A textual description or title for the code in Russian.
 
 :uri:
     uri
@@ -139,13 +148,18 @@ Unit
 Schema
 ------
 
-:code:
-    string, required
-
-    UN/CEFACT Recommendation 20 unit code.
-
 :name:
     string
 
     |ocdsDescription|
     Name of the unit
+
+:value:
+    :ref:`Value`
+
+    Value of the unit.
+
+:code:
+    string, required
+
+    UN/CEFACT Recommendation 20 unit code.
