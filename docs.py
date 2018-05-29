@@ -2,22 +2,25 @@
 # -*- coding: utf-8 -*-
 import json
 import os
-from datetime import timedelta, datetime
+from datetime import timedelta
 
-from openprocurement.auctions.core.utils import get_now
 from openprocurement.auctions.core.tests.base import PrefixedRequestClass
 import openprocurement.auctions.lease.tests.base as base_test
-from openprocurement.auctions.lease.constants import DEFAULT_PROCUREMENT_METHOD_TYPE_FINANCIAL
-from openprocurement.auctions.lease.tests.base import test_auction_data as base_test_auction_data, test_bids, test_financial_bids
+from openprocurement.auctions.lease.constants import DEFAULT_PROCUREMENT_METHOD_TYPE_LEASE
+from openprocurement.auctions.lease.tests.base import (
+    test_auction_data as base_test_auction_data, test_bids
+)
 from openprocurement.auctions.lease.tests.base import test_auction_maximum_data
 from openprocurement.auctions.lease.tests.tender import BaseAuctionWebTest
 from webtest import TestApp
+from openprocurement.auctions.core.utils import (
+    apply_data_patch, get_now, SANDBOX_MODE
+)
 
-now = datetime.now()
+now = get_now()
 
 test_auction_data = base_test_auction_data.copy()
-test_financial_auction_data = test_auction_data.copy()
-test_financial_auction_data["procurementMethodType"] = DEFAULT_PROCUREMENT_METHOD_TYPE_FINANCIAL
+test_auction_data["procurementMethodType"] = DEFAULT_PROCUREMENT_METHOD_TYPE_LEASE
 
 bid = {
     "data": {
@@ -187,8 +190,9 @@ class AuctionResourceTest(BaseAuctionWebTest):
     def test_docs_acceleration(self):
         # SANDBOX_MODE=TRUE
         data = test_auction_data.copy()
-        data['procurementMethodDetails'] = 'quick, accelerator=1440'
-        data['submissionMethodDetails'] = 'quick'
+        if SANDBOX_MODE:
+            data['procurementMethodDetails'] = 'quick, accelerator=1440'
+            data['submissionMethodDetails'] = 'quick'
         data['mode'] = 'test'
         data["auctionPeriod"] = {
             "startDate": (now + timedelta(days=12)).isoformat()
@@ -319,6 +323,8 @@ class AuctionResourceTest(BaseAuctionWebTest):
 
         # Uploading documentation
         #
+
+        self.set_status("active.tendering")
 
         with open('docs/source/tutorial/upload-auction-notice.http', 'w') as self.app.file_obj:
             response = self.app.post_json('/auctions/{}/documents?acc_token={}'.format(self.auction_id, owner_token),
@@ -1236,137 +1242,3 @@ class AuctionResourceTest(BaseAuctionWebTest):
             response = self.app.get('/auctions/{}/awards'.format(
                 self.auction_id, award_id))
             self.assertEqual(response.status, '200 OK')
-
-    def test_docs_fintutorial(self):
-        request_path = '/auctions?opt_pretty=1'
-
-        # Creating auction
-        #
-
-        with open('docs/source/tutorial/finauction-post-attempt-json-data.http', 'w') as self.app.file_obj:
-            response = self.app.post_json(
-                '/auctions?opt_pretty=1', {"data": test_financial_auction_data})
-            self.assertEqual(response.status, '201 Created')
-
-        auction = response.json['data']
-        owner_token = response.json['access']['token']
-
-        with open('docs/source/tutorial/blank-finauction-view.http', 'w') as self.app.file_obj:
-            response = self.app.get('/auctions/{}'.format(auction['id']))
-            self.assertEqual(response.status, '200 OK')
-
-        self.app.get('/auctions')
-        with open('docs/source/tutorial/initial-finauction-listing.http', 'w') as self.app.file_obj:
-            response = self.app.get('/auctions')
-            self.assertEqual(response.status, '200 OK')
-
-        self.app.authorization = ('Basic', ('broker', ''))
-        self.auction_id = auction['id']
-
-        # Uploading documentation
-        #
-
-        with open('docs/source/tutorial/upload-finauction-notice.http', 'w') as self.app.file_obj:
-            response = self.app.post_json('/auctions/{}/documents?acc_token={}'.format(self.auction_id, owner_token),
-                {'data': {
-                    'title': u'Notice.pdf',
-                    'url': self.generate_docservice_url(),
-                    'hash': 'md5:' + '0' * 32,
-                    'format': 'application/pdf',
-                    "documentType": "technicalSpecifications",
-                    "description": "technical specification"
-                }})
-            self.assertEqual(response.status, '201 Created')
-
-        doc_id = response.json["data"]["id"]
-        with open('docs/source/tutorial/finauction-documents.http', 'w') as self.app.file_obj:
-            response = self.app.get('/auctions/{}/documents/{}'.format(
-                self.auction_id, doc_id))
-            self.assertEqual(response.status, '200 OK')
-
-        with open('docs/source/tutorial/finauction-upload-award-criteria.http', 'w') as self.app.file_obj:
-            response = self.app.post_json('/auctions/{}/documents?acc_token={}'.format(self.auction_id, owner_token),
-                {'data': {
-                    'title': u'AwardCriteria.pdf',
-                    'url': self.generate_docservice_url(),
-                    'hash': 'md5:' + '0' * 32,
-                    'format': 'application/pdf',
-                }})
-            self.assertEqual(response.status, '201 Created')
-
-        doc_id = response.json["data"]["id"]
-
-        with open('docs/source/tutorial/finauction-documents-2.http', 'w') as self.app.file_obj:
-            response = self.app.get('/auctions/{}/documents'.format(
-                self.auction_id))
-            self.assertEqual(response.status, '200 OK')
-
-        with open('docs/source/tutorial/finauction-update-award-criteria.http', 'w') as self.app.file_obj:
-            response = self.app.put_json('/auctions/{}/documents/{}?acc_token={}'.format(self.auction_id, doc_id, owner_token),
-                {'data': {
-                    'title': u'AwardCriteria-2.pdf',
-                    'url': self.generate_docservice_url(),
-                    'hash': 'md5:' + '0' * 32,
-                    'format': 'application/pdf',
-                }})
-            self.assertEqual(response.status, '200 OK')
-
-        with open('docs/source/tutorial/finauction-documents-3.http', 'w') as self.app.file_obj:
-            response = self.app.get('/auctions/{}/documents'.format(
-                self.auction_id))
-            self.assertEqual(response.status, '200 OK')
-
-        with open('docs/source/tutorial/finauction-adding-vdr.http', 'w') as self.app.file_obj:
-            response = self.app.post_json('/auctions/{}/documents?acc_token={}'.format(self.auction_id, owner_token),
-                {'data': {
-                    'title': u'VDR for auction lot',
-                    'url': 'http://virtial-data-room.com/id_of_room',
-                    'documentType': 'virtualDataRoom',
-                }})
-            self.assertEqual(response.status, '201 Created')
-
-        # Registering bid
-        #
-
-        self.app.authorization = ('Basic', ('broker', ''))
-        bids_access = {}
-        with open('docs/source/tutorial/register-finbidder.http', 'w') as self.app.file_obj:
-            response = self.app.post_json('/auctions/{}/bids'.format(
-                self.auction_id), {'data': test_financial_bids[0]})
-            bid1_id = response.json['data']['id']
-            bids_access[bid1_id] = response.json['access']['token']
-            self.assertEqual(response.status, '201 Created')
-
-        with open('docs/source/tutorial/activate-finbidder.http', 'w') as self.app.file_obj:
-            response = self.app.patch_json('/auctions/{}/bids/{}?acc_token={}'.format(
-                self.auction_id, bid1_id, bids_access[bid1_id]), {"data": {"status": "active"}})
-            self.assertEqual(response.status, '200 OK')
-
-        # Proposal Uploading
-        #
-
-        with open('docs/source/tutorial/upload-finbid-financial-license.http', 'w') as self.app.file_obj:
-            response = self.app.post_json('/auctions/{}/bids/{}/documents?acc_token={}'.format(self.auction_id, bid1_id, bids_access[bid1_id]),
-                {'data': {
-                    'title': u'FinancialLicense.pdf',
-                    'url': self.generate_docservice_url(),
-                    'hash': 'md5:' + '0' * 32,
-                    'format': 'application/pdf',
-                    "documentType": "financialLicense",
-                }})
-            self.assertEqual(response.status, '201 Created')
-
-        with open('docs/source/tutorial/finbidder-documents.http', 'w') as self.app.file_obj:
-            response = self.app.get('/auctions/{}/bids/{}/documents?acc_token={}'.format(
-                self.auction_id, bid1_id, bids_access[bid1_id]))
-            self.assertEqual(response.status, '200 OK')
-
-        # Second bidder registration
-        #
-
-        with open('docs/source/tutorial/register-2nd-finbidder.http', 'w') as self.app.file_obj:
-            response = self.app.post_json('/auctions/{}/bids'.format(
-                self.auction_id), {'data': test_financial_bids[1]})
-            bid2_id = response.json['data']['id']
-            bids_access[bid2_id] = response.json['access']['token']
-            self.assertEqual(response.status, '201 Created')
