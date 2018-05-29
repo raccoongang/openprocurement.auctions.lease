@@ -22,6 +22,7 @@ Contents:
    :maxdepth: 2
 
    overview
+   glossary
    standard/index
    upload
    award_workflow
