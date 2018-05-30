@@ -6,9 +6,6 @@ from pyramid.interfaces import IRequest
 
 from openprocurement.auctions.core.interfaces import IAuctionManager
 
-from openprocurement.auctions.core.plugins.awarding.v1.adapters import (
-    AwardingNextCheckV1,
-)
 from openprocurement.auctions.core.includeme import get_evenly_plugins
 
 from openprocurement.auctions.core.includeme import (

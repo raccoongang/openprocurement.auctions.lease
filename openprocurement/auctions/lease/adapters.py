@@ -8,11 +8,13 @@ from openprocurement.auctions.core.plugins.awarding.v2_1.adapters import (
     AwardingV2_1ConfiguratorMixin
 )
 from openprocurement.auctions.core.utils import (
-    SANDBOX_MODE, TZ, calculate_business_date, get_request_from_root, get_now,
+    TZ, calculate_business_date, get_request_from_root, get_now,
+)
+from openprocurement.auctions.core.models import (
+    dgfCDB2AdditionalClassification,
 )
 from openprocurement.api.utils import set_specific_hour
 from .utils import generate_rectificationPeriod
-from .constants import MANDATORY_ADDITIONAL_CLASSIFICATOR
 
 
 class AuctionLeaseConfigurator(AuctionConfigurator, AwardingV2_1ConfiguratorMixin):
@@ -29,13 +31,14 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
         pause_between_periods = start_date - (set_specific_hour(start_date, hour=20) - timedelta(days=1))
         end_date = calculate_business_date(start_date, -pause_between_periods, auction)
         if auction.tenderPeriod and auction.tenderPeriod.endDate:
-            four_workingDays_before_startDate = calculate_business_date(auction.auctionPeriod.startDate, -timedelta(days=4), None, working_days=True)
-            if auction.tenderPeriod.endDate.date() != four_workingDays_before_startDate.date():
-                request.errors.add('body', 'data', 'The only possible value for tenderPeriod.endDate is {}'.format(four_workingDays_before_startDate))
+            four_workingDays_before_startDate = calculate_business_date(start_date, -timedelta(days=4), auction, working_days=True, specific_hour=20) #CAN BE FOUR DAYS BEFORE OR EVEN THE SAME DAY
+            four_workingDays_before_startDate_wo_context = calculate_business_date(start_date, -timedelta(days=4), None, working_days=True, specific_hour=20)
+            if auction.tenderPeriod.endDate.date() != four_workingDays_before_startDate_wo_context.date():
+                request.errors.add('body', 'data', 'The only possible value for tenderPeriod.endDate is {}'.format(four_workingDays_before_startDate_wo_context))
                 request.errors.status = 422
                 return
             else:
-                auction.tenderPeriod.endDate = calculate_business_date(auction.auctionPeriod.startDate, -timedelta(days=4), auction, working_days=True, specific_hour=20)
+                auction.tenderPeriod.endDate = four_workingDays_before_startDate
         else:
             auction.tenderPeriod = type(auction).tenderPeriod.model_class()
             auction.tenderPeriod.endDate = end_date
@@ -51,6 +54,11 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
             for lot in auction.lots:
                 lot.date = now
 
+        # MANDATORY_ADDITIONAL_CLASSIFICATOR = type(auction).items.model_class() #dgfCDB2AdditionalClassification()
+        MANDATORY_ADDITIONAL_CLASSIFICATOR = dgfCDB2AdditionalClassification()
+        MANDATORY_ADDITIONAL_CLASSIFICATOR['scheme'] = u'CPVS'
+        MANDATORY_ADDITIONAL_CLASSIFICATOR['id'] = u'PA01-7'
+        MANDATORY_ADDITIONAL_CLASSIFICATOR['description'] = u'Оренда'
         for item in auction['items']:
             for additionalClassification in item['additionalClassifications']:
                 if (additionalClassification['scheme'] == u'CPVS' and additionalClassification['id'] == u'PA01-7'):

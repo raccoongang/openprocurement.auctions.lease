@@ -3,18 +3,15 @@ from datetime import datetime, timedelta, time
 
 from schematics.exceptions import ValidationError
 from schematics.transforms import blacklist, whitelist
-from schematics.types import StringType, IntType, BooleanType, BaseType
+from schematics.types import StringType, IntType, BooleanType
 from schematics.types.compound import ModelType
 from schematics.types.serializable import serializable
 from pyramid.security import Allow
 from zope.interface import implementer
 
-from openprocurement.api.models.auction_models import (
-    Classification
-)
-
 from openprocurement.auctions.core.includeme import IAwardingNextCheck
 from openprocurement.auctions.core.models import (
+    Auction as BaseAuction,
     get_auction,
     Lot,
     Period,
@@ -43,10 +40,6 @@ from openprocurement.auctions.core.plugins.contracting.v2_1.models import Contra
 from openprocurement.auctions.core.utils import (
     SANDBOX_MODE, TZ, calculate_business_date, get_request_from_root, get_now,
     AUCTIONS_COMPLAINT_STAND_STILL_TIME as COMPLAINT_STAND_STILL_TIME
-)
-
-from openprocurement.auctions.flash.models import (
-    Auction as BaseAuction
 )
 
 from openprocurement.api.models.schematics_extender import (
