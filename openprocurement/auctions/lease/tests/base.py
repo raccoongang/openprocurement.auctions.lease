@@ -497,6 +497,19 @@ class BaseAuctionWebTest(CoreBaseAuctionWebTest):
         query = {'Signature': signature, 'KeyID': keyid}
         return "http://localhost/get/{}?{}".format(uuid, urlencode(query))
 
+    def check_award_status(self, auction_id, award_id, target_status):
+        response = self.app.get(
+            '/auctions/{0}/awards/{1}'.format(
+                auction_id,
+                award_id))
+        current_status = response.json['data']['status']
+        self.assertEqual(
+            current_status,
+            target_status,
+            "Award status {0} isn't expected. Current status: {1}".format(
+                current_status,
+                target_status))
+
     def patch_award(self, award_id, status, bid_token=None):
         if bid_token:
             response = self.app.patch_json('/auctions/{}/awards/{}?acc_token={}'.format(self.auction_id, award_id, bid_token), {"data": {"status": status}})
