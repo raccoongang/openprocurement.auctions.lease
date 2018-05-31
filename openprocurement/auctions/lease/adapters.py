@@ -15,6 +15,7 @@ from openprocurement.auctions.core.models import (
 )
 from openprocurement.api.utils import set_specific_hour
 from .utils import generate_rectificationPeriod
+from .constants import MANDATORY_ADDITIONAL_CLASSIFICATOR_DICT
 
 
 class AuctionLeaseConfigurator(AuctionConfigurator, AwardingV2_1ConfiguratorMixin):
@@ -32,9 +33,8 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
         end_date = calculate_business_date(start_date, -pause_between_periods, auction)
         if auction.tenderPeriod and auction.tenderPeriod.endDate:
             four_workingDays_before_startDate = calculate_business_date(start_date, -timedelta(days=4), auction, working_days=True, specific_hour=20) #CAN BE FOUR DAYS BEFORE OR EVEN THE SAME DAY
-            four_workingDays_before_startDate_wo_context = calculate_business_date(start_date, -timedelta(days=4), None, working_days=True, specific_hour=20)
-            if auction.tenderPeriod.endDate.date() != four_workingDays_before_startDate_wo_context.date():
-                request.errors.add('body', 'data', 'The only possible value for tenderPeriod.endDate is {}'.format(four_workingDays_before_startDate_wo_context))
+            if auction.tenderPeriod.endDate.date() != four_workingDays_before_startDate.date():
+                request.errors.add('body', 'data', 'The only possible value for tenderPeriod.endDate is {}'.format(four_workingDays_before_startDate))
                 request.errors.status = 422
                 return
             else:
@@ -54,17 +54,14 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
             for lot in auction.lots:
                 lot.date = now
 
-        # MANDATORY_ADDITIONAL_CLASSIFICATOR = type(auction).items.model_class() #dgfCDB2AdditionalClassification()
-        MANDATORY_ADDITIONAL_CLASSIFICATOR = dgfCDB2AdditionalClassification()
-        MANDATORY_ADDITIONAL_CLASSIFICATOR['scheme'] = u'CPVS'
-        MANDATORY_ADDITIONAL_CLASSIFICATOR['id'] = u'PA01-7'
-        MANDATORY_ADDITIONAL_CLASSIFICATOR['description'] = u'Оренда'
+        MANDATORY_ADDITIONAL_CLASSIFICATOR = dgfCDB2AdditionalClassification(MANDATORY_ADDITIONAL_CLASSIFICATOR_DICT)
         for item in auction['items']:
             for additionalClassification in item['additionalClassifications']:
                 if (additionalClassification['scheme'] == u'CPVS' and additionalClassification['id'] == u'PA01-7'):
                     break
             else:
                 item['additionalClassifications'].append(MANDATORY_ADDITIONAL_CLASSIFICATOR)
+                print (item['additionalClassifications'])
 
 
     def change_auction(self, request):

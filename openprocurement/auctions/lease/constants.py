@@ -42,3 +42,5 @@ DEFAULT_PROCUREMENT_METHOD_TYPE_LEASE = "propertyLease"
 VIEW_LOCATIONS = [
     "openprocurement.auctions.lease.views",
 ]
+
+MANDATORY_ADDITIONAL_CLASSIFICATOR_DICT = {'scheme': u'CPVS', 'id': u'PA01-7', 'description': u'Оренда'}

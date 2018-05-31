@@ -99,7 +99,10 @@ def create_auction_lease_invalid(self):
     self.assertRegexpMatches(response.json['errors'][0]['description'], u'The only possible value for tenderPeriod.endDate is*')
 
     auction_data = deepcopy(self.initial_data)
-    auction_data['tenderPeriod'] = {'endDate': '2020-10-19'}
+    if SANDBOX_MODE:
+        auction_data['tenderPeriod'] = {'endDate': '2020-10-22'}
+    else:
+        auction_data['tenderPeriod'] = {'endDate': '2020-10-19'}
     auction_data['auctionPeriod'] = {'startDate': '2020-10-23'}
     response = self.app.post_json(request_path, {'data': auction_data}, status=201)
     self.assertEqual(response.status, '201 Created')
