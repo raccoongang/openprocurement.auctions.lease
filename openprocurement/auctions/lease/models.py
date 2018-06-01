@@ -56,10 +56,6 @@ from .constants import (
     MINIMAL_EXPOSITION_PERIOD,
     MINIMAL_EXPOSITION_REQUIRED_FROM,
     MINIMAL_PERIOD_FROM_RECTIFICATION_END,
-    CAVPS_PROPERTY_CODES,
-    CPVS_PROPERTY_CODES,
-    CAVPS_CODES,
-    CPVS_CODES
 )
 from .utils import get_auction_creation_date
 
