@@ -21,12 +21,6 @@ CLASSIFICATION_PRECISELY_FROM = datetime(2017, 7, 19, tzinfo=TZ)
 MINIMAL_EXPOSITION_REQUIRED_FROM = datetime(2017, 11, 17, tzinfo=TZ)
 DGF_ADDRESS_REQUIRED_FROM = datetime(2018, 2, 9, tzinfo=TZ)
 
-#codes
-CAVPS_CODES = read_json('cav_ps.json')
-CPVS_CODES = read_json('cpvs.json')
-CAVPS_PROPERTY_CODES = read_json('cav_ps_property.json')
-CPVS_PROPERTY_CODES = read_json('cpvs_property.json')
-
 ORA_CODES[0:0] = ["UA-IPN", "UA-FIN"]
 
 NUMBER_OF_BIDS_TO_BE_QUALIFIED = 2
@@ -43,4 +37,4 @@ VIEW_LOCATIONS = [
     "openprocurement.auctions.lease.views",
 ]
 
-MANDATORY_ADDITIONAL_CLASSIFICATOR_DICT = {'scheme': u'CPVS', 'id': u'PA01-7', 'description': u'Оренда'}
+MANDATORY_ADDITIONAL_CLASSIFICATOR = {'scheme': u'CPVS', 'id': u'PA01-7', 'description': u'Оренда'}

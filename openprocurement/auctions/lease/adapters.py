@@ -10,12 +10,9 @@ from openprocurement.auctions.core.plugins.awarding.v2_1.adapters import (
 from openprocurement.auctions.core.utils import (
     TZ, calculate_business_date, get_request_from_root, get_now,
 )
-from openprocurement.auctions.core.models import (
-    dgfCDB2AdditionalClassification,
-)
 from openprocurement.api.utils import set_specific_hour
 from .utils import generate_rectificationPeriod
-from .constants import MANDATORY_ADDITIONAL_CLASSIFICATOR_DICT
+from .constants import MANDATORY_ADDITIONAL_CLASSIFICATOR
 
 
 class AuctionLeaseConfigurator(AuctionConfigurator, AwardingV2_1ConfiguratorMixin):
@@ -54,14 +51,13 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
             for lot in auction.lots:
                 lot.date = now
 
-        MANDATORY_ADDITIONAL_CLASSIFICATOR = dgfCDB2AdditionalClassification(MANDATORY_ADDITIONAL_CLASSIFICATOR_DICT)
+        mandatory_additional_classificator = type(auction).items.model_class.additionalClassifications.model_class(MANDATORY_ADDITIONAL_CLASSIFICATOR)
         for item in auction['items']:
             for additionalClassification in item['additionalClassifications']:
                 if (additionalClassification['scheme'] == u'CPVS' and additionalClassification['id'] == u'PA01-7'):
                     break
             else:
-                item['additionalClassifications'].append(MANDATORY_ADDITIONAL_CLASSIFICATOR)
-                print (item['additionalClassifications'])
+                item['additionalClassifications'].append(mandatory_additional_classificator)
 
 
     def change_auction(self, request):
