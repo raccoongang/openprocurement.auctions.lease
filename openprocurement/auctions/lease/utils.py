@@ -56,14 +56,6 @@ def check_bids(request):
             request.content_configurator.start_awarding()
 
 
-def check_auction_protocol(award):
-    if award.documents:
-        for document in award.documents:
-            if document['documentType'] == 'auctionProtocol' and document['author'] == 'auction_owner':
-                return True
-    return False
-
-
 def check_status(request):
     auction = request.validated['auction']
     now = get_now()
@@ -118,12 +110,6 @@ def check_status(request):
             if standStillEnd <= now:
                 check_auction_status(request)
                 return
-
-
-def calculate_enddate(auction, period, duration):
-    period.endDate = calculate_business_date(period.startDate, duration, auction, True)
-    round_to_18_hour_delta = period.endDate.replace(hour=18, minute=0, second=0) - period.endDate
-    period.endDate = calculate_business_date(period.endDate, round_to_18_hour_delta, auction, False)
 
 
 def invalidate_bids_under_threshold(auction):
