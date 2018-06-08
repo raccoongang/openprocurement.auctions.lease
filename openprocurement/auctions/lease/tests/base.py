@@ -55,14 +55,25 @@ test_auction_data = {
         "amount": 35,
         "currency": u"UAH"
     },
+    "contractTerms": {
+        "contractType": "lease",
+        "leaseTerms": {
+            "leaseDuration": "P10Y"
+        }
+    },
     "items": [
         {
             "description": u"Земля для військовослужбовців",
             "classification": {
-                "scheme": u"CPV",
-                "id": u"66113000-5",
-                "description": u"Земельні ділянки"
+                "scheme": "CAV-PS",
+                "id": "04121000-2",
+                "description": "Земельні ділянки"
             },
+            "additionalClassifications": [{
+                "scheme": "CPVS",
+                "id": "PA01-7",
+                "description": "This field is required."
+            }],
             "unit": {
                 "name": u"item",
                 "code": u"44617100-9"
@@ -485,6 +496,19 @@ class BaseAuctionWebTest(CoreBaseAuctionWebTest):
         signature = b64encode(key.signature("{}\0{}".format(uuid, '0' * 32)))
         query = {'Signature': signature, 'KeyID': keyid}
         return "http://localhost/get/{}?{}".format(uuid, urlencode(query))
+
+    def check_award_status(self, auction_id, award_id, target_status):
+        response = self.app.get(
+            '/auctions/{0}/awards/{1}'.format(
+                auction_id,
+                award_id))
+        current_status = response.json['data']['status']
+        self.assertEqual(
+            current_status,
+            target_status,
+            "Award status {0} isn't expected. Current status: {1}".format(
+                current_status,
+                target_status))
 
     def patch_award(self, award_id, status, bid_token=None):
         if bid_token:

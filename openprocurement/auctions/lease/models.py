@@ -11,12 +11,12 @@ from zope.interface import implementer
 
 from openprocurement.auctions.core.includeme import IAwardingNextCheck
 from openprocurement.auctions.core.models import (
+    Auction as BaseAuction,
     get_auction,
     Lot,
     Period,
-    Cancellation as BaseCancellation,
     Question as BaseQuestion,
-    flashProcuringEntity,
+    ProcuringEntity as flashProcuringEntity,
     Feature,
     validate_items_uniq,
     validate_features_uniq, validate_lots_uniq,
@@ -30,7 +30,10 @@ from openprocurement.auctions.core.models import (
     dgfOrganization as Organization,
     dgfCDB2Complaint as Complaint,
     Identifier,
-    ListType
+    ListType,
+    dgfCDB2CPVCAVClassification,
+    dgfCDB2AdditionalClassification,
+    Bid as BaseBid
 )
 from openprocurement.auctions.core.plugins.awarding.v2_1.models import Award
 from openprocurement.auctions.core.plugins.contracting.v2_1.models import Contract
@@ -39,19 +42,24 @@ from openprocurement.auctions.core.utils import (
     AUCTIONS_COMPLAINT_STAND_STILL_TIME as COMPLAINT_STAND_STILL_TIME
 )
 
-from openprocurement.auctions.flash.models import (
-    Auction as BaseAuction, Bid as BaseBid,
+from openprocurement.api.models.schematics_extender import (
+    Model,
+    IsoDurationType
+)
+
+from openprocurement.api.models.auction_models import (
+    Cancellation as BaseCancellation,
 )
 
 from .constants import (
     DGF_ID_REQUIRED_FROM,
     MINIMAL_EXPOSITION_PERIOD,
     MINIMAL_EXPOSITION_REQUIRED_FROM,
-    MINIMAL_PERIOD_FROM_RECTIFICATION_END
+    MINIMAL_PERIOD_FROM_RECTIFICATION_END,
 )
-from .utils import get_auction_creation_date, generate_rectificationPeriod
+from .utils import get_auction_creation_date
 
-  
+
 def bids_validation_wrapper(validation_func):
     def validator(klass, data, value):
         orig_data = data
@@ -124,8 +132,8 @@ class AuctionAuctionPeriod(Period):
             return
         if self.startDate and get_now() > calc_auction_end_time(auction.numberOfBids, self.startDate):
             start_after = calc_auction_end_time(auction.numberOfBids, self.startDate)
-        elif auction.tenderPeriod and auction.tenderPeriod.endDate:
-            start_after = auction.tenderPeriod.endDate
+        elif auction.enquiryPeriod and auction.enquiryPeriod.endDate:
+            start_after = auction.enquiryPeriod.endDate
         else:
             return
         return rounding_shouldStartAfter(start_after, auction).isoformat()
@@ -141,27 +149,46 @@ class RectificationPeriod(Period):
 
 
 create_role = (blacklist(
-    'owner_token', 'owner', '_attachments', 'revisions', 'date', 'dateModified', 'doc_id', 'auctionID', 'bids',
+    'owner_token', 'transfer_token', 'owner', '_attachments', 'revisions', 'date', 'dateModified', 'doc_id', 'auctionID', 'bids',
     'documents', 'awards', 'questions', 'complaints', 'auctionUrl', 'status',
-    'enquiryPeriod', 'tenderPeriod', 'awardPeriod', 'procurementMethod', 'eligibilityCriteria',
+    'enquiryPeriod', 'awardPeriod', 'procurementMethod', 'eligibilityCriteria',
     'eligibilityCriteria_en', 'eligibilityCriteria_ru', 'awardCriteria', 'submissionMethod', 'cancellations',
     'numberOfBidders', 'contracts') + schematics_embedded_role)
 edit_role = (edit_role + blacklist('enquiryPeriod', 'tenderPeriod', 'auction_value', 'auction_minimalStep', 'auction_guarantee', 'eligibilityCriteria', 'eligibilityCriteria_en', 'eligibilityCriteria_ru', 'awardCriteriaDetails', 'awardCriteriaDetails_en', 'awardCriteriaDetails_ru', 'procurementMethodRationale', 'procurementMethodRationale_en', 'procurementMethodRationale_ru', 'submissionMethodDetails', 'submissionMethodDetails_en', 'submissionMethodDetails_ru', 'minNumberOfQualifiedBids'))
 Administrator_role = (Administrator_role + whitelist('awards'))
 
 
+class ILeaseAuction(IAuction):
+    """Marker interface for Lease auctions"""
 
-class IRubbleAuction(IAuction):
-    """Marker interface for Rubble auctions"""
+
+class PropertyLeaseClassification(dgfCDB2CPVCAVClassification):
+    scheme = StringType(required=True, choices=[u'CAV-PS'])
 
 
-@implementer(IRubbleAuction)
+class PropertyItem(Item):
+    """A property item to be leased."""
+    classification = ModelType(PropertyLeaseClassification, required=True)
+
+
+class LeaseTerms(Model):
+
+    leaseDuration = IsoDurationType(required=True)
+
+
+class ContractTerms(Model):
+
+    contractType = StringType(required=True, choices=['lease'])
+    leaseTerms = ModelType(LeaseTerms, required=True)
+
+
+@implementer(ILeaseAuction)
 class Auction(BaseAuction):
     """Data regarding auction process - publicly inviting prospective contractors to submit bids for evaluation and selecting a winner or winners."""
     class Options:
         roles = {
             'create': create_role,
-            'edit_active.tendering': (blacklist('enquiryPeriod', 'tenderPeriod', 'rectificationPeriod', 'auction_value', 'auction_minimalStep', 'auction_guarantee', 'eligibilityCriteria', 'eligibilityCriteria_en', 'eligibilityCriteria_ru', 'minNumberOfQualifiedBids') + edit_role),
+            'edit_active.tendering': (blacklist('enquiryPeriod', 'tenderPeriod', 'rectificationPeriod', 'auction_value', 'auction_minimalStep', 'auction_guarantee', 'eligibilityCriteria', 'eligibilityCriteria_en', 'eligibilityCriteria_ru', 'minNumberOfQualifiedBids', 'contractTerms') + edit_role),
             'Administrator': (whitelist('rectificationPeriod') + Administrator_role),
         }
 
@@ -184,8 +211,9 @@ class Auction(BaseAuction):
     questions = ListType(ModelType(Question), default=list())
     features = ListType(ModelType(Feature), validators=[validate_features_uniq, validate_not_available])
     lots = ListType(ModelType(Lot), default=list(), validators=[validate_lots_uniq, validate_not_available])
-    items = ListType(ModelType(Item), required=True, min_size=1, validators=[validate_items_uniq])
+    items = ListType(ModelType(PropertyItem), required=True, min_size=1, validators=[validate_items_uniq])
     minNumberOfQualifiedBids = IntType(choices=[1, 2])
+    contractTerms = ModelType(ContractTerms, required=True)
 
     def __acl__(self):
         return [
@@ -194,30 +222,10 @@ class Auction(BaseAuction):
             (Allow, '{}_{}'.format(self.owner, self.owner_token), 'upload_auction_documents'),
         ]
 
-    def initialize(self):
-        if not self.enquiryPeriod:
-            self.enquiryPeriod = type(self).enquiryPeriod.model_class()
-        if not self.tenderPeriod:
-            self.tenderPeriod = type(self).tenderPeriod.model_class()
-        now = get_now()
-        start_date = TZ.localize(self.auctionPeriod.startDate.replace(tzinfo=None))
-        self.tenderPeriod.startDate = self.enquiryPeriod.startDate = now
-        pause_between_periods = start_date - (start_date.replace(hour=20, minute=0, second=0, microsecond=0) - timedelta(days=1))
-        end_date = calculate_business_date(start_date, -pause_between_periods, self)
-        self.enquiryPeriod.endDate = end_date
-        self.tenderPeriod.endDate = self.enquiryPeriod.endDate
-        if not self.rectificationPeriod:
-            self.rectificationPeriod = generate_rectificationPeriod(self)
-        self.rectificationPeriod.startDate = now
-        self.auctionPeriod.startDate = None
-        self.auctionPeriod.endDate = None
-        self.date = now
-        if self.lots:
-            for lot in self.lots:
-                lot.date = now
+    def initialize(self): # TODO: get rid of this method
+        pass
 
     def validate_tenderPeriod(self, data, period):
-        """Auction start date must be not closer than MINIMAL_EXPOSITION_PERIOD days and not a holiday"""
         if not (period and period.startDate and period.endDate):
             return
         if get_auction_creation_date(data) < MINIMAL_EXPOSITION_REQUIRED_FROM:
