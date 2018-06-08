@@ -19,7 +19,6 @@ requires = [
     'setuptools',
     'openprocurement.api',
     'openprocurement.auctions.core',
-    'openprocurement.auctions.flash',
 ]
 
 docs_requires = requires + [
