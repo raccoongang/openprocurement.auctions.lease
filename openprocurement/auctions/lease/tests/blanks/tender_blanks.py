@@ -89,23 +89,23 @@ def create_auction_lease_invalid(self):
         {u'description': {u'contractType': [u"Value must be one of ['lease']."]}, u'location': u'body', u'name': u'contractTerms'}
     ])
 
+    now = get_now()
     auction_data = deepcopy(self.initial_data)
-    auction_data['tenderPeriod'] = {'endDate': '2020-10-01'}
-    auction_data['auctionPeriod'] = {'startDate': '2020-10-10'}
+    auction_data['tenderPeriod'] = {'endDate': (now + timedelta(days=11)).isoformat()}
+    auction_data['auctionPeriod'] = {'startDate': (now + timedelta(days=20)).isoformat()}
     response = self.app.post_json(request_path, {'data': auction_data}, status=422)
     self.assertEqual(response.status, '422 Unprocessable Entity')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['status'], 'error')
     self.assertRegexpMatches(response.json['errors'][0]['description'], u'The only possible value for tenderPeriod.endDate is*')
 
-    now = get_now()
     auction_data = deepcopy(self.initial_data)
+    auction_start_date = now + timedelta(days=30)
     if SANDBOX_MODE:
-        # auction_data['tenderPeriod'] = {'endDate': '2020-10-22'}
-        auction_data['tenderPeriod'] = {'endDate': ((now + timedelta(days=20))- timedelta(days=4) / DEFAULT_ACCELERATION).isoformat()}
+        auction_data['tenderPeriod'] = {'endDate': (auction_start_date - timedelta(days=4, hours=20) / DEFAULT_ACCELERATION).isoformat()}
     else:
-        auction_data['tenderPeriod'] = {'endDate': ((now + timedelta(days=20)) - timedelta(days=4)).isoformat()}
-    auction_data['auctionPeriod'] = {'startDate': (now + timedelta(days=20)).isoformat()}
+        auction_data['tenderPeriod'] = {'endDate': (auction_start_date - timedelta(days=5)).isoformat()}
+    auction_data['auctionPeriod'] = {'startDate': auction_start_date.isoformat()}
     response = self.app.post_json(request_path, {'data': auction_data}, status=201)
     self.assertEqual(response.status, '201 Created')
 
