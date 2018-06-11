@@ -93,20 +93,6 @@ Schema
    Schema
    ------
 
-:value:
-    :ref:`Value`, required
-
-    Validation rules:
-
-    * `amount` should be less than `Lot.value.amout`
-    * `currency` should either be absent or match `Lot.value.currency`
-    * `valueAddedTaxIncluded` should either be absent or match `Lot.value.valueAddedTaxIncluded`
-
-:relatedLot:
-    string
-
-    ID of related :ref:`Lot`.
-
 :date:
     string, :ref:`Date`, auto-generated
 
