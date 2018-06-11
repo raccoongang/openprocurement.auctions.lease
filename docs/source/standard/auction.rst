@@ -28,10 +28,10 @@ Schema
    AuctionID should always be the same as the OCID.
    It is included to make the flattened data structure more convenient.
 
-:dgfID:
+:lotIdentifier:
     string, editable during enquiryPeriod
 
-    Identification number of the auction (also referred to as ``lot``) in the XLS of Deposit Guarantee Fund.
+    Identification number of the procedure.
 
 :procuringEntity:
    :ref:`ProcuringEntity`, required
@@ -137,7 +137,7 @@ Schema
    Period when bids can be submitted.
 
    |ocdsDescription|
-   The period when the auction is open for submissions.
+   The period when the procedure is open for submissions.
    The end date is the closing date for auction submissions.
 
 :auctionPeriod:
@@ -172,11 +172,11 @@ Schema
    active.awarded
         standstill period (standstill)
    unsuccessful
-        unsuccessful auction (unsuccessful)
+        unsuccessful procedure (unsuccessful)
    complete
-        complete auction (complete)
+        complete procedure (complete)
    cancelled
-        cancelled auction (cancelled)
+        cancelled procedure (cancelled)
 
 :eligibilityCriteria:
     string, read-only

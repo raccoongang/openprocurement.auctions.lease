@@ -106,7 +106,7 @@ Schema
 :contractType:
     string, required
 
-    The only choice currently is ``lease``.
+    The only value for this field is ``lease``.
 
 :leaseTerms:
     :ref:`LeaseTerms`
@@ -129,7 +129,7 @@ Schema
 :taxHolidays:
     list of :ref:`TaxHolidays`
 
-    Special rated period of lease.
+    A period during which a person or company is allowed to pay no payment or less than usual.
 
 :escalationClauses:
     list of :ref:`EscalationClauses`
@@ -148,19 +148,9 @@ Schema
     Duration of rent holidays.
 
 :conditions:
-    string, required
+    string, required, multilingual
 
     Lease rent holidays conditions in Ukrainian.
-
-:conditions_en:
-    string
-
-    Lease rent holidays conditions in English.
-
-:conditions_ru:
-    string
-
-    Lease rent holidays conditions in Russian.
 
 :value:
     :ref:`Value` object, required
@@ -189,16 +179,6 @@ Schema
     Percentage range for escalation.
 
 :conditions:
-    string, required
+    string, required, multilingual
 
     Lease rent escalation conditions in Ukrainian.
-
-:conditions_en:
-    string
-
-    Lease rent escalation conditions in English.
-
-:conditions_ru:
-    string
-
-    Lease rent escalation conditions in Russian.

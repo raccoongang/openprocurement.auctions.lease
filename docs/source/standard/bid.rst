@@ -14,7 +14,10 @@ Schema
     Possible values are:
 
     * `draft`
+    Technical status. Bids should be submitted as `draft` and then activated manually.
+
     * `active`
+    Operational status.
 
 :tenderers:
     List of :ref:`Organization` objects, required

@@ -33,7 +33,7 @@ Schema
 
 :additionalClassifications:
 
-    List of :ref:`dgfCDB2CPVCAVClassification` objects
+    List of :ref:`Classification` objects
 
     Additional classifier is CPVS. The property can be leased, when entering value PA01-7
     in the classifier CPVS field.
@@ -85,7 +85,7 @@ Schema
     decimal
 
     |ocdsDescription|
-    The number of units required
+    The number of units required.
 
 .. :relatedLot:
     string
@@ -93,10 +93,10 @@ Schema
     ID of related :ref:`Lot`.
 
 
-.. _PropertyLeaseClassification:
+.. _Classification:
 
-PropertyLeaseClassification
-===========================
+Classification
+==============
 
 Schema
 ------
@@ -108,7 +108,7 @@ Schema
     A classification should be drawn from an existing scheme or list of
     codes. This field is used to indicate the scheme/codelist from which
     the classification is drawn. For line item classifications, this value
-    should represent a known PropertyItem Classification Scheme wherever possible.
+    should represent a known Item Classification Scheme wherever possible.
 
 :id:
     string, required
@@ -117,20 +117,10 @@ Schema
     The classification code drawn from the selected scheme.
 
 :description:
-    string, required
+    string, required, multilingual
 
     |ocdsDescription|
     A textual description or title for the code.
-
-:description_en:
-    string
-
-    A textual description or title for the code in English.
-
-:description_ru:
-    string
-
-    A textual description or title for the code in Russian.
 
 :uri:
     uri
@@ -153,11 +143,6 @@ Schema
 
     |ocdsDescription|
     Name of the unit
-
-:value:
-    :ref:`Value`
-
-    Value of the unit.
 
 :code:
     string, required

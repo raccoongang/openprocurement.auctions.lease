@@ -1,59 +1,61 @@
 Overview
 ========
 
-This ``openprocurement.auctions.lease`` package documentation contains information for Participants
-of the PROZORRO.SALE system and intended to discover all aspects of ``lease procedure``.
+This ``openprocurement.auctions.lease`` package documentation contains information for Users
+of the PROZORRO.SALE system and intends to discover all aspects of ``lease procedure``.
 
 
 The following subjects can act as an Organizer:
 
 * `State Property Fund of Ukraine`_;
 
-* state enterprises;
+* state-owned enterprises;
 
-* authorities, which are authorized by the Verkhovna Rada of the Autonomous Republic of Crimea;
+* the authorities, that are authorized by the Supreme Council of the Autonomous Republic of Crimea;
 
 * enterprises, institutions and organizations.
 
 
-In order to perform state property lease specialized procedure is available:
+To perform state property lease specialized procedure is available:
 
  * ``propertyLease`` - lease of the state property.
 
 Features
 --------
 
-* The only currency (``value.currency``) for this procedure is hryvnia (UAH).
+* The only date Organizer has to provide is ``Auction.auctionPeriod.startDate`` - approximate date when the auction starts - the actual value will be calculated automatically considering the existing capacity.
 
-* The only date Organizer has to provide is ``Auction.auctionPeriod.startDate`` - approximate Auction start date - actual value of Auction start will be calculated based on current system load. The rest will be calculated automatically.
+* The rest dates and periods will be calculated automatically based on ``Auction.auctionPeriod.startDate``.
+
+* Optionally an Organizer can set ``rectificationPeriod.endDate``, if not provided - it will be calculated automatically.
 
 * ``tenderPeriod`` duration must be at least 7 calendar days.
 
-* Procedure can be switched from ``draft`` status to ``active.tendering``.
-
-* During ``active.tendering`` period participants can ask questions, submit proposals, and upload documents.
-
-* The items within an auction are allowed to be from different CAV groups.
-
-.. note:: There is predefined list of possible items to lease.
-
-* Additional classification (CPVS) is constant for ``propertyLease`` procedure - ``PA01-7``.
-
-* The minimum desired participants' count by default is 2, but there is option to decrease it explicitly to 1 participant;
-
 * Optionally an Organizer can set ``tenderPeriod.endDate`` - if so, auction can't start earlier 3 days after.
 
-* Optionally an Organizer can set ``enquiryPeriod.endDate``, if not provided - it will be calculated automatically.
-
-* An Organizer can edit procedure only during ``rectificationPeriod`` (increase and decrease ``value.amount``, ``guarantee.amount``, ``minimalStep.amount``).
+* An Organizer can edit the procedure only during ``rectificationPeriod`` (e.g. increase and decrease ``value.amount``, ``guarantee.amount``, ``minimalStep.amount``).
 
 * Organizer can add and edit documents only during ``rectificationPeriod``.
 
-* As soon as the action is edited, the status of all of the submitted bids will be switched to ``invalid``.
+* As soon as the procedure is edited, the status of all of the submitted bids will be switched to ``invalid``.
+
+* Procedure can be switched from ``draft`` status to ``active.tendering``.
+
+* During ``enquiryPeripod`` participants can ask questions, submit proposals, and upload documents.
+
+* All of the identifiers within the scheme ``CPVS`` can be chosen. ``PA01-7`` is the one to be added automatically.
+
+* The minimum desired participants' number by default is 2, but there is option to decrease it explicitly to 1 participant;
+
+* The only currency (``value.currency``) for this procedure is hryvnia (UAH).
+
+* The items within an procedure are allowed to be from different CAV-PS groups.
+
+.. note:: There is predefined list of possible items to lease.
 
 * There is obligatory participant qualification via guarantee payment.
 
-* The only criterion for choosing a winner is the price, provided the tenderer complies with the qualifying criteria determined by the Organizer.
+* The only criterion for choosing a winner is the price, provided the bidder complies with the qualifying criteria determined by the Organizer.
 
 Conventions
 -----------
@@ -95,6 +97,12 @@ Documentation of related packages
 ---------------------------------
 
 * `OpenProcurement API <http://api-docs.openprocurement.org/en/latest/>`_
+
+API stability
+-------------
+
+API is relatively stable.
+
 
 Change log
 ----------
