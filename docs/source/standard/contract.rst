@@ -127,7 +127,7 @@ Schema
     Property lease duration in contract.
 
 :taxHolidays:
-    list of :ref:`TaxHolidays`
+    list of :ref:`TaxHolidays`, optional
 
     A period during which a person or company is allowed to pay no payment or less than usual.
 
@@ -145,12 +145,12 @@ Schema
 :taxHolidaysDuration:
     ISO8601 duration object, required
 
-    Duration of rent holidays.
+    Duration of lease holidays.
 
 :conditions:
     string, required, multilingual
 
-    Lease rent holidays conditions in Ukrainian.
+    Lease holidays conditions in Ukrainian.
 
 :value:
     :ref:`Value` object, required
@@ -169,16 +169,24 @@ Schema
     string, auto-generated, read-only
 
 :escalationPeriodicity:
-    Time intervals, required
+    `Time intervals`_, required
 
-    Periodicity of escalation.
+    Periodicity within which the payment will be increasing in accordance to inflation rate (for example) on a yearly basis.
 
 :escalationStepPercentageRange:
     decimal, required
 
-    Percentage range for escalation.
+    The percentage which indicates the interval within which the monthly payment will be increased/decreased.
 
 :conditions:
     string, required, multilingual
 
     Lease rent escalation conditions in Ukrainian.
+
+**********
+References
+**********
+
+.. target-notes::
+
+.. _`Time intervals`: https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
