@@ -10,7 +10,7 @@ from openprocurement.auctions.core.constants import (
     DGF_CDB2_ADDRESS_REQUIRED_FROM as DGF_ADDRESS_REQUIRED_FROM
 )
 from openprocurement.auctions.core.tests.base import JSON_RENDERER_ERROR
-from openprocurement.auctions.core.utils import get_now, SANDBOX_MODE, TZ
+from openprocurement.auctions.core.utils import get_now, calculate_business_date, SANDBOX_MODE, TZ
 
 from openprocurement.auctions.lease.constants import (
   MINIMAL_PERIOD_FROM_RECTIFICATION_END
@@ -101,10 +101,7 @@ def create_auction_lease_invalid(self):
 
     auction_data = deepcopy(self.initial_data)
     auction_start_date = now + timedelta(days=30)
-    if SANDBOX_MODE:
-        auction_data['tenderPeriod'] = {'endDate': (auction_start_date - timedelta(days=4, hours=20) / DEFAULT_ACCELERATION).isoformat()}
-    else:
-        auction_data['tenderPeriod'] = {'endDate': (auction_start_date - timedelta(days=5)).isoformat()}
+    auction_data['tenderPeriod'] = {'endDate': calculate_business_date(auction_start_date, -timedelta(days=4), context=auction_data, working_days=True).isoformat()}
     auction_data['auctionPeriod'] = {'startDate': auction_start_date.isoformat()}
     response = self.app.post_json(request_path, {'data': auction_data}, status=201)
     self.assertEqual(response.status, '201 Created')
