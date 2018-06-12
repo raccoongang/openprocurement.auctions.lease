@@ -122,7 +122,7 @@ Schema
 ------
 
 :leaseDuration:
-    ISO8601 duration object, required
+    `ISO8601 duration`_ object, required
 
     Property lease duration in contract.
 
@@ -143,7 +143,7 @@ Schema
 ------
 
 :taxHolidaysDuration:
-    ISO8601 duration object, required
+    `ISO8601 duration`_ object, required
 
     Duration of lease holidays.
 
@@ -190,3 +190,5 @@ References
 .. target-notes::
 
 .. _`Time intervals`: https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
+
+.. _`ISO8601 duration`: https://en.wikipedia.org/wiki/ISO_8601#Durations
