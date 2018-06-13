@@ -174,7 +174,7 @@ class TaxHolidays(Model):
     conditions = StringType(required=True)
     conditions_en = StringType()
     conditions_ru = StringType()
-    value = ModelType(Value)
+    value = ModelType(Value, required=True)
 
     def validate_value(self, data, value):
         if value.currency != u'UAH':
@@ -183,7 +183,7 @@ class TaxHolidays(Model):
 
 class EscalationClauses(Model):
     id = StringType()
-    escalationPeriodicity = IsoDurationType(required=True) # ISO Intervals not implemented yet
+    escalationPeriodicity = IsoDurationType(required=True)
     escalationStepPercentageRange = DecimalType(required=True)
     conditions = StringType(required=True)
     conditions_en = StringType()
