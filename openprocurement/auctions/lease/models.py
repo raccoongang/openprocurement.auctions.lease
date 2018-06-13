@@ -44,11 +44,13 @@ from openprocurement.auctions.core.utils import (
 
 from openprocurement.api.models.schematics_extender import (
     Model,
-    IsoDurationType
+    IsoDurationType,
+    DecimalType
 )
 
 from openprocurement.api.models.auction_models import (
     Cancellation as BaseCancellation,
+     Value as BaseVAlue
 )
 
 from .constants import (
@@ -162,6 +164,32 @@ class ILeaseAuction(IAuction):
     """Marker interface for Lease auctions"""
 
 
+class Value(BaseVAlue):
+    amount = DecimalType(required=True)
+
+
+class TaxHolidays(Model):
+    id  = StringType()
+    taxHolidaysDuration = IsoDurationType(required=True)
+    conditions = StringType(required=True)
+    conditions_en = StringType()
+    conditions_ru = StringType()
+    value = ModelType(Value)
+
+    def validate_value(self, data, value):
+        if value.currency != u'UAH':
+            raise ValidationError(u"currency should be only UAH")
+
+
+class EscalationClauses(Model):
+    id = StringType()
+    escalationPeriodicity = IsoDurationType(required=True) # ISO Intervals not implemented yet
+    escalationStepPercentageRange = DecimalType(required=True)
+    conditions = StringType(required=True)
+    conditions_en = StringType()
+    conditions_ru = StringType()
+
+
 class PropertyLeaseClassification(dgfCDB2CPVCAVClassification):
     scheme = StringType(required=True, choices=[u'CAV-PS'])
 
@@ -174,7 +202,8 @@ class PropertyItem(Item):
 class LeaseTerms(Model):
 
     leaseDuration = IsoDurationType(required=True)
-
+    taxHolidays = ListType(ModelType(TaxHolidays))
+    escalationClauses = ListType(ModelType(EscalationClauses))
 
 class ContractTerms(Model):
 

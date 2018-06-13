@@ -58,7 +58,25 @@ test_auction_data = {
     "contractTerms": {
         "contractType": "lease",
         "leaseTerms": {
-            "leaseDuration": "P10Y"
+            "leaseDuration": "P10Y",
+            "taxHolidays": [
+            {
+                "taxHolidaysDuration": "P5M",
+                "conditions": "conditions description",
+                "value": {
+                    "amount": 100.0,
+                    "currency": "UAH",
+                    "valueAddedTaxIncluded": True
+                }
+            }
+        ],
+        "escalationClauses": [
+            {
+                "escalationPeriodicity": "P5M",
+                "escalationStepPercentageRange": 5,
+                "conditions": "conditions description"
+            }
+        ]
         }
     },
     "items": [
