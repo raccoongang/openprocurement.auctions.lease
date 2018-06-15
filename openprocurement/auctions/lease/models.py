@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta, time
+from uuid import uuid4
+from decimal import Decimal
 
 from schematics.exceptions import ValidationError
 from schematics.transforms import blacklist, whitelist
-from schematics.types import StringType, IntType, BooleanType
+from schematics.types import StringType, IntType, BooleanType, MD5Type
 from schematics.types.compound import ModelType
 from schematics.types.serializable import serializable
 from pyramid.security import Allow
@@ -165,11 +167,11 @@ class ILeaseAuction(IAuction):
 
 
 class Value(BaseVAlue):
-    amount = DecimalType(required=True)
+    amount = DecimalType(precision=-2, min_value=Decimal('0'))
 
 
 class TaxHolidays(Model):
-    id  = StringType()
+    id = MD5Type(required=True, default=lambda: uuid4().hex)
     taxHolidaysDuration = IsoDurationType(required=True)
     conditions = StringType(required=True)
     conditions_en = StringType()
@@ -180,11 +182,13 @@ class TaxHolidays(Model):
         if value.currency != u'UAH':
             raise ValidationError(u"currency should be only UAH")
 
+    # def validate_value(self, data, value):
+        # BaseBid._validator_functions['value'](self, data, value)
 
 class EscalationClauses(Model):
-    id = StringType()
+    id = MD5Type(required=True, default=lambda: uuid4().hex)
     escalationPeriodicity = IsoDurationType(required=True)
-    escalationStepPercentageRange = DecimalType(required=True)
+    escalationStepPercentageRange = DecimalType(required=True, precision=-3, min_value=Decimal('0'), max_value=Decimal('1.000'))
     conditions = StringType(required=True)
     conditions_en = StringType()
     conditions_ru = StringType()
