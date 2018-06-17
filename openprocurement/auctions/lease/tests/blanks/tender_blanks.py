@@ -351,6 +351,7 @@ def create_auction_invalid(self):
     auction_data = deepcopy(self.initial_data)
     auction_data['value'] = {'amount': '100.0', 'currency': "USD"}
     auction_data['minimalStep'] = {'amount': '5.0', 'currency': "USD"}
+    auction_data['contractTerms']['leaseTerms']['taxHolidays'] = None
     response = self.app.post_json(request_path, {'data': auction_data}, status=422)
     self.assertEqual(response.status, '422 Unprocessable Entity')
     self.assertEqual(response.content_type, 'application/json')
