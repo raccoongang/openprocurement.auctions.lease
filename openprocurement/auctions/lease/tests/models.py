@@ -71,13 +71,12 @@ class ContractTermsTest(unittest.TestCase):
         contractterms.validate()
 
         contractterms.leaseTerms['escalationClauses'][0]['escalationPeriodicity'] = None
-        contractterms.leaseTerms['escalationClauses'][0]['escalationStepPercentageRange'] = None
         contractterms.leaseTerms['escalationClauses'][0]['conditions'] = None
         self.assertNotEqual(contractterms.serialize(), data)
         with self.assertRaises(ModelValidationError) as ex:
             contractterms.validate()
         self.assertEqual(ex.exception.message,
-                         {'leaseTerms': {'escalationClauses': [{'escalationStepPercentageRange': [u'This field is required.'], 'conditions': [u'This field is required.'], 'escalationPeriodicity': [u'This field is required.']}]}})
+                         {'leaseTerms': {'escalationClauses': [{'conditions': [u'This field is required.'], 'escalationPeriodicity': [u'This field is required.']}]}})
 
 
 def suite():

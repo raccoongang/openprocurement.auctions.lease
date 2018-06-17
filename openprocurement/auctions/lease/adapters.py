@@ -62,15 +62,5 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
             else:
                 item['additionalClassifications'].append(mandatory_additional_classificator)
 
-        if auction.contractTerms['leaseTerms']['taxHolidays']:
-            for taxHolidaysElement in auction.contractTerms['leaseTerms']['taxHolidays']:
-                taxHolidays_id = generate_id()
-                taxHolidaysElement['id'] = taxHolidays_id
-
-        if auction.contractTerms['leaseTerms']['escalationClauses']:
-            for escalationClausesElement in auction.contractTerms['leaseTerms']['escalationClauses']:
-                escalationClauses_id = generate_id()
-                escalationClausesElement['id'] = escalationClauses_id
-
     def change_auction(self, request):
         pass

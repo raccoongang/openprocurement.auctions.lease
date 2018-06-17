@@ -179,16 +179,15 @@ class TaxHolidays(Model):
     value = ModelType(Value, required=True)
 
     def validate_value(self, data, value):
-        if value.currency != u'UAH':
-            raise ValidationError(u"currency should be only UAH")
+        auction = get_auction(data['__parent__'])
+        if auction.get('value').currency != value.currency:
+            raise ValidationError(u"currency of bid should be identical to currency of value of auction")
 
-    # def validate_value(self, data, value):
-        # BaseBid._validator_functions['value'](self, data, value)
-
+    
 class EscalationClauses(Model):
     id = MD5Type(required=True, default=lambda: uuid4().hex)
     escalationPeriodicity = IsoDurationType(required=True)
-    escalationStepPercentageRange = DecimalType(required=True, precision=-3, min_value=Decimal('0'), max_value=Decimal('1.000'))
+    escalationStepPercentageRange = DecimalType(precision=-2, min_value=Decimal('0'), max_value=Decimal('1.00'))
     conditions = StringType(required=True)
     conditions_en = StringType()
     conditions_ru = StringType()
