@@ -8,11 +8,17 @@ from uuid import uuid4
 
 from openprocurement.auctions.core.tests.base import (
     BaseWebTest as CoreBaseWebTest,
-    BaseAuctionWebTest as CoreBaseAuctionWebTest
+    BaseAuctionWebTest as CoreBaseAuctionWebTest,
+    MOCK_CONFIG as BASE_MOCK_CONFIG
 )
 from openprocurement.auctions.core.utils import (
-    apply_data_patch, get_now, SANDBOX_MODE
+    apply_data_patch,
+    get_now,
+    SANDBOX_MODE,
+    connection_mock_config
 )
+
+from openprocurement.auctions.lease.tests.fixtures import PARTIAL_MOCK_CONFIG
 
 from openprocurement.auctions.lease.constants import (
     DEFAULT_PROCUREMENT_METHOD_TYPE_LEASE
@@ -244,6 +250,12 @@ for i in test_bids:
     test_financial_bids.append(bid)
 
 
+MOCK_CONFIG = connection_mock_config(PARTIAL_MOCK_CONFIG,
+                                     base=BASE_MOCK_CONFIG,
+                                     connector=('plugins', 'api', 'plugins',
+                                                'auctions.core', 'plugins'))
+
+
 class BaseWebTest(CoreBaseWebTest):
 
     """Base Web Test to test openprocurement.auctions.lease.
@@ -252,12 +264,14 @@ class BaseWebTest(CoreBaseWebTest):
     """
 
     relative_to = os.path.dirname(__file__)
+    mock_config = MOCK_CONFIG
 
 
 class BaseAuctionWebTest(CoreBaseAuctionWebTest):
     relative_to = os.path.dirname(__file__)
     initial_data = test_auction_data
     initial_organization = test_organization
+    mock_config = MOCK_CONFIG
 
     def go_to_rectificationPeriod_end(self):
         now = get_now()
