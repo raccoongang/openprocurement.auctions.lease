@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
 import unittest
-import os
-from copy import deepcopy
-from datetime import datetime, timedelta
-
 import mock
+
 from schematics.exceptions import ConversionError, ValidationError, ModelValidationError
 
 from openprocurement.auctions.lease.models import (
-    ContractTerms
+    Auction, ContractTerms
 )
 
 from openprocurement.api.utils import get_now
+from openprocurement.auctions.lease.tests.base import test_auction_data
 
 
 now = get_now()
@@ -19,7 +17,8 @@ now = get_now()
 
 class ContractTermsTest(unittest.TestCase):
 
-    def test_ContractTerms_model(self):
+    @mock.patch('openprocurement.auctions.lease.models.get_auction')
+    def test_ContractTerms_model(self, mock_get_auction):
 
         data = {"contractType": "lease", "leaseTerms": {"leaseDuration": "P10Y", 
         "taxHolidays": [
@@ -36,13 +35,16 @@ class ContractTermsTest(unittest.TestCase):
          "escalationClauses": [
             {
                 "escalationPeriodicity": "P5M",
-                "escalationStepPercentageRange": 0.1,
+                "escalationStepPercentage": 0.1,
                 "conditions": "conditions description"
             }
         ]
         }}
 
         contractterms = ContractTerms(data)
+
+        auction = Auction()
+        mock_get_auction.return_value = auction.import_data(test_auction_data)
 
         contractterms.validate()
 
@@ -77,6 +79,23 @@ class ContractTermsTest(unittest.TestCase):
             contractterms.validate()
         self.assertEqual(ex.exception.message,
                          {'leaseTerms': {'escalationClauses': [{'conditions': [u'This field is required.'], 'escalationPeriodicity': [u'This field is required.']}]}})
+
+        contractterms = ContractTerms(data)
+
+        contractterms.validate()
+
+        contractterms.leaseTerms['taxHolidays'][0]['value']['currency'] = 'USD'
+        self.assertNotEqual(contractterms.serialize(), data)
+        with self.assertRaises(ModelValidationError) as ex:
+            contractterms.validate()
+        self.assertEqual(ex.exception.message,
+                         {'leaseTerms': {'taxHolidays': [{'value': [u'currency of taxHolidays value should be identical to currency of value of auction']}]}})
+
+        contractterms = ContractTerms(data)
+
+        contractterms.leaseTerms['taxHolidays'][0]['value']['currency'] = 'UAH'
+
+        contractterms.validate()
 
 
 def suite():

@@ -52,7 +52,7 @@ from openprocurement.api.models.schematics_extender import (
 
 from openprocurement.api.models.auction_models import (
     Cancellation as BaseCancellation,
-     Value as BaseVAlue
+     Value as BaseValue
 )
 
 from .constants import (
@@ -166,8 +166,8 @@ class ILeaseAuction(IAuction):
     """Marker interface for Lease auctions"""
 
 
-class Value(BaseVAlue):
-    amount = DecimalType(precision=-2, min_value=Decimal('0'))
+class Value(BaseValue):
+    amount = DecimalType(required=True, precision=-2, min_value=Decimal('0'))
 
 
 class TaxHolidays(Model):
@@ -181,13 +181,13 @@ class TaxHolidays(Model):
     def validate_value(self, data, value):
         auction = get_auction(data['__parent__'])
         if auction.get('value').currency != value.currency:
-            raise ValidationError(u"currency of bid should be identical to currency of value of auction")
+            raise ValidationError(u"currency of taxHolidays value should be identical to currency of value of auction")
 
     
 class EscalationClauses(Model):
     id = MD5Type(required=True, default=lambda: uuid4().hex)
     escalationPeriodicity = IsoDurationType(required=True)
-    escalationStepPercentageRange = DecimalType(precision=-2, min_value=Decimal('0'), max_value=Decimal('1.00'))
+    escalationStepPercentage = DecimalType(precision=-2, min_value=Decimal('0'), max_value=Decimal('1.00'))
     conditions = StringType(required=True)
     conditions_en = StringType()
     conditions_ru = StringType()
@@ -207,6 +207,7 @@ class LeaseTerms(Model):
     leaseDuration = IsoDurationType(required=True)
     taxHolidays = ListType(ModelType(TaxHolidays))
     escalationClauses = ListType(ModelType(EscalationClauses))
+
 
 class ContractTerms(Model):
 

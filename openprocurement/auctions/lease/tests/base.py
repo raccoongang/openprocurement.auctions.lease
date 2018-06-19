@@ -73,7 +73,7 @@ test_auction_data = {
         "escalationClauses": [
             {
                 "escalationPeriodicity": "P5M",
-                "escalationStepPercentageRange": 0.1,
+                "escalationStepPercentage": 0.1,
                 "conditions": "conditions description"
             }
         ]
