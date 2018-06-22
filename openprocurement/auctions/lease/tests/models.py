@@ -6,11 +6,10 @@ import munch
 from schematics.exceptions import ConversionError, ValidationError, ModelValidationError
 
 from openprocurement.auctions.lease.models import (
-    Auction, ContractTerms
+   ContractTerms
 )
 
 from openprocurement.api.utils import get_now
-from openprocurement.auctions.lease.tests.base import test_auction_data
 
 
 now = get_now()
