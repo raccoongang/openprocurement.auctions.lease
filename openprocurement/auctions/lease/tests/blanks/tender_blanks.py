@@ -641,7 +641,7 @@ def additionalClassifications(self):
         "description": u"Застава - Інше"
     }
     response = self.app.post_json('/auctions', {'data': auction_data}, status=422)
-    self.assertEqual(response.json['errors'], [{u'description': [{u'classification': {u'scheme': [u"Value must be one of [u'CAV-PS']."]}}], u'location': u'body', u'name': u'items'}])
+    self.assertEqual(response.json['errors'], [{u'description': [{u'classification': {u'scheme': [u"Value must be one of [u'CAV-PS', u'CPV']."]}}], u'location': u'body', u'name': u'items'}])
 
     # Additional Classification wrong id
     auction_data['items'][0]['additionalClassifications'] = [{

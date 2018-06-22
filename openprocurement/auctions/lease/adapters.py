@@ -12,7 +12,6 @@ from openprocurement.auctions.core.utils import (
 )
 from openprocurement.api.utils import (
     set_specific_hour,
-    generate_id
 )
 from .utils import generate_rectificationPeriod
 from .constants import MANDATORY_ADDITIONAL_CLASSIFICATOR
