@@ -194,7 +194,7 @@ class EscalationClauses(Model):
 
 
 class PropertyLeaseClassification(dgfCDB2CPVCAVClassification):
-    scheme = StringType(required=True, choices=[u'CAV-PS'])
+    scheme = StringType(required=True, choices=[u'CAV-PS', u'CPV'])
 
 
 class PropertyItem(Item):
@@ -236,7 +236,7 @@ class Auction(BaseAuction):
     enquiryPeriod = ModelType(Period)  # The period during which enquiries may be made and will be answered.
     rectificationPeriod = ModelType(RectificationPeriod)  # The period during which editing of main procedure fields are allowed
     tenderPeriod = ModelType(Period)  # The period when the auction is open for submissions. The end date is the closing date for auction submissions.
-    tenderAttempts = IntType(choices=[1, 2, 3, 4])
+    tenderAttempts = IntType(choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     auctionPeriod = ModelType(AuctionAuctionPeriod, required=True, default={})
     procurementMethodType = StringType()
     procuringEntity = ModelType(ProcuringEntity, required=True)
