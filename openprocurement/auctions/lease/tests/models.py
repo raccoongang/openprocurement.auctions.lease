@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 import mock
+import munch
 
 from schematics.exceptions import ConversionError, ValidationError, ModelValidationError
 
@@ -43,8 +44,8 @@ class ContractTermsTest(unittest.TestCase):
 
         contractterms = ContractTerms(data)
 
-        auction = Auction()
-        mock_get_auction.return_value = auction.import_data(test_auction_data)
+        value_currency = munch.Munch({"currency": "UAH"})
+        mock_get_auction.return_value = munch.Munch({'value':value_currency})
 
         contractterms.validate()
 
