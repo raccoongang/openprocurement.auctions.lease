@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openprocurement.auctions.dgf 1.0.5\n"
+"Project-Id-Version: openprocurement.auctions.lease 1.1.1-sale\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-16 17:10+0200\n"
 "PO-Revision-Date: 2017-02-16 13:34+0200\n"

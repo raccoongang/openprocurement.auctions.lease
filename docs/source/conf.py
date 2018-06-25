@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
-# openprocurement.auctions.dgf documentation build configuration file, created by
-# sphinx-quickstart on Wed Oct  1 02:29:13 2014.
+# openprocurement.auctions.lease documentation build configuration file, created by
+# sphinx-quickstart on Wed Oct  1 02:29:13 2014;
+# manually modified in May 2018.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -31,7 +32,7 @@ import pkg_resources
 # ones.
 import cornice
 extensions = [
-    'cornice.ext.sphinxext',
+    # 'cornice.ext.sphinxext',  disabled due to import error
     'sphinx.ext.intersphinx',
     'sphinx.ext.graphviz',
     'sphinxcontrib.httpdomain',
@@ -50,8 +51,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'openprocurement.auctions.dgf'
-copyright = u'2016, Quintagroup, Ltd'
+project = u'openprocurement.auctions.lease'
+copyright = u'2018, Quintagroup, Ltd'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -183,7 +184,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'openprocurementauctionsdgfdoc'
+htmlhelp_basename = 'openprocurementauctionsleasedoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -203,7 +204,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'openprocurementauctionsdgf.tex', u'openprocurement.auctions.dgf Documentation',
+  ('index', 'openprocurementauctionslease.tex', u'openprocurement.auctions.lease Documentation',
    u'Myroslav Opyr', 'manual'),
 ]
 
@@ -233,7 +234,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'openprocurementauctionsdgf', u'openprocurement.auctions.dgf Documentation',
+    ('index', 'openprocurementauctionslease', u'openprocurement.auctions.lease Documentation',
      [u'Myroslav Opyr'], 1)
 ]
 
@@ -247,8 +248,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'openprocurementauctionsdgf', u'openprocurement.auctions.dgf Documentation',
-   u'Myroslav Opyr', 'openprocurementauctionsdgf', 'One line description of project.',
+  ('index', 'openprocurementauctionslease', u'openprocurement.auctions.lease Documentation',
+   u'Myroslav Opyr', 'openprocurementauctionslease', 'One line description of project.',
    'Miscellaneous'),
 ]
 
