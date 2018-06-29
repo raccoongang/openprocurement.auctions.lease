@@ -134,6 +134,8 @@ Schema
 :escalationClauses:
     list of :ref:`EscalationClauses`
 
+    The rules for the way of monthly payment to be changed on a periodic basis.
+
 .. _TaxHolidays:
 
 TaxHolidays
@@ -155,7 +157,7 @@ Schema
 :value:
     :ref:`Value` object, required
 
-    The lease value for tax holidays.
+    The amount to be paid by a contractor within lease holidays.
 
 .. _EscalationClauses:
 
@@ -176,7 +178,7 @@ Schema
 :escalationStepPercentage:
     decimal, required
 
-    The percentage which indicates the interval within which the monthly payment will be increased/decreased.
+    The percentage which indicates the amount of step the monthly payment will be increased/decreased by.
 
 :conditions:
     string, required, multilingual

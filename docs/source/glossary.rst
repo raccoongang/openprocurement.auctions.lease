@@ -17,7 +17,7 @@ Tender Procedure
     * contract signing;
 
 Organizer
-    lease procedure initiator
+    lease tender procedure initiator
 
 Minimum number of qualified bids [``minNumberOfQualifiedBids``]
     minimum eligible participant number count to consider procedure successful
