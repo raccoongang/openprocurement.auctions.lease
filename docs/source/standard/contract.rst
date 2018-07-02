@@ -132,7 +132,7 @@ Schema
     The period during which tax concessions are made for some reason.
 
 :escalationClauses:
-    list of :ref:`EscalationClauses`
+    list of :ref:`EscalationClauses`, optional
 
     The rules for the way of monthly payment to be changed on a periodic basis.
 

@@ -11,12 +11,12 @@ Schema
 ------
 
 :title:
-   string, multilingual, read-only, editable during enquiryPeriod
+   string, multilingual, read-only, editable during rectificationPeriod
 
-   Auction number in the Deposit Guarantee Fund.
+   Auction title.
 
 :description:
-   string, multilingual, editable during enquiryPeriod
+   string, multilingual, editable during rectificationPeriod
 
    Detailed auction description.
 
@@ -28,10 +28,10 @@ Schema
    |ocdsDescription|
    AuctionID should always be the same as the OCID. It is included to make the flattened data structure more convenient.
    
-:dgfID:
-    string, editable during enquiryPeriod
+:lotIdentifier:
+    string, editable during rectificationPeriod
     
-    Identification number of the auction (also referred to as `lot`) in the XLS of Deposit Guarantee Fund.
+    Identification number of the auction (also referred to as `lot`).
 
    
 :procuringEntity:
@@ -45,7 +45,7 @@ Schema
 
    
 :value:
-   :ref:`value`, required, editable during enquiryPeriod
+   :ref:`value`, required, editable during rectificationPeriod
 
    Total available auction budget. Bids lower than ``value`` will be rejected.
 
@@ -53,12 +53,12 @@ Schema
    The total estimated value of the procurement.
 
 :guarantee:
-    :ref:`Guarantee`, editable during enquiryPeriod
+    :ref:`Guarantee`, editable during rectificationPeriod
 
     Bid guarantee
 
 :items:
-   list of :ref:`item` objects, required, editable during enquiryPeriod
+   list of :ref:`item` objects, required, editable during rectificationPeriod
 
    List that contains single item being sold. 
 
@@ -105,7 +105,7 @@ Schema
    for the procedure to be successful. Therewith the auction is omitted and that bid turns to a qualified award.
    
 :minimalStep:
-   :ref:`value`, required, editable during enquiryPeriod
+   :ref:`value`, required, editable during rectificationPeriod
 
    The minimal step of auction. Validation rules:
 
