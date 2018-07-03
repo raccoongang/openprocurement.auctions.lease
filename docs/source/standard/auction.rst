@@ -11,12 +11,12 @@ Schema
 ------
 
 :title:
-   string, multilingual, read-only, editable during rectificationPeriod
+   string, multilingual, required, editable during rectificationPeriod
 
    Auction title.
 
 :description:
-   string, multilingual, editable during rectificationPeriod
+   string, multilingual, required, editable during rectificationPeriod
 
    Detailed auction description.
 
@@ -29,9 +29,9 @@ Schema
    AuctionID should always be the same as the OCID. It is included to make the flattened data structure more convenient.
    
 :lotIdentifier:
-    string, editable during rectificationPeriod
+    string, required, editable during rectificationPeriod
     
-    Identification number of the auction (also referred to as `lot`).
+    Identification number of the auction (also referred to as `lot`) within the paper documentation.
 
    
 :procuringEntity:
@@ -53,7 +53,7 @@ Schema
    The total estimated value of the procurement.
 
 :guarantee:
-    :ref:`Guarantee`, editable during rectificationPeriod
+    :ref:`Guarantee`, optional, editable during rectificationPeriod
 
     Bid guarantee
 
@@ -205,3 +205,101 @@ Schema
    List of :ref:`revision` objects, auto-generated
 
    Historical changes to `Auction` object properties.
+
+ContractTerms
+=============
+
+Schema
+------
+
+:contractType:
+    string, required
+
+    The only value for this field is ``lease``.
+
+:leaseTerms:
+    :ref:`LeaseTerms`
+
+    The details of how property is to be leased.
+
+.. _LeaseTerms:
+
+LeaseTerms
+==========
+
+Schema
+------
+
+:leaseDuration:
+    `ISO8601 duration`_ object, required
+
+    The time span during which a contracted lease is in place.
+
+:taxHolidays:
+    list of :ref:`TaxHolidays`, optional
+
+    The period during which tax concessions are made for some reason.
+
+:escalationClauses:
+    list of :ref:`EscalationClauses`, optional
+
+    The rules for the way of monthly payment to be changed on a periodic basis.
+
+.. _TaxHolidays:
+
+TaxHolidays
+===========
+
+Schema
+------
+
+:taxHolidaysDuration:
+    `ISO8601 duration`_ object, required
+
+    Duration of the period within which a person or company is allowed to pay less than usual (or provide no payment).
+
+:conditions:
+    string, required, multilingual
+
+    The details for the way of lease holidays to be held.
+
+:value:
+    :ref:`Value` object, required
+
+    The amount to be paid by a contractor within lease holidays.
+
+.. _EscalationClauses:
+
+EscalationClauses
+=================
+
+Schema
+------
+
+:id:
+    string, auto-generated, read-only
+
+:escalationPeriodicity:
+    `Time intervals`_, required
+
+    Periodicity within which the payment will be increasing considering the inflation rate (for example) on a yearly basis.
+
+:escalationStepPercentage:
+    decimal, required
+
+    The percentage which indicates the amount of step the monthly payment will be increased/decreased by.
+
+:conditions:
+    string, required, multilingual
+
+    The details for the way of monthly payment to be increased/decreased.
+
+**********
+References
+**********
+
+.. target-notes::
+
+.. _`Time intervals`: https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
+
+.. _`ISO8601 duration`: https://en.wikipedia.org/wiki/ISO_8601#Durations
