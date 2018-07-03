@@ -175,19 +175,6 @@ Schema
 
    Auction status.
 
-:eligibilityCriteria:
-    string, read-only
-    
-    Required for `dgfFinancialAssets` procedure.
-    
-    This field is multilingual: 
-    
-    * Ukrainian by default - До участі допускаються лише ліцензовані фінансові установи.
-    
-    * ``eligibilityCriteria_ru`` (Russian) - К участию допускаются только лицензированные финансовые учреждения.
-    
-    * ``eligibilityCriteria_en`` (English) - Only licensed financial institutions are eligible to participate.
-    
 .. :lots:
    List of :ref:`lot` objects.
 

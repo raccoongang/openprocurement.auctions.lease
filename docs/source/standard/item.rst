@@ -18,7 +18,7 @@ Schema
     string, multilingual, required
 
     |ocdsDescription|
-    A description of the goods, services to be provided.
+    A description of the property to be leased.
     
     Auction subject / asset description.
 
@@ -47,7 +47,7 @@ Schema
     :ref:`Unit`
 
     |ocdsDescription| 
-    Description of the unit which the good comes in e.g.  hours, kilograms. 
+    Description of the unit which the property comes in. 
     Made up of a unit name, and the value of a single unit.
 
 :quantity:
