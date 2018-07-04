@@ -1,7 +1,7 @@
 .. . Kicking page rebuild 2014-10-30 17:00:08
 .. include:: defs.hrst
 
-.. index:: Contract
+.. index:: Contract, ContractTerms, LeaseTerms, TaxHolidays, EscalationClauses
 .. _Contract:
 
 Contract
@@ -20,7 +20,7 @@ Schema
     string, required
 
     |ocdsDescription|
-    The `Award.id` against which this contract is being issued.
+    The ``Award.id`` against which this contract is being issued.
 
 :contractID:
        string, auto-generated, read-only
@@ -41,7 +41,7 @@ Schema
     Contract description
 
 :value:
-    `Value` object, auto-generated, read-only
+    :ref:`Value` object, auto-generated, read-only
 
     |ocdsDescription|
     The total value of this contract.
@@ -94,3 +94,6 @@ Schema
 
     |ocdsDescription|
     All documents and attachments related to the contract, including any notices.
+
+.. _ContractTerms:
+
