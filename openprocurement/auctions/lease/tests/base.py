@@ -62,7 +62,7 @@ test_auction_data = {
         "currency": u"UAH"
     },
     "contractTerms": {
-        "contractType": "lease",
+        "type": "lease",
         "leaseTerms": {
             "leaseDuration": "P10Y"
         }

@@ -79,14 +79,14 @@ def create_auction_lease_invalid(self):
         {u'description': {u'leaseTerms': {U'leaseDuration': [u'Could not parse 100500. Should be ISO8601 duration format.']}}, u'location': u'body', u'name': u'contractTerms'}
     ])
 
-    auction_data['contractTerms'] = {'contractType': 'wrongcontractType'}
+    auction_data['contractTerms'] = {'type': 'wrongtype'}
     auction_data['contractTerms']['leaseTerms'] = {'leaseDuration': 'P10Y'}
     response = self.app.post_json(request_path, {'data': auction_data}, status=422)
     self.assertEqual(response.status, '422 Unprocessable Entity')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['status'], 'error')
     self.assertEqual(response.json['errors'], [
-        {u'description': {u'contractType': [u"Value must be one of ['lease']."]}, u'location': u'body', u'name': u'contractTerms'}
+        {u'description': {u'type': [u"Value must be one of ['lease']."]}, u'location': u'body', u'name': u'contractTerms'}
     ])
 
     now = get_now()

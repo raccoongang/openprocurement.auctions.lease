@@ -178,7 +178,7 @@ class LeaseTerms(Model):
 
 class ContractTerms(Model):
 
-    contractType = StringType(required=True, choices=['lease'])
+    type = StringType(required=True, choices=['lease'])
     leaseTerms = ModelType(LeaseTerms, required=True)
 
 
