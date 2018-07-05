@@ -28,7 +28,7 @@ from openprocurement.auctions.lease.tests.base import (
 def create_role(self):
     fields = set([
         'awardCriteriaDetails', 'awardCriteriaDetails_en', 'awardCriteriaDetails_ru',
-        'description', 'description_en', 'description_ru', 'dgfID', 'tenderAttempts',
+        'description', 'description_en', 'description_ru', 'lotIdentifier', 'tenderAttempts',
         'features', 'guarantee', 'hasEnquiries', 'items', 'lots', 'minimalStep', 'mode',
         'procurementMethodRationale', 'procurementMethodRationale_en', 'procurementMethodRationale_ru',
         'procurementMethodType', 'procuringEntity', 'minNumberOfQualifiedBids',
@@ -45,7 +45,7 @@ def edit_role(self):
     fields = set([
         'description', 'description_en', 'description_ru',
         'features', 'hasEnquiries', 'items', 'procuringEntity',
-        'value', 'minimalStep', 'guarantee', 'tenderAttempts', 'title_en', 'dgfID', 'title_ru',
+        'value', 'minimalStep', 'guarantee', 'tenderAttempts', 'title_en', 'lotIdentifier', 'title_ru',
         'title'
     ])
     if SANDBOX_MODE:
@@ -79,14 +79,14 @@ def create_auction_lease_invalid(self):
         {u'description': {u'leaseTerms': {U'leaseDuration': [u'Could not parse 100500. Should be ISO8601 duration format.']}}, u'location': u'body', u'name': u'contractTerms'}
     ])
 
-    auction_data['contractTerms'] = {'contractType': 'wrongcontractType'}
+    auction_data['contractTerms'] = {'type': 'wrongtype'}
     auction_data['contractTerms']['leaseTerms'] = {'leaseDuration': 'P10Y'}
     response = self.app.post_json(request_path, {'data': auction_data}, status=422)
     self.assertEqual(response.status, '422 Unprocessable Entity')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['status'], 'error')
     self.assertEqual(response.json['errors'], [
-        {u'description': {u'contractType': [u"Value must be one of ['lease']."]}, u'location': u'body', u'name': u'contractTerms'}
+        {u'description': {u'type': [u"Value must be one of ['lease']."]}, u'location': u'body', u'name': u'contractTerms'}
     ])
 
     now = get_now()
@@ -351,6 +351,7 @@ def create_auction_invalid(self):
     auction_data = deepcopy(self.initial_data)
     auction_data['value'] = {'amount': '100.0', 'currency': "USD"}
     auction_data['minimalStep'] = {'amount': '5.0', 'currency': "USD"}
+    auction_data['contractTerms']['leaseTerms']['taxHolidays'] = None
     response = self.app.post_json(request_path, {'data': auction_data}, status=422)
     self.assertEqual(response.status, '422 Unprocessable Entity')
     self.assertEqual(response.content_type, 'application/json')
@@ -371,23 +372,23 @@ def create_auction_invalid(self):
     ])
 
 
-@unittest.skipIf(get_now() < DGF_ID_REQUIRED_FROM, "Can`t create auction without dgfID only from {}".format(DGF_ID_REQUIRED_FROM))
+@unittest.skipIf(get_now() < DGF_ID_REQUIRED_FROM, "Can`t create auction without lotIdentifier only from {}".format(DGF_ID_REQUIRED_FROM))
 def required_dgf_id(self):
     data = self.initial_data.copy()
-    del data['dgfID']
+    del data['lotIdentifier']
     response = self.app.post_json('/auctions', {'data': data}, status=422)
     self.assertEqual(response.status, '422 Unprocessable Entity')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['status'], 'error')
-    self.assertEqual(response.json['errors'], [{"location": "body", "name": "dgfID", "description": ["This field is required."]}])
+    self.assertEqual(response.json['errors'], [{"location": "body", "name": "lotIdentifier", "description": ["This field is required."]}])
 
-    data['dgfID'] = self.initial_data['dgfID']
+    data['lotIdentifier'] = self.initial_data['lotIdentifier']
     response = self.app.post_json('/auctions', {'data': data})
     self.assertEqual(response.status, '201 Created')
     self.assertEqual(response.content_type, 'application/json')
     auction = response.json['data']
-    self.assertIn('dgfID', auction)
-    self.assertEqual(data['dgfID'], auction['dgfID'])
+    self.assertIn('lotIdentifier', auction)
+    self.assertEqual(data['lotIdentifier'], auction['lotIdentifier'])
 
 
 @unittest.skipIf(get_now() < DGF_ADDRESS_REQUIRED_FROM, "Can`t create auction without item.address only from {}".format(DGF_ADDRESS_REQUIRED_FROM))
@@ -511,7 +512,7 @@ def create_auction_generated(self):
         auction.pop('procurementMethodDetails')
     self.assertEqual(set(auction), set([
         u'procurementMethodType', u'id', u'date', u'dateModified', u'auctionID', u'status', u'enquiryPeriod',
-        u'tenderPeriod', u'minimalStep', u'items', u'value', u'procuringEntity', u'next_check', u'dgfID',
+        u'tenderPeriod', u'minimalStep', u'items', u'value', u'procuringEntity', u'next_check', u'lotIdentifier',
         u'procurementMethod', u'awardCriteria', u'submissionMethod', u'title', u'owner', u'auctionPeriod',
         u'tenderAttempts', u'rectificationPeriod', u'contractTerms'
     ]))
@@ -640,7 +641,7 @@ def additionalClassifications(self):
         "description": u"Застава - Інше"
     }
     response = self.app.post_json('/auctions', {'data': auction_data}, status=422)
-    self.assertEqual(response.json['errors'], [{u'description': [{u'classification': {u'scheme': [u"Value must be one of [u'CAV-PS']."]}}], u'location': u'body', u'name': u'items'}])
+    self.assertEqual(response.json['errors'], [{u'description': [{u'classification': {u'scheme': [u"Value must be one of [u'CAV-PS', u'CPV']."]}}], u'location': u'body', u'name': u'items'}])
 
     # Additional Classification wrong id
     auction_data['items'][0]['additionalClassifications'] = [{
@@ -1042,11 +1043,11 @@ def patch_auction_during_rectification_period(self):
     self.assertEqual(response.json['data']['tenderAttempts'], auction['tenderAttempts'] + 1)
 
     response = self.app.patch_json('/auctions/{}'.format(self.auction_id),
-                                   {'data': {'dgfID': auction['dgfID'] + u'EDITED'}})
+                                   {'data': {'lotIdentifier': auction['lotIdentifier'] + u'EDITED'}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
-    self.assertNotEqual(response.json['data']['dgfID'], auction['dgfID'])
-    self.assertEqual(response.json['data']['dgfID'], auction['dgfID'] + u'EDITED')
+    self.assertNotEqual(response.json['data']['lotIdentifier'], auction['lotIdentifier'])
+    self.assertEqual(response.json['data']['lotIdentifier'], auction['lotIdentifier'] + u'EDITED')
 
     response = self.app.patch_json('/auctions/{}?acc_token={}'.format(self.auction_id, self.auction_token), {
         'data': {'value': {'valueAddedTaxIncluded': False, 'amount': auction['value']['amount']},

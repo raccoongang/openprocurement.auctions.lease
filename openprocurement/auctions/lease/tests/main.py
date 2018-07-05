@@ -12,7 +12,6 @@ def suite():
     suite.addTest(bidder.suite())
     suite.addTest(complaint.suite())
     suite.addTest(document.suite())
-    suite.addTest(migration.suite())
     suite.addTest(question.suite())
     suite.addTest(tender.suite())
     return suite

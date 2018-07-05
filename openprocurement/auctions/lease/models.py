@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta, time
+from uuid import uuid4
+from decimal import Decimal
 
 from schematics.exceptions import ValidationError
 from schematics.transforms import blacklist, whitelist
-from schematics.types import StringType, IntType, BooleanType
+from schematics.types import StringType, IntType, BooleanType, MD5Type
 from schematics.types.compound import ModelType
 from schematics.types.serializable import serializable
 from pyramid.security import Allow
@@ -44,11 +46,13 @@ from openprocurement.auctions.core.utils import (
 
 from openprocurement.api.models.schematics_extender import (
     Model,
-    IsoDurationType
+    IsoDurationType,
+    DecimalType
 )
 
 from openprocurement.api.models.auction_models import (
     Cancellation as BaseCancellation,
+     Value as BaseValue
 )
 
 from .constants import (
@@ -162,8 +166,35 @@ class ILeaseAuction(IAuction):
     """Marker interface for Lease auctions"""
 
 
+class Value(BaseValue):
+    amount = DecimalType(required=True, precision=-2, min_value=Decimal('0'))
+
+
+class TaxHolidays(Model):
+    id = MD5Type(required=True, default=lambda: uuid4().hex)
+    taxHolidaysDuration = IsoDurationType(required=True)
+    conditions = StringType(required=True)
+    conditions_en = StringType()
+    conditions_ru = StringType()
+    value = ModelType(Value, required=True)
+
+    def validate_value(self, data, value):
+        auction = get_auction(data['__parent__'])
+        if auction.get('value').currency != value.currency:
+            raise ValidationError(u"currency of taxHolidays value should be identical to currency of value of auction")
+
+    
+class EscalationClauses(Model):
+    id = MD5Type(required=True, default=lambda: uuid4().hex)
+    escalationPeriodicity = IsoDurationType(required=True)
+    escalationStepPercentage = DecimalType(precision=-2, min_value=Decimal('0'), max_value=Decimal('1.00'))
+    conditions = StringType(required=True)
+    conditions_en = StringType()
+    conditions_ru = StringType()
+
+
 class PropertyLeaseClassification(dgfCDB2CPVCAVClassification):
-    scheme = StringType(required=True, choices=[u'CAV-PS'])
+    scheme = StringType(required=True, choices=[u'CAV-PS', u'CPV'])
 
 
 class PropertyItem(Item):
@@ -174,11 +205,13 @@ class PropertyItem(Item):
 class LeaseTerms(Model):
 
     leaseDuration = IsoDurationType(required=True)
+    taxHolidays = ListType(ModelType(TaxHolidays))
+    escalationClauses = ListType(ModelType(EscalationClauses))
 
 
 class ContractTerms(Model):
 
-    contractType = StringType(required=True, choices=['lease'])
+    type = StringType(required=True, choices=['lease'])
     leaseTerms = ModelType(LeaseTerms, required=True)
 
 
@@ -198,12 +231,12 @@ class Auction(BaseAuction):
     cancellations = ListType(ModelType(Cancellation), default=list())
     complaints = ListType(ModelType(Complaint), default=list())
     contracts = ListType(ModelType(Contract), default=list())
-    dgfID = StringType()
+    lotIdentifier = StringType()
     documents = ListType(ModelType(Document), default=list())  # All documents and attachments related to the auction.
     enquiryPeriod = ModelType(Period)  # The period during which enquiries may be made and will be answered.
     rectificationPeriod = ModelType(RectificationPeriod)  # The period during which editing of main procedure fields are allowed
     tenderPeriod = ModelType(Period)  # The period when the auction is open for submissions. The end date is the closing date for auction submissions.
-    tenderAttempts = IntType(choices=[1, 2, 3, 4])
+    tenderAttempts = IntType(choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     auctionPeriod = ModelType(AuctionAuctionPeriod, required=True, default={})
     procurementMethodType = StringType()
     procuringEntity = ModelType(ProcuringEntity, required=True)
@@ -243,8 +276,8 @@ class Auction(BaseAuction):
         if value.currency != u'UAH':
             raise ValidationError(u"currency should be only UAH")
 
-    def validate_dgfID(self, data, dgfID):
-        if not dgfID:
+    def validate_lotIdentifier(self, data, lotIdentifier):
+        if not lotIdentifier:
             if get_auction_creation_date(data) > DGF_ID_REQUIRED_FROM:
                 raise ValidationError(u'This field is required.')
 

@@ -10,7 +10,9 @@ from openprocurement.auctions.core.plugins.awarding.v2_1.adapters import (
 from openprocurement.auctions.core.utils import (
     TZ, calculate_business_date, get_request_from_root, get_now,
 )
-from openprocurement.api.utils import set_specific_hour
+from openprocurement.api.utils import (
+    set_specific_hour,
+)
 from .utils import generate_rectificationPeriod
 from .constants import MANDATORY_ADDITIONAL_CLASSIFICATOR
 
@@ -58,7 +60,6 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
                     break
             else:
                 item['additionalClassifications'].append(mandatory_additional_classificator)
-
 
     def change_auction(self, request):
         pass
