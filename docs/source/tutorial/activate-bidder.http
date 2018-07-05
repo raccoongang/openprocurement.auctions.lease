@@ -1,4 +1,4 @@
-PATCH /api/2.4/auctions/246d20f56b0a4601bd4b5ddd3ac636e9/bids/4ed57eda57b941399523f19f03b9ada4?acc_token=650aaa4270024deaac41cb856120c3c5 HTTP/1.0
+PATCH /api/2.4/auctions/bf6575a30f2c4465ae43e06981df3b5a/bids/192d6412b08e4743b9cf6d267538c72a?acc_token=3d0951140fc2460d89bb86cf5134b2a2 HTTP/1.0
 Authorization: Basic YnJva2VyOg==
 Content-Length: 30
 Content-Type: application/json
@@ -23,7 +23,7 @@ X-Content-Type-Options: nosniff
       "amount": 500.0, 
       "valueAddedTaxIncluded": true
     }, 
-    "date": "2018-05-28T19:03:05.400869+03:00", 
+    "date": "2018-07-05T15:44:44.764641+03:00", 
     "qualified": true, 
     "tenderers": [
       {
@@ -48,7 +48,7 @@ X-Content-Type-Options: nosniff
       }
     ], 
     "owner": "broker", 
-    "id": "4ed57eda57b941399523f19f03b9ada4"
+    "id": "192d6412b08e4743b9cf6d267538c72a"
   }
 }
 

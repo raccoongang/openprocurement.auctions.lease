@@ -1,4 +1,4 @@
-PATCH /api/2.4/auctions/3f49ee8f07da45a2a915dbd75ad1f475?acc_token=7b62c6525ece4347bb49f69cc79a4352 HTTP/1.0
+PATCH /api/2.4/auctions/ebc61cd1b78d417997d967283cdb2b3d?acc_token=3b1440659d9e444dbb274a8b875e4152 HTTP/1.0
 Authorization: Basic YnJva2VyOg==
 Content-Length: 40
 Content-Type: application/json
@@ -18,13 +18,13 @@ X-Content-Type-Options: nosniff
 {
   "data": {
     "procurementMethod": "open", 
-    "auctionID": "UA-EA-2018-05-28-000001", 
+    "auctionID": "UA-EA-2018-07-05-000001", 
     "enquiryPeriod": {
-      "startDate": "2018-05-28T19:03:01.104878+03:00", 
-      "endDate": "2018-06-10T20:00:00+03:00"
+      "startDate": "2018-07-05T15:44:39.495574+03:00", 
+      "endDate": "2018-07-18T20:00:00+03:00"
     }, 
     "submissionMethod": "electronicAuction", 
-    "next_check": "2018-06-10T20:00:00+03:00", 
+    "next_check": "2018-07-18T20:00:00+03:00", 
     "procuringEntity": {
       "contactPoint": {
         "name": "Державне управління справами", 
@@ -45,30 +45,50 @@ X-Content-Type-Options: nosniff
       }
     }, 
     "owner": "broker", 
-    "id": "3f49ee8f07da45a2a915dbd75ad1f475", 
+    "id": "ebc61cd1b78d417997d967283cdb2b3d", 
     "title": "футляри до державних нагород", 
     "tenderAttempts": 1, 
-    "dateModified": "2018-05-28T19:03:01.152650+03:00", 
+    "dateModified": "2018-07-05T15:44:39.553766+03:00", 
     "status": "active.tendering", 
     "tenderPeriod": {
-      "startDate": "2018-05-28T19:03:01.104878+03:00", 
-      "endDate": "2018-06-10T20:00:00+03:00"
+      "startDate": "2018-07-05T15:44:39.495574+03:00", 
+      "endDate": "2018-07-18T20:00:00+03:00"
     }, 
     "auctionPeriod": {
-      "shouldStartAfter": "2018-06-11T00:00:00+03:00"
+      "shouldStartAfter": "2018-07-19T00:00:00+03:00"
     }, 
     "procurementMethodType": "propertyLease", 
-    "dgfID": "219560", 
-    "date": "2018-05-28T19:03:01.152650+03:00", 
+    "date": "2018-07-05T15:44:39.553766+03:00", 
+    "lotIdentifier": "219560", 
     "rectificationPeriod": {
-      "startDate": "2018-05-28T19:03:01.104878+03:00", 
-      "endDate": "2018-06-05T20:00:00+03:00", 
-      "invalidationDate": "2018-05-28T19:03:01.151212+03:00"
+      "startDate": "2018-07-05T15:44:39.495574+03:00", 
+      "endDate": "2018-07-13T20:00:00+03:00", 
+      "invalidationDate": "2018-07-05T15:44:39.551607+03:00"
     }, 
     "contractTerms": {
-      "contractType": "lease", 
+      "type": "lease", 
       "leaseTerms": {
-        "leaseDuration": "P10Y"
+        "escalationClauses": [
+          {
+            "escalationPeriodicity": "P5M", 
+            "conditions": "conditions description", 
+            "escalationStepPercentage": 0.1, 
+            "id": "79ddb6409d8e4319901d7ad507607908"
+          }
+        ], 
+        "leaseDuration": "P10Y", 
+        "taxHolidays": [
+          {
+            "taxHolidaysDuration": "P5M", 
+            "conditions": "conditions description", 
+            "id": "ca5a84973c38413a985e8cf36d496d2d", 
+            "value": {
+              "currency": "UAH", 
+              "amount": 100.0, 
+              "valueAddedTaxIncluded": true
+            }
+          }
+        ]
       }
     }, 
     "minimalStep": {
@@ -88,7 +108,7 @@ X-Content-Type-Options: nosniff
           {
             "scheme": "CPVS", 
             "id": "PA01-7", 
-            "description": "Оренда"
+            "description": "This field is required."
           }
         ], 
         "address": {
@@ -99,14 +119,14 @@ X-Content-Type-Options: nosniff
           "locality": "м. Київ"
         }, 
         "quantity": 5.001, 
-        "id": "5a3153ba0e4f494497dc66ba58adb135", 
+        "id": "f94b10c6ace540dd946701ddc06d63fc", 
         "unit": {
           "code": "44617100-9", 
           "name": "item"
         }, 
         "contractPeriod": {
-          "startDate": "2018-05-30T19:02:58.713827+03:00", 
-          "endDate": "2018-06-02T19:02:58.713827+03:00"
+          "startDate": "2018-07-07T15:44:36.881991+03:00", 
+          "endDate": "2018-07-10T15:44:36.881991+03:00"
         }
       }
     ], 

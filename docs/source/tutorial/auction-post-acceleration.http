@@ -1,15 +1,34 @@
 POST /api/2.4/auctions?opt_pretty=1 HTTP/1.0
 Authorization: Basic YnJva2VyOg==
-Content-Length: 2262
+Content-Length: 2552
 Content-Type: application/json
 Host: api-sandbox.ea.openprocurement.org
 
 {
   "data": {
+    "lotIdentifier": "219560", 
     "contractTerms": {
-      "contractType": "lease", 
+      "type": "lease", 
       "leaseTerms": {
-        "leaseDuration": "P10Y"
+        "escalationClauses": [
+          {
+            "conditions": "conditions description", 
+            "escalationPeriodicity": "P5M", 
+            "escalationStepPercentage": 0.1
+          }
+        ], 
+        "leaseDuration": "P10Y", 
+        "taxHolidays": [
+          {
+            "taxHolidaysDuration": "P5M", 
+            "conditions": "conditions description", 
+            "value": {
+              "currency": "UAH", 
+              "amount": 100.0, 
+              "valueAddedTaxIncluded": true
+            }
+          }
+        ]
       }
     }, 
     "title": "футляри до державних нагород", 
@@ -18,7 +37,7 @@ Host: api-sandbox.ea.openprocurement.org
       "amount": 35
     }, 
     "auctionPeriod": {
-      "startDate": "2018-06-09T19:02:59.179463"
+      "startDate": "2018-07-17T15:44:37.150620+03:00"
     }, 
     "tenderAttempts": 1, 
     "procurementMethodType": "propertyLease", 
@@ -45,7 +64,6 @@ Host: api-sandbox.ea.openprocurement.org
         "locality": "м. Київ"
       }
     }, 
-    "mode": "test", 
     "items": [
       {
         "description": "Земля для військовослужбовців", 
@@ -58,7 +76,7 @@ Host: api-sandbox.ea.openprocurement.org
           {
             "scheme": "CPVS", 
             "id": "PA01-7", 
-            "description": "Оренда"
+            "description": "This field is required."
           }
         ], 
         "address": {
@@ -69,8 +87,8 @@ Host: api-sandbox.ea.openprocurement.org
           "locality": "м. Київ"
         }, 
         "contractPeriod": {
-          "startDate": "2018-05-30T19:02:58.713827", 
-          "endDate": "2018-06-02T19:02:58.713827"
+          "startDate": "2018-07-07T15:44:36.881991", 
+          "endDate": "2018-07-10T15:44:36.881991"
         }, 
         "unit": {
           "code": "44617100-9", 
@@ -79,29 +97,30 @@ Host: api-sandbox.ea.openprocurement.org
         "quantity": 5.001
       }
     ], 
-    "dgfID": "219560"
+    "mode": "test"
   }
 }
 
 
 201 Created
 Content-Type: application/json
-Location: http://api-sandbox.ea.openprocurement.org/api/2.4/auctions/bacab87b56264568b59082d8ff724cce
+Location: http://api-sandbox.ea.openprocurement.org/api/2.4/auctions/6ea97f1e851943f8bfd174381fc1deb3
 X-Content-Type-Options: nosniff
 
 {
   "access": {
-    "token": "8164da3243104386b02a54665528347a"
+    "transfer": "2b94cb50e1144370af11c7a8fa287075", 
+    "token": "706b59321ec64d57964a2f21fde4f5de"
   }, 
   "data": {
     "procurementMethod": "open", 
-    "auctionID": "UA-EA-2018-05-28-000001", 
+    "auctionID": "UA-EA-2018-07-05-000001", 
     "enquiryPeriod": {
-      "startDate": "2018-05-28T19:03:01.837027+03:00", 
-      "endDate": "2018-06-08T20:00:00+03:00"
+      "startDate": "2018-07-05T15:44:40.361611+03:00", 
+      "endDate": "2018-07-16T20:00:00+03:00"
     }, 
     "submissionMethod": "electronicAuction", 
-    "next_check": "2018-06-08T20:00:00+03:00", 
+    "next_check": "2018-07-16T20:00:00+03:00", 
     "procuringEntity": {
       "contactPoint": {
         "name": "Державне управління справами", 
@@ -123,29 +142,49 @@ X-Content-Type-Options: nosniff
     }, 
     "owner": "broker", 
     "title_en": "[TESTING] ", 
-    "id": "bacab87b56264568b59082d8ff724cce", 
+    "id": "6ea97f1e851943f8bfd174381fc1deb3", 
     "title": "[ТЕСТУВАННЯ] футляри до державних нагород", 
     "tenderAttempts": 1, 
-    "dateModified": "2018-05-28T19:03:01.845486+03:00", 
+    "dateModified": "2018-07-05T15:44:40.372647+03:00", 
     "status": "active.tendering", 
     "tenderPeriod": {
-      "startDate": "2018-05-28T19:03:01.837027+03:00", 
-      "endDate": "2018-06-08T20:00:00+03:00"
+      "startDate": "2018-07-05T15:44:40.361611+03:00", 
+      "endDate": "2018-07-16T20:00:00+03:00"
     }, 
     "auctionPeriod": {
-      "shouldStartAfter": "2018-06-09T00:00:00+03:00"
+      "shouldStartAfter": "2018-07-17T00:00:00+03:00"
     }, 
     "procurementMethodType": "propertyLease", 
-    "dgfID": "219560", 
-    "date": "2018-05-28T19:03:01.837027+03:00", 
+    "date": "2018-07-05T15:44:40.361611+03:00", 
+    "lotIdentifier": "219560", 
     "rectificationPeriod": {
-      "startDate": "2018-05-28T19:03:01.837027+03:00", 
-      "endDate": "2018-06-03T20:00:00+03:00"
+      "startDate": "2018-07-05T15:44:40.361611+03:00", 
+      "endDate": "2018-07-11T20:00:00+03:00"
     }, 
     "contractTerms": {
-      "contractType": "lease", 
+      "type": "lease", 
       "leaseTerms": {
-        "leaseDuration": "P10Y"
+        "escalationClauses": [
+          {
+            "escalationPeriodicity": "P5M", 
+            "conditions": "conditions description", 
+            "escalationStepPercentage": 0.1, 
+            "id": "8e7b12ee3c444f46af72606c4d10b2ab"
+          }
+        ], 
+        "leaseDuration": "P10Y", 
+        "taxHolidays": [
+          {
+            "taxHolidaysDuration": "P5M", 
+            "conditions": "conditions description", 
+            "id": "abb5892c185c4994bf7f5404310f9337", 
+            "value": {
+              "currency": "UAH", 
+              "amount": 100.0, 
+              "valueAddedTaxIncluded": true
+            }
+          }
+        ]
       }
     }, 
     "minimalStep": {
@@ -165,7 +204,7 @@ X-Content-Type-Options: nosniff
           {
             "scheme": "CPVS", 
             "id": "PA01-7", 
-            "description": "Оренда"
+            "description": "This field is required."
           }
         ], 
         "address": {
@@ -176,14 +215,14 @@ X-Content-Type-Options: nosniff
           "locality": "м. Київ"
         }, 
         "quantity": 5.001, 
-        "id": "4b1b5fe3c5b34c589d56658bfef148a9", 
+        "id": "74682b00914943b6a8c1145e455e9d75", 
         "unit": {
           "code": "44617100-9", 
           "name": "item"
         }, 
         "contractPeriod": {
-          "startDate": "2018-05-30T19:02:58.713827+03:00", 
-          "endDate": "2018-06-02T19:02:58.713827+03:00"
+          "startDate": "2018-07-07T15:44:36.881991+03:00", 
+          "endDate": "2018-07-10T15:44:36.881991+03:00"
         }
       }
     ], 

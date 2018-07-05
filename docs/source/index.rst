@@ -1,20 +1,17 @@
-.. openprocurement.auctions.dgf documentation master file, created by
-   sphinx-quickstart on Wed Oct  1 02:29:13 2014.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. openprocurement.auctions.lease documentation master file, created by
+   sphinx-quickstart on Wed Oct  1 02:29:13 2014;
+   (forked from `dgf` package and manually updated)
 
-.. title:: OpenProcurement API
+
+.. title:: OpenProcurement SALE:LEASE API
 
 .. meta::
     :google-site-verification: kmqHGqhpzgef4t5OVKoQCPa5v-CK14HOLmVrZV2QgmQ
 
-Welcome to openprocurement.auctions.dgf's documentation!
-========================================================
+Welcome to `openprocurement.auctions.lease's` documentation!
+============================================================
 
-Please report any problems or suggestions for improvement either via the
-`mailing list <http://groups.google.com/group/open-procurement-general>`_ or
-the `issue tracker
-<https://github.com/openprocurement/openprocurement.auctions.dgf/issues>`_.
+Please report any problems or suggestions for improvement either via the `Issue tracker <https://github.com/openprocurement/openprocurement.auctions.lease/issues>`_.
 
 Contents:
 
@@ -22,8 +19,8 @@ Contents:
    :maxdepth: 2
 
    overview
-   standard/index
    glossary
+   standard/index
    upload
    award_workflow
    tutorial

@@ -1,4 +1,4 @@
-PATCH /api/2.4/auctions/246d20f56b0a4601bd4b5ddd3ac636e9/contracts/1bb4e628954a47f3a89125866c880f00?acc_token=06bf67377235444180324a6ec7a7b41d HTTP/1.0
+PATCH /api/2.4/auctions/bf6575a30f2c4465ae43e06981df3b5a/contracts/bf54ce84c6e6418382f49614f55d0101?acc_token=686740317fd249638e3ee0420d268ebf HTTP/1.0
 Authorization: Basic YnJva2VyOg==
 Content-Length: 80
 Content-Type: application/json
@@ -7,7 +7,7 @@ Host: api-sandbox.ea.openprocurement.org
 {
   "data": {
     "status": "active", 
-    "dateSigned": "2018-05-28T19:03:07.364097+03:00"
+    "dateSigned": "2018-07-05T15:44:47.244215+03:00"
   }
 }
 
@@ -23,22 +23,22 @@ X-Content-Type-Options: nosniff
       {
         "hash": "md5:00000000000000000000000000000000", 
         "format": "application/msword", 
-        "url": "http://public.docs-sandbox.ea.openprocurement.org/get/896d489da9d74cc9b38e1b8acb6caf01?KeyID=7149c8cc&Signature=%2FPNXKssC1k3uSmpkRC5HNRsKm%2FqqhKJCfz7iGpg4NvXw5zpliC1cbosi9mcf5XA%252BAYoV7%2FVHlpyb1tY7n%2FS0Dw%253D%253D", 
+        "url": "http://public.docs-sandbox.ea.openprocurement.org/get/9b917efd600c445fad8457fd30f5cc5b?KeyID=172d32c8&Signature=d4SD5yjKKpZpExDc%2Fngc5rgeUSnIs1YOHk1gBD%2F0ndHMuBDR5t0PKoezrR7km0HjeOBcStVCrTJsOUoxoAerDA%253D%253D", 
         "title": "contract_first_document.doc", 
         "documentOf": "tender", 
-        "datePublished": "2018-05-28T19:03:06.977922+03:00", 
-        "dateModified": "2018-05-28T19:03:06.977944+03:00", 
-        "id": "8f222525b9e14ddcbc45f735d686ec53"
+        "datePublished": "2018-07-05T15:44:46.883617+03:00", 
+        "dateModified": "2018-07-05T15:44:46.883639+03:00", 
+        "id": "962a2dccfd3248178dba9a291dfae225"
       }, 
       {
         "hash": "md5:00000000000000000000000000000000", 
         "format": "application/msword", 
-        "url": "http://public.docs-sandbox.ea.openprocurement.org/get/56888ce263254954812bd739c579b282?KeyID=7149c8cc&Signature=KpqYmCHeGiflvKB6J6m36no4so%2FXztSIKeEsGa2e1QwOZZVYoxXKwVuL0oIqLDmJDY1eCeM2NJ2fd5qOvgHnCw%253D%253D", 
+        "url": "http://public.docs-sandbox.ea.openprocurement.org/get/969aa13f4a1c435ab43c7b427af92ab3?KeyID=172d32c8&Signature=0iJX1gukI8TnCgWs%2FyLb%2FB%2F7%252BKDkJPwE0sJP7On10lxJ4oMN0jcmu7yPIVq1PhTZzNOyjOmgB24pfQnDjtT9CQ%253D%253D", 
         "title": "contract_second_document.doc", 
         "documentOf": "tender", 
-        "datePublished": "2018-05-28T19:03:07.239455+03:00", 
-        "dateModified": "2018-05-28T19:03:07.239484+03:00", 
-        "id": "8b9fef12b1bf4667aea993380a35f276"
+        "datePublished": "2018-07-05T15:44:47.054363+03:00", 
+        "dateModified": "2018-07-05T15:44:47.054390+03:00", 
+        "id": "7ddd64f00176447f9efe57751f7361fe"
       }
     ], 
     "items": [
@@ -53,7 +53,7 @@ X-Content-Type-Options: nosniff
           {
             "scheme": "CPVS", 
             "id": "PA01-7", 
-            "description": "Оренда"
+            "description": "This field is required."
           }
         ], 
         "address": {
@@ -64,14 +64,14 @@ X-Content-Type-Options: nosniff
           "locality": "м. Київ"
         }, 
         "quantity": 5.001, 
-        "id": "3b845b808a6345589d0777eeb3b79c6e", 
+        "id": "34d79ae5dcdb4eb4b61dba5d6a4000d7", 
         "unit": {
           "code": "44617100-9", 
           "name": "item"
         }, 
         "contractPeriod": {
-          "startDate": "2018-05-30T19:02:58.713827+03:00", 
-          "endDate": "2018-06-02T19:02:58.713827+03:00"
+          "startDate": "2018-07-07T15:44:36.881991+03:00", 
+          "endDate": "2018-07-10T15:44:36.881991+03:00"
         }
       }
     ], 
@@ -98,19 +98,19 @@ X-Content-Type-Options: nosniff
       }
     ], 
     "period": {
-      "startDate": "2018-05-28T19:02:59.179463+03:00", 
-      "endDate": "2019-05-28T19:02:59.179463+03:00"
+      "startDate": "2018-07-05T15:44:37.150620+03:00", 
+      "endDate": "2019-07-05T15:44:37.150620+03:00"
     }, 
-    "dateSigned": "2018-05-28T19:03:07.364097+03:00", 
+    "dateSigned": "2018-07-05T15:44:47.244215+03:00", 
     "value": {
       "currency": "UAH", 
       "amount": 501.0, 
       "valueAddedTaxIncluded": true
     }, 
-    "date": "2018-05-28T19:03:07.435336+03:00", 
-    "awardID": "708d3fdf13ac4868b0df09cf479ceb06", 
-    "id": "1bb4e628954a47f3a89125866c880f00", 
-    "contractID": "UA-EA-2018-05-28-000001-1"
+    "date": "2018-07-05T15:44:47.325639+03:00", 
+    "awardID": "c525bd6997924149a071ab0d845875f0", 
+    "id": "bf54ce84c6e6418382f49614f55d0101", 
+    "contractID": "UA-EA-2018-07-05-000001-1"
   }
 }
 

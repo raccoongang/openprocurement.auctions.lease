@@ -199,7 +199,7 @@ ContractTerms
 Schema
 ------
 
-:contractType:
+:Type:
     string, required
 
     The only value for this field is ``lease``.

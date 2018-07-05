@@ -1,15 +1,34 @@
 POST /api/2.4/auctions?opt_pretty=1 HTTP/1.0
 Authorization: Basic YnJva2VyOg==
-Content-Length: 2246
+Content-Length: 2536
 Content-Type: application/json
 Host: api-sandbox.ea.openprocurement.org
 
 {
   "data": {
+    "lotIdentifier": "219560", 
     "contractTerms": {
-      "contractType": "lease", 
+      "type": "lease", 
       "leaseTerms": {
-        "leaseDuration": "P10Y"
+        "escalationClauses": [
+          {
+            "conditions": "conditions description", 
+            "escalationPeriodicity": "P5M", 
+            "escalationStepPercentage": 0.1
+          }
+        ], 
+        "leaseDuration": "P10Y", 
+        "taxHolidays": [
+          {
+            "taxHolidaysDuration": "P5M", 
+            "conditions": "conditions description", 
+            "value": {
+              "currency": "UAH", 
+              "amount": 100.0, 
+              "valueAddedTaxIncluded": true
+            }
+          }
+        ]
       }
     }, 
     "title": "футляри до державних нагород", 
@@ -18,7 +37,7 @@ Host: api-sandbox.ea.openprocurement.org
       "amount": 35
     }, 
     "auctionPeriod": {
-      "startDate": "2018-06-03T19:02:59.179463"
+      "startDate": "2018-07-11T15:44:37.150620+03:00"
     }, 
     "tenderAttempts": 1, 
     "procurementMethodType": "propertyLease", 
@@ -26,40 +45,6 @@ Host: api-sandbox.ea.openprocurement.org
       "currency": "UAH", 
       "amount": 100
     }, 
-    "dgfID": "219560", 
-    "items": [
-      {
-        "description": "Земля для військовослужбовців", 
-        "classification": {
-          "scheme": "CAV-PS", 
-          "id": "04121000-2", 
-          "description": "Земельні ділянки"
-        }, 
-        "additionalClassifications": [
-          {
-            "scheme": "CPVS", 
-            "id": "PA01-7", 
-            "description": "Оренда"
-          }
-        ], 
-        "address": {
-          "countryName": "Україна", 
-          "postalCode": "79000", 
-          "region": "м. Київ", 
-          "streetAddress": "вул. Банкова 1", 
-          "locality": "м. Київ"
-        }, 
-        "contractPeriod": {
-          "startDate": "2018-05-30T19:02:58.713827", 
-          "endDate": "2018-06-02T19:02:58.713827"
-        }, 
-        "unit": {
-          "code": "44617100-9", 
-          "name": "item"
-        }, 
-        "quantity": 5.001
-      }
-    ], 
     "procuringEntity": {
       "contactPoint": {
         "name": "Державне управління справами", 
@@ -78,7 +63,40 @@ Host: api-sandbox.ea.openprocurement.org
         "streetAddress": "вул. Банкова, 11, корпус 1", 
         "locality": "м. Київ"
       }
-    }
+    }, 
+    "items": [
+      {
+        "description": "Земля для військовослужбовців", 
+        "classification": {
+          "scheme": "CAV-PS", 
+          "id": "04121000-2", 
+          "description": "Земельні ділянки"
+        }, 
+        "additionalClassifications": [
+          {
+            "scheme": "CPVS", 
+            "id": "PA01-7", 
+            "description": "This field is required."
+          }
+        ], 
+        "address": {
+          "countryName": "Україна", 
+          "postalCode": "79000", 
+          "region": "м. Київ", 
+          "streetAddress": "вул. Банкова 1", 
+          "locality": "м. Київ"
+        }, 
+        "contractPeriod": {
+          "startDate": "2018-07-07T15:44:36.881991", 
+          "endDate": "2018-07-10T15:44:36.881991"
+        }, 
+        "unit": {
+          "code": "44617100-9", 
+          "name": "item"
+        }, 
+        "quantity": 5.001
+      }
+    ]
   }
 }
 

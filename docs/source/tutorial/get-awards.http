@@ -1,4 +1,4 @@
-GET /api/2.4/auctions/246d20f56b0a4601bd4b5ddd3ac636e9/awards HTTP/1.0
+GET /api/2.4/auctions/bf6575a30f2c4465ae43e06981df3b5a/awards HTTP/1.0
 Authorization: Basic YnJva2VyOg==
 Host: api-sandbox.ea.openprocurement.org
 
@@ -12,16 +12,16 @@ X-Content-Type-Options: nosniff
     {
       "status": "pending.verification", 
       "paymentPeriod": {
-        "startDate": "2018-05-28T19:03:06.074292+03:00", 
-        "endDate": "2018-06-26T18:00:00+03:00"
+        "startDate": "2018-07-05T15:44:45.557459+03:00", 
+        "endDate": "2018-08-02T18:00:00.557459+03:00"
       }, 
       "verificationPeriod": {
-        "startDate": "2018-05-28T19:03:06.074292+03:00", 
-        "endDate": "2018-06-06T18:00:00+03:00"
+        "startDate": "2018-07-05T15:44:45.557459+03:00", 
+        "endDate": "2018-07-13T18:00:00.557459+03:00"
       }, 
       "signingPeriod": {
-        "startDate": "2018-05-28T19:03:06.074292+03:00", 
-        "endDate": "2018-06-26T18:00:00+03:00"
+        "startDate": "2018-07-05T15:44:45.557459+03:00", 
+        "endDate": "2018-08-02T18:00:00.557459+03:00"
       }, 
       "suppliers": [
         {
@@ -46,21 +46,21 @@ X-Content-Type-Options: nosniff
         }
       ], 
       "complaintPeriod": {
-        "startDate": "2018-05-28T19:03:06.074292+03:00"
+        "startDate": "2018-07-05T15:44:45.557459+03:00"
       }, 
-      "bid_id": "3ce3413a56584eb1a7a870e01121effb", 
+      "bid_id": "19d92b47538f4bcfb7d087eaabb84afa", 
       "value": {
         "currency": "UAH", 
         "amount": 501.0, 
         "valueAddedTaxIncluded": true
       }, 
-      "date": "2018-05-28T19:03:06.074292+03:00", 
-      "id": "708d3fdf13ac4868b0df09cf479ceb06"
+      "date": "2018-07-05T15:44:45.557459+03:00", 
+      "id": "c525bd6997924149a071ab0d845875f0"
     }, 
     {
       "status": "pending.waiting", 
       "complaintPeriod": {
-        "startDate": "2018-05-28T19:03:06.074292+03:00"
+        "startDate": "2018-07-05T15:44:45.557459+03:00"
       }, 
       "suppliers": [
         {
@@ -84,14 +84,14 @@ X-Content-Type-Options: nosniff
           }
         }
       ], 
-      "bid_id": "4ed57eda57b941399523f19f03b9ada4", 
+      "bid_id": "192d6412b08e4743b9cf6d267538c72a", 
       "value": {
         "currency": "UAH", 
         "amount": 500.0, 
         "valueAddedTaxIncluded": true
       }, 
-      "date": "2018-05-28T19:03:06.074292+03:00", 
-      "id": "623e2ec3b03a4cbf82485097b8c3cc91"
+      "date": "2018-07-05T15:44:45.557459+03:00", 
+      "id": "94df6a7fba0e49749ed3009cf0d1feae"
     }
   ]
 }

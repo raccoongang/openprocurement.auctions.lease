@@ -37,7 +37,7 @@ PropertyLease procedure has a specific data structure called `contractTerms`.
 
 The structure must have mandatory fields:
 
-* `contractType` containing the only possible value `lease`.
+* `type` containing the only possible value `lease`.
 * `leaseTerms`.
 
 `leaseTerms` has one mandatory and two optional fields:
@@ -51,7 +51,7 @@ See how the `contractTerms` section should look like:
 .. code-block:: JSON
 
   "contractTerms": {  
-    "contractType": "lease",
+    "type": "lease",
     "leaseTerms": {  
         "leaseDuration": "P10Y",
         "taxHolidays": [  
@@ -81,6 +81,11 @@ The other specific feature for the propertyLease procedure is an option to set `
 For some reasons Organizer may need to have 3 working days pause between `tenderPeriod.endDate` and `auctionPeriod.startDate`.
 
 When `tenderPeriod.endDate` is passed it must be set exactly 3 working days before `auctionPeriod.startDate`.
+
+For any other `tenderPeriod.endDate` ValidationError will be raised:
+
+.. include:: tutorial/auction-post-wrong-tenderperiod-enddate.http
+   :code:
 
 If `tenderPeriod.endDate` is not passed it will be calculated automatically as 8PM day before `auctionPeriod.startDate`.
 

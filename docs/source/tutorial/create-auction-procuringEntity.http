@@ -1,17 +1,36 @@
 POST /api/2.4/auctions?opt_pretty=1 HTTP/1.0
 Authorization: Basic YnJva2VyOg==
-Content-Length: 3158
+Content-Length: 3442
 Content-Type: application/json
 Host: api-sandbox.ea.openprocurement.org
 
 {
   "data": {
+    "lotIdentifier": "219560", 
     "description_en": "Cases with state awards", 
     "description": "футляри до державних нагород", 
     "contractTerms": {
-      "contractType": "lease", 
+      "type": "lease", 
       "leaseTerms": {
-        "leaseDuration": "P10Y"
+        "escalationClauses": [
+          {
+            "conditions": "conditions description", 
+            "escalationPeriodicity": "P5M", 
+            "escalationStepPercentage": 0.1
+          }
+        ], 
+        "leaseDuration": "P10Y", 
+        "taxHolidays": [
+          {
+            "taxHolidaysDuration": "P5M", 
+            "conditions": "conditions description", 
+            "value": {
+              "currency": "UAH", 
+              "amount": 100.0, 
+              "valueAddedTaxIncluded": true
+            }
+          }
+        ]
       }
     }, 
     "title": "футляри до державних нагород", 
@@ -20,7 +39,7 @@ Host: api-sandbox.ea.openprocurement.org
       "amount": 35
     }, 
     "auctionPeriod": {
-      "startDate": "2018-06-11"
+      "startDate": "2018-07-19"
     }, 
     "tenderAttempts": 1, 
     "procurementMethodType": "propertyLease", 
@@ -29,44 +48,6 @@ Host: api-sandbox.ea.openprocurement.org
       "amount": 100
     }, 
     "description_ru": "футляры к государственным наградам", 
-    "dgfID": "219560", 
-    "title_ru": "футляры к государственным наградам", 
-    "items": [
-      {
-        "description": "Земля для військовослужбовців", 
-        "classification": {
-          "scheme": "CAV-PS", 
-          "id": "04121000-2", 
-          "description": "Земельні ділянки"
-        }, 
-        "description_en": "Cases with state awards", 
-        "additionalClassifications": [
-          {
-            "scheme": "CPVS", 
-            "id": "PA01-7", 
-            "description": "Оренда"
-          }
-        ], 
-        "address": {
-          "countryName": "Україна", 
-          "postalCode": "79000", 
-          "region": "м. Київ", 
-          "streetAddress": "вул. Банкова 1", 
-          "locality": "м. Київ"
-        }, 
-        "quantity": 5.001, 
-        "description_ru": "футляры к государственным наградам", 
-        "unit": {
-          "code": "44617100-9", 
-          "name": "item"
-        }, 
-        "contractPeriod": {
-          "startDate": "2018-05-30T19:02:58.713827", 
-          "endDate": "2018-06-02T19:02:58.713827"
-        }
-      }
-    ], 
-    "title_en": "Cases with state awards", 
     "procuringEntity": {
       "contactPoint": {
         "name": "Державне управління справами", 
@@ -85,58 +66,116 @@ Host: api-sandbox.ea.openprocurement.org
         "streetAddress": "вул. Банкова, 11, корпус 1", 
         "locality": "м. Київ"
       }
-    }
+    }, 
+    "title_ru": "футляры к государственным наградам", 
+    "items": [
+      {
+        "description": "Земля для військовослужбовців", 
+        "classification": {
+          "scheme": "CAV-PS", 
+          "id": "04121000-2", 
+          "description": "Земельні ділянки"
+        }, 
+        "description_en": "Cases with state awards", 
+        "additionalClassifications": [
+          {
+            "scheme": "CPVS", 
+            "id": "PA01-7", 
+            "description": "This field is required."
+          }
+        ], 
+        "address": {
+          "countryName": "Україна", 
+          "postalCode": "79000", 
+          "region": "м. Київ", 
+          "streetAddress": "вул. Банкова 1", 
+          "locality": "м. Київ"
+        }, 
+        "quantity": 5.001, 
+        "description_ru": "футляры к государственным наградам", 
+        "unit": {
+          "code": "44617100-9", 
+          "name": "item"
+        }, 
+        "contractPeriod": {
+          "startDate": "2018-07-07T15:44:36.881991", 
+          "endDate": "2018-07-10T15:44:36.881991"
+        }
+      }
+    ], 
+    "title_en": "Cases with state awards"
   }
 }
 
 
 201 Created
 Content-Type: application/json
-Location: http://api-sandbox.ea.openprocurement.org/api/2.4/auctions/e589f73396de4c75bbba0ef0a3a1d971
+Location: http://api-sandbox.ea.openprocurement.org/api/2.4/auctions/995eb51dc28c4aeaa4624b658593b117
 X-Content-Type-Options: nosniff
 
 {
   "access": {
-    "token": "f047d95916a74118bb883896564b9a3f"
+    "transfer": "e7b243a833c841c3baabe436dc79c772", 
+    "token": "0259f966168e46109b773d77072102db"
   }, 
   "data": {
     "procurementMethod": "open", 
-    "auctionID": "UA-EA-2018-05-28-000003", 
+    "auctionID": "UA-EA-2018-07-05-000003", 
     "enquiryPeriod": {
-      "startDate": "2018-05-28T19:03:04.589432+03:00", 
-      "endDate": "2018-06-10T20:00:00+03:00"
+      "startDate": "2018-07-05T15:44:43.654641+03:00", 
+      "endDate": "2018-07-18T20:00:00+03:00"
     }, 
     "submissionMethod": "electronicAuction", 
-    "next_check": "2018-06-10T20:00:00+03:00", 
+    "next_check": "2018-07-18T20:00:00+03:00", 
     "awardCriteria": "highestCost", 
     "owner": "broker", 
-    "id": "e589f73396de4c75bbba0ef0a3a1d971", 
+    "id": "995eb51dc28c4aeaa4624b658593b117", 
     "description": "футляри до державних нагород", 
     "title": "футляри до державних нагород", 
     "tenderAttempts": 1, 
     "auctionPeriod": {
-      "shouldStartAfter": "2018-06-11T00:00:00+03:00"
+      "shouldStartAfter": "2018-07-19T00:00:00+03:00"
     }, 
     "description_ru": "футляры к государственным наградам", 
-    "dateModified": "2018-05-28T19:03:04.598947+03:00", 
+    "dateModified": "2018-07-05T15:44:43.667419+03:00", 
     "status": "active.tendering", 
     "tenderPeriod": {
-      "startDate": "2018-05-28T19:03:04.589432+03:00", 
-      "endDate": "2018-06-10T20:00:00+03:00"
+      "startDate": "2018-07-05T15:44:43.654641+03:00", 
+      "endDate": "2018-07-18T20:00:00+03:00"
     }, 
     "title_en": "Cases with state awards", 
     "procurementMethodType": "propertyLease", 
     "description_en": "Cases with state awards", 
-    "dgfID": "219560", 
-    "date": "2018-05-28T19:03:04.589432+03:00", 
+    "date": "2018-07-05T15:44:43.654641+03:00", 
+    "lotIdentifier": "219560", 
     "rectificationPeriod": {
-      "startDate": "2018-05-28T19:03:04.589432+03:00", 
-      "endDate": "2018-06-05T20:00:00+03:00"
+      "startDate": "2018-07-05T15:44:43.654641+03:00", 
+      "endDate": "2018-07-13T20:00:00+03:00"
     }, 
     "contractTerms": {
-      "contractType": "lease", 
+      "type": "lease", 
       "leaseTerms": {
-        "leaseDuration": "P10Y"
+        "escalationClauses": [
+          {
+            "escalationPeriodicity": "P5M", 
+            "conditions": "conditions description", 
+            "escalationStepPercentage": 0.1, 
+            "id": "32138c866af04bc89790cc499745b77a"
+          }
+        ], 
+        "leaseDuration": "P10Y", 
+        "taxHolidays": [
+          {
+            "taxHolidaysDuration": "P5M", 
+            "conditions": "conditions description", 
+            "id": "5cc8c1ab568b4390b5c4d3505e13fa20", 
+            "value": {
+              "currency": "UAH", 
+              "amount": 100.0, 
+              "valueAddedTaxIncluded": true
+            }
+          }
+        ]
       }
     }, 
     "minimalStep": {
@@ -157,7 +196,7 @@ X-Content-Type-Options: nosniff
           {
             "scheme": "CPVS", 
             "id": "PA01-7", 
-            "description": "Оренда"
+            "description": "This field is required."
           }
         ], 
         "address": {
@@ -169,14 +208,14 @@ X-Content-Type-Options: nosniff
         }, 
         "quantity": 5.001, 
         "description_ru": "футляры к государственным наградам", 
-        "id": "e9e1755a5a9245b0af8fc25870a07245", 
+        "id": "c6d02d15489f406ea4214aeec4a3d374", 
         "unit": {
           "code": "44617100-9", 
           "name": "item"
         }, 
         "contractPeriod": {
-          "startDate": "2018-05-30T19:02:58.713827+03:00", 
-          "endDate": "2018-06-02T19:02:58.713827+03:00"
+          "startDate": "2018-07-07T15:44:36.881991+03:00", 
+          "endDate": "2018-07-10T15:44:36.881991+03:00"
         }
       }
     ], 

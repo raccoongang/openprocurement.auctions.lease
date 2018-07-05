@@ -1,6 +1,6 @@
-POST /api/2.4/auctions/246d20f56b0a4601bd4b5ddd3ac636e9/documents?acc_token=06bf67377235444180324a6ec7a7b41d HTTP/1.0
+POST /api/2.4/auctions/bf6575a30f2c4465ae43e06981df3b5a/documents?acc_token=686740317fd249638e3ee0420d268ebf HTTP/1.0
 Authorization: Basic YnJva2VyOg==
-Content-Length: 430
+Content-Length: 428
 Content-Type: application/json
 Host: api-sandbox.ea.openprocurement.org
 
@@ -10,7 +10,7 @@ Host: api-sandbox.ea.openprocurement.org
     "hash": "md5:00000000000000000000000000000000", 
     "description": "First illustration description", 
     "title": "first_illustration.jpeg", 
-    "url": "http://public.docs-sandbox.ea.openprocurement.org/get/1fcf682d16be4b55bab89065a0d9b5bb?KeyID=7149c8cc&Signature=9ipzic9%2BgVU8FnYxrVTTaTcdzScMCkZEMWbj99tIU5oLySOsESzLg6YmlvnAr4hCGL1eFoZpK9Ln%2B0hGhMIEBQ%3D%3D", 
+    "url": "http://public.docs-sandbox.ea.openprocurement.org/get/526d91d33db34ca4b233b5855c6c22dd?KeyID=172d32c8&Signature=7BS8Nz2Usg5ZsX12Zd442%2BWh89B1vs6tCEc36tApSLyAv7k6xnhVWXsfQj4mIgpPdgA7Ze9CEv1ESDdYtEMOCg%3D%3D", 
     "format": "image/jpeg", 
     "documentType": "illustration"
   }
@@ -19,7 +19,7 @@ Host: api-sandbox.ea.openprocurement.org
 
 201 Created
 Content-Type: application/json
-Location: http://api-sandbox.ea.openprocurement.org/api/2.4/auctions/246d20f56b0a4601bd4b5ddd3ac636e9/documents/c6bd2aaef7cf42c5ba4f0dfad08285e2
+Location: http://api-sandbox.ea.openprocurement.org/api/2.4/auctions/bf6575a30f2c4465ae43e06981df3b5a/documents/031929ac55d141b083d831f16cc9fecd
 X-Content-Type-Options: nosniff
 
 {
@@ -28,13 +28,13 @@ X-Content-Type-Options: nosniff
     "hash": "md5:00000000000000000000000000000000", 
     "description": "First illustration description", 
     "format": "image/jpeg", 
-    "url": "http://public.docs-sandbox.ea.openprocurement.org/get/1fcf682d16be4b55bab89065a0d9b5bb?KeyID=7149c8cc&Signature=0sMj57ikTcJbcIDCbBhHxhs6N%2Fta3ixRc1IySJnogUHEOxcw6p5%2FUSy9BxMGdvNVfdiiG2Y1W5Fhdcja%252BrqOBg%253D%253D", 
+    "url": "http://public.docs-sandbox.ea.openprocurement.org/get/526d91d33db34ca4b233b5855c6c22dd?KeyID=172d32c8&Signature=xuvepRcqmKQPNLtNMz1cmYOE8GiU%252Bf5Eh7Ams09PmLwV3CKbOWuxOxelmmExxWtkYWrdpfF70RJv8b1ltcIzAw%253D%253D", 
     "title": "first_illustration.jpeg", 
     "documentOf": "tender", 
-    "datePublished": "2018-05-28T19:03:04.990914+03:00", 
+    "datePublished": "2018-07-05T15:44:44.148863+03:00", 
     "documentType": "illustration", 
-    "dateModified": "2018-05-28T19:03:04.990934+03:00", 
-    "id": "c6bd2aaef7cf42c5ba4f0dfad08285e2"
+    "dateModified": "2018-07-05T15:44:44.148896+03:00", 
+    "id": "031929ac55d141b083d831f16cc9fecd"
   }
 }
 

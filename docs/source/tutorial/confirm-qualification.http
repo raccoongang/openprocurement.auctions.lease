@@ -1,4 +1,4 @@
-PATCH /api/2.4/auctions/246d20f56b0a4601bd4b5ddd3ac636e9/awards/708d3fdf13ac4868b0df09cf479ceb06?acc_token=06bf67377235444180324a6ec7a7b41d HTTP/1.0
+PATCH /api/2.4/auctions/bf6575a30f2c4465ae43e06981df3b5a/awards/c525bd6997924149a071ab0d845875f0?acc_token=686740317fd249638e3ee0420d268ebf HTTP/1.0
 Authorization: Basic YnJva2VyOg==
 Content-Length: 30
 Content-Type: application/json
@@ -19,42 +19,42 @@ X-Content-Type-Options: nosniff
   "data": {
     "status": "active", 
     "paymentPeriod": {
-      "startDate": "2018-05-28T19:03:06.074292+03:00", 
-      "endDate": "2018-05-28T19:03:06.703749+03:00"
+      "startDate": "2018-07-05T15:44:45.557459+03:00", 
+      "endDate": "2018-07-05T15:44:46.426889+03:00"
     }, 
     "documents": [
       {
         "hash": "md5:00000000000000000000000000000000", 
         "author": "bid_owner", 
         "title": "SignedAuctionProtocol.pdf", 
-        "url": "http://public.docs-sandbox.ea.openprocurement.org/get/f4402467721a4eee9ef72e70a4ff04f1?KeyID=7149c8cc&Signature=FWQKkrdr%2Fo95YrYaNn881fhFABAvU2yXd77Dz0R8h01tiB4%2FFX4efEmV4eK9jcB2Kmps5x0jStFNTA7Kxl4YBA%253D%253D", 
+        "url": "http://public.docs-sandbox.ea.openprocurement.org/get/634b8812abec4bed88f99fae0b19e0ed?KeyID=172d32c8&Signature=AM16nchbBzt03Ga62R68itoWzRR1XZean6QW6kjlgzA7kwBza3Nm%252BfNpS0P%252BgyngKTjIu5Rq3KE7jjhkYiaWCQ%253D%253D", 
         "format": "application/pdf", 
         "documentOf": "tender", 
-        "datePublished": "2018-05-28T19:03:06.372223+03:00", 
+        "datePublished": "2018-07-05T15:44:46.033757+03:00", 
         "documentType": "auctionProtocol", 
-        "dateModified": "2018-05-28T19:03:06.372249+03:00", 
-        "id": "627c441c40dd4635ac691c549cacba8c"
+        "dateModified": "2018-07-05T15:44:46.033778+03:00", 
+        "id": "045ca245f33740a7a0e0d3cea8dc7b4e"
       }, 
       {
         "hash": "md5:00000000000000000000000000000000", 
         "author": "auction_owner", 
         "title": "SignedAuctionProtocol.pdf", 
-        "url": "http://public.docs-sandbox.ea.openprocurement.org/get/1ba9a8b51cd14c05aa42fef2bb3965db?KeyID=7149c8cc&Signature=z%2Ftx0X6an%252B1mIrbwMmuknuPp%252BFVzm3Ps4I%2FXguLCJe5mLZLoqJHlVkZq%252B93cTVvvsRiGx2ASxd%2FtV762p80VBw%253D%253D", 
+        "url": "http://public.docs-sandbox.ea.openprocurement.org/get/87da15a07f5e4809a4b4a2ab9c16bae1?KeyID=172d32c8&Signature=12lOdsrwdSYqiYe%252BaDBYs444ZR61xmz2cuUwu6T6zEOWS3cBWSbgY%2FqEy5dlgw7PVR9npNInMuvdgSucfh8%252BDA%253D%253D", 
         "format": "application/pdf", 
         "documentOf": "tender", 
-        "datePublished": "2018-05-28T19:03:06.459190+03:00", 
+        "datePublished": "2018-07-05T15:44:46.170042+03:00", 
         "documentType": "auctionProtocol", 
-        "dateModified": "2018-05-28T19:03:06.459214+03:00", 
-        "id": "77e9d9a7876740f1a64931dd4f96989c"
+        "dateModified": "2018-07-05T15:44:46.170096+03:00", 
+        "id": "850eff6be8de4f70922aa99415eec581"
       }
     ], 
     "verificationPeriod": {
-      "startDate": "2018-05-28T19:03:06.074292+03:00", 
-      "endDate": "2018-05-28T19:03:06.589568+03:00"
+      "startDate": "2018-07-05T15:44:45.557459+03:00", 
+      "endDate": "2018-07-05T15:44:46.310338+03:00"
     }, 
     "complaintPeriod": {
-      "startDate": "2018-05-28T19:03:06.074292+03:00", 
-      "endDate": "2018-05-28T19:03:06.703749+03:00"
+      "startDate": "2018-07-05T15:44:45.557459+03:00", 
+      "endDate": "2018-07-05T15:44:46.426889+03:00"
     }, 
     "suppliers": [
       {
@@ -79,17 +79,17 @@ X-Content-Type-Options: nosniff
       }
     ], 
     "signingPeriod": {
-      "startDate": "2018-05-28T19:03:06.074292+03:00", 
-      "endDate": "2018-06-26T18:00:00+03:00"
+      "startDate": "2018-07-05T15:44:45.557459+03:00", 
+      "endDate": "2018-08-02T18:00:00.557459+03:00"
     }, 
-    "bid_id": "3ce3413a56584eb1a7a870e01121effb", 
+    "bid_id": "19d92b47538f4bcfb7d087eaabb84afa", 
     "value": {
       "currency": "UAH", 
       "amount": 501.0, 
       "valueAddedTaxIncluded": true
     }, 
-    "date": "2018-05-28T19:03:06.709267+03:00", 
-    "id": "708d3fdf13ac4868b0df09cf479ceb06"
+    "date": "2018-07-05T15:44:46.433858+03:00", 
+    "id": "c525bd6997924149a071ab0d845875f0"
   }
 }
 
