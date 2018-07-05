@@ -211,7 +211,7 @@ class LeaseTerms(Model):
 
 class ContractTerms(Model):
 
-    contractType = StringType(required=True, choices=['lease'])
+    type = StringType(required=True, choices=['lease'])
     leaseTerms = ModelType(LeaseTerms, required=True)
 
 
@@ -231,7 +231,7 @@ class Auction(BaseAuction):
     cancellations = ListType(ModelType(Cancellation), default=list())
     complaints = ListType(ModelType(Complaint), default=list())
     contracts = ListType(ModelType(Contract), default=list())
-    dgfID = StringType()
+    lotIdentifier = StringType()
     documents = ListType(ModelType(Document), default=list())  # All documents and attachments related to the auction.
     enquiryPeriod = ModelType(Period)  # The period during which enquiries may be made and will be answered.
     rectificationPeriod = ModelType(RectificationPeriod)  # The period during which editing of main procedure fields are allowed
@@ -276,8 +276,8 @@ class Auction(BaseAuction):
         if value.currency != u'UAH':
             raise ValidationError(u"currency should be only UAH")
 
-    def validate_dgfID(self, data, dgfID):
-        if not dgfID:
+    def validate_lotIdentifier(self, data, lotIdentifier):
+        if not lotIdentifier:
             if get_auction_creation_date(data) > DGF_ID_REQUIRED_FROM:
                 raise ValidationError(u'This field is required.')
 

@@ -20,7 +20,7 @@ class ContractTermsTest(unittest.TestCase):
     @mock.patch('openprocurement.auctions.lease.models.get_auction')
     def test_ContractTerms_model(self, mock_get_auction):
 
-        data = {"contractType": "lease", "leaseTerms": {"leaseDuration": "P10Y", 
+        data = {"type": "lease", "leaseTerms": {"leaseDuration": "P10Y",
         "taxHolidays": [
             {
                 "taxHolidaysDuration": "P5M",
@@ -48,12 +48,12 @@ class ContractTermsTest(unittest.TestCase):
 
         contractterms.validate()
 
-        contractterms.contractType = None
+        contractterms.type = None
         self.assertNotEqual(contractterms.serialize(), data)
         with self.assertRaises(ModelValidationError) as ex:
             contractterms.validate()
         self.assertEqual(ex.exception.message,
-                         {"contractType": ["This field is required."]})
+                         {"type": ["This field is required."]})
 
         contractterms = ContractTerms(data)
 

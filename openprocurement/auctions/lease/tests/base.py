@@ -44,7 +44,7 @@ test_organization = {
 test_procuringEntity = test_organization.copy()
 test_auction_data = {
     "title": u"футляри до державних нагород",
-    "dgfID": u"219560",
+    "lotIdentifier": u"219560",
     "tenderAttempts": 1,
     "procuringEntity": test_procuringEntity,
     "value": {
@@ -56,7 +56,7 @@ test_auction_data = {
         "currency": u"UAH"
     },
     "contractTerms": {
-        "contractType": "lease",
+        "type": "lease",
         "leaseTerms": {
             "leaseDuration": "P10Y",
             "taxHolidays": [
