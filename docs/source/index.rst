@@ -23,6 +23,7 @@ Contents:
 
    overview
    standard/index
+   glossary
    upload
    award_workflow
    tutorial

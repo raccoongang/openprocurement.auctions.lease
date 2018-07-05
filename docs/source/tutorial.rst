@@ -33,6 +33,57 @@ Error states that no `data` has been found in JSON body.
 Creating auction
 ----------------
 
+PropertyLease procedure has a specific data structure called `contractTerms`.
+
+The structure must have mandatory fields:
+
+* `contractType` containing the only possible value `lease`.
+* `leaseTerms`.
+
+`leaseTerms` has one mandatory and two optional fields:
+
+* `leaseDuration` must contain time span of the lease specified in `ISO8601 duration`_ format.
+* In the `taxHolidays` field Organizer may optionally specify the period during which tax concessions are made for some reason.
+* `escalationClauses` define the rules for the way of monthly payment to be changed on a periodic basis.
+
+See how the `contractTerms` section should look like:
+
+.. code-block:: JSON
+
+  "contractTerms": {  
+    "contractType": "lease",
+    "leaseTerms": {  
+        "leaseDuration": "P10Y",
+        "taxHolidays": [  
+          {  
+              "taxHolidaysDuration": "P5M",
+              "conditions": "conditions description",
+              "value": {  
+                "amount": 100.0,
+                "currency": "UAH",
+                "valueAddedTaxIncluded": true
+              }
+          }
+        ],
+        "escalationClauses": [  
+          {  
+              "escalationPeriodicity": "P5M",
+              "escalationStepPercentage": 0.55,
+              "conditions": "conditions description"
+          }
+        ]
+    }
+  },
+
+
+The other specific feature for the propertyLease procedure is an option to set `tenderPeriod.endDate`.
+
+For some reasons Organizer may need to have 3 working days pause between `tenderPeriod.endDate` and `auctionPeriod.startDate`.
+
+When `tenderPeriod.endDate` is passed it must be set exactly 3 working days before `auctionPeriod.startDate`.
+
+If `tenderPeriod.endDate` is not passed it will be calculated automatically as 8PM day before `auctionPeriod.startDate`.
+
 Let's create auction with the minimal data set (only required properties):
 
 .. include:: tutorial/auction-post-attempt-json-data.http
@@ -58,11 +109,11 @@ will be returned:
 .. include:: tutorial/tenderperiod-validation-error.http
    :code:
 
-Organizer can set *enquiryPeriod.endDate*. The difference between the given date and *tenderPeriod.endDate* should not be less than 5 working days.
+Organizer can set *rectificationPeriod.endDate*. The difference between the given date and *tenderPeriod.endDate* should not be less than 5 working days.
 
-If the duration between *enquiryPeriod.endDate* provided by Organizer and *tenderPeriod.endDate* is less than 5 days `422 Unprocessable Entity` response will be returned with the error message '*enquiryPeriod.endDate* should come at least 5 working days earlier than tenderPeriod.endDate.'
+If the duration between *rectificationPeriod.endDate* provided by Organizer and *tenderPeriod.endDate* is less than 5 days `422 Unprocessable Entity` response will be returned with the error message '*rectificationPeriod.endDate* should come at least 5 working days earlier than tenderPeriod.endDate.'
 
-If Organizer does not set *enquiryPeriod.endDate* it will be calculated automatically as *tenderPeriod.endDate* minus 5 working days.
+If Organizer does not set *enqurectificationPeriodiryPeriod.endDate* it will be calculated automatically as *tenderPeriod.endDate* minus 5 working days.
 
 Let's access the URL of the created object (the `Location` header of the response):
 
@@ -115,7 +166,7 @@ Keep in mind, that every time Organizer edits the auction all bids will be switc
 
 Bidders can reactivate their bids.
 
-Organizer can edit procedure only during *enquiryPeriod*.
+Organizer can edit procedure only during *rectificationPeriod*.
 
 When this period ends 403 error will be returned on editing attempt:
 
@@ -451,3 +502,11 @@ Activating the request and cancelling auction
 
 .. include:: tutorial/active-cancellation.http
    :code:
+
+**********
+References
+**********
+
+.. target-notes::
+
+.. _`ISO8601 duration`: https://en.wikipedia.org/wiki/ISO_8601#Durations

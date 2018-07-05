@@ -1,10 +1,11 @@
-GET /api/2.3/auctions/301d66e275cb4861ba502c1eaafa88ae/bids/0d76a3f619044106b9bcdc0e57e93dad?acc_token=73842c515600468a8829fea44817fce1 HTTP/1.0
+GET /api/2.4/auctions/246d20f56b0a4601bd4b5ddd3ac636e9/bids/3ce3413a56584eb1a7a870e01121effb?acc_token=ad29e002be7540eba7ee46592248215f HTTP/1.0
 Authorization: Basic YnJva2VyOg==
 Host: api-sandbox.ea.openprocurement.org
 
 
 200 OK
-Content-Type: application/json; charset=UTF-8
+Content-Type: application/json
+X-Content-Type-Options: nosniff
 
 {
   "data": {
@@ -14,7 +15,7 @@ Content-Type: application/json; charset=UTF-8
       "amount": 501.0, 
       "valueAddedTaxIncluded": true
     }, 
-    "date": "2017-11-30T16:56:27.113380+02:00", 
+    "date": "2018-05-28T19:03:05.626934+03:00", 
     "qualified": true, 
     "tenderers": [
       {
@@ -39,8 +40,8 @@ Content-Type: application/json; charset=UTF-8
       }
     ], 
     "owner": "broker", 
-    "id": "0d76a3f619044106b9bcdc0e57e93dad", 
-    "participationUrl": "http://auction-sandbox.openprocurement.org/auctions/301d66e275cb4861ba502c1eaafa88ae?key_for_bid=0d76a3f619044106b9bcdc0e57e93dad"
+    "id": "3ce3413a56584eb1a7a870e01121effb", 
+    "participationUrl": "http://auction-sandbox.openprocurement.org/auctions/246d20f56b0a4601bd4b5ddd3ac636e9?key_for_bid=3ce3413a56584eb1a7a870e01121effb"
   }
 }
 

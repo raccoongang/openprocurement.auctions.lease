@@ -1,21 +1,27 @@
-POST /api/2.3/auctions?opt_pretty=1 HTTP/1.0
+POST /api/2.4/auctions?opt_pretty=1 HTTP/1.0
 Authorization: Basic YnJva2VyOg==
-Content-Length: 2037
+Content-Length: 2246
 Content-Type: application/json
 Host: api-sandbox.ea.openprocurement.org
 
 {
   "data": {
+    "contractTerms": {
+      "contractType": "lease", 
+      "leaseTerms": {
+        "leaseDuration": "P10Y"
+      }
+    }, 
     "title": "футляри до державних нагород", 
     "minimalStep": {
       "currency": "UAH", 
       "amount": 35
     }, 
     "auctionPeriod": {
-      "startDate": "2017-09-02T15:56:30.045984"
+      "startDate": "2018-06-03T19:02:59.179463"
     }, 
     "tenderAttempts": 1, 
-    "procurementMethodType": "dgfOtherAssets", 
+    "procurementMethodType": "propertyLease", 
     "value": {
       "currency": "UAH", 
       "amount": 100
@@ -25,10 +31,17 @@ Host: api-sandbox.ea.openprocurement.org
       {
         "description": "Земля для військовослужбовців", 
         "classification": {
-          "scheme": "CPV", 
-          "id": "66113000-5", 
+          "scheme": "CAV-PS", 
+          "id": "04121000-2", 
           "description": "Земельні ділянки"
         }, 
+        "additionalClassifications": [
+          {
+            "scheme": "CPVS", 
+            "id": "PA01-7", 
+            "description": "Оренда"
+          }
+        ], 
         "address": {
           "countryName": "Україна", 
           "postalCode": "79000", 
@@ -37,8 +50,8 @@ Host: api-sandbox.ea.openprocurement.org
           "locality": "м. Київ"
         }, 
         "contractPeriod": {
-          "startDate": "2017-08-30T15:56:30.043635", 
-          "endDate": "2017-09-02T15:56:30.043635"
+          "startDate": "2018-05-30T19:02:58.713827", 
+          "endDate": "2018-06-02T19:02:58.713827"
         }, 
         "unit": {
           "code": "44617100-9", 
@@ -71,7 +84,8 @@ Host: api-sandbox.ea.openprocurement.org
 
 
 422 Unprocessable Entity
-Content-Type: application/json; charset=UTF-8
+Content-Type: application/json
+X-Content-Type-Options: nosniff
 
 {
   "status": "error", 
