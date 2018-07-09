@@ -46,7 +46,7 @@ The structure must have mandatory fields:
 * In the `taxHolidays` field Organizer may optionally specify the period during which tax concessions are made for some reason.
 * `escalationClauses` define the rules for the way of monthly payment to be changed on a periodic basis.
 
-See how the `contractTerms` section should look like:
+Minimal `contractTerms` section should look like this:
 
 .. code-block:: JSON
 
@@ -54,31 +54,13 @@ See how the `contractTerms` section should look like:
     "type": "lease",
     "leaseTerms": {  
         "leaseDuration": "P10Y",
-        "taxHolidays": [  
-          {  
-              "taxHolidaysDuration": "P5M",
-              "conditions": "conditions description",
-              "value": {  
-                "amount": 100.0,
-                "currency": "UAH",
-                "valueAddedTaxIncluded": true
-              }
-          }
-        ],
-        "escalationClauses": [  
-          {  
-              "escalationPeriodicity": "P5M",
-              "escalationStepPercentage": 0.55,
-              "conditions": "conditions description"
-          }
-        ]
     }
   },
 
 
 The other specific feature for the propertyLease procedure is an option to set `tenderPeriod.endDate`.
 
-For some reasons Organizer may need to have 3 working days pause between `tenderPeriod.endDate` and `auctionPeriod.startDate`.
+For some reason Organizer may need to have 3 working days pause between `tenderPeriod.endDate` and `auctionPeriod.startDate`.
 
 When `tenderPeriod.endDate` is passed it must be set exactly 3 working days before `auctionPeriod.startDate`.
 
@@ -152,6 +134,32 @@ And indeed we have 2 auctions now.
 
 Modifying auction
 -----------------
+
+As we mentioned before the propertyLease procedure has a specific data structure called `contractTerms`.
+
+Organizer can add or edit these optional fields for the structure after auction created:
+
+.. code-block:: JSON
+
+        "taxHolidays": [  
+          {  
+              "taxHolidaysDuration": "P5M",
+              "conditions": "conditions description",
+              "value": {  
+                "amount": 100.0,
+                "currency": "UAH",
+                "valueAddedTaxIncluded": true
+              }
+          }
+        ],
+        "escalationClauses": [  
+          {  
+              "escalationPeriodicity": "P5M",
+              "escalationStepPercentage": 0.55,
+              "conditions": "conditions description"
+          }
+        ]
+
 
 Let's update auction by supplementing it with all other essential properties:
 

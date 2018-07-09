@@ -14,7 +14,7 @@ from openprocurement.auctions.lease.tests.base import test_auction_maximum_data
 from openprocurement.auctions.lease.tests.tender import BaseAuctionWebTest
 from webtest import TestApp
 from openprocurement.auctions.core.utils import (
-    apply_data_patch, get_now, SANDBOX_MODE
+    get_now, SANDBOX_MODE
 )
 
 now = get_now()
