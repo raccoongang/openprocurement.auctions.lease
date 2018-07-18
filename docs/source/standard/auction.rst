@@ -119,7 +119,7 @@ Schema
     All qualifications (disqualifications and awards).
 
 :contracts:
-    List of :ref:`Contract` objects
+    List of :ref:`contract` objects
 
 :enquiryPeriod:
    :ref:`period`

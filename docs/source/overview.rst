@@ -60,7 +60,7 @@ Features
 Conventions
 -----------
 
-API accepts `JSON`_ or form-encoded content in
+API accepts JSON or form-encoded content in
 requests.  It returns JSON content in all of its responses, including
 errors.  Only the UTF-8 character encoding is supported for both requests
 and responses.
@@ -124,4 +124,5 @@ References
 .. target-notes::
 
 .. _`State Property Fund of Ukraine`: http://www.spfu.gov.ua
+
 .. _`JSON`: http://json.org/
