@@ -45,13 +45,13 @@ Features
 
 * All of the identifiers within the scheme ``CPVS`` can be chosen. ``PA01-7`` is the one to be added automatically.
 
+.. note:: There is predefined list of possible items to lease.
+
 * The minimum desired participants' number by default is 2, but there is option to decrease it explicitly to 1 participant.
 
 * The only currency (``value.currency``) for this procedure is hryvnia (UAH).
 
 * The items within an procedure are allowed to be from different CPV and CAV-PS groups.
-
-.. note:: There is predefined list of possible items to lease.
 
 * There is obligatory participant qualification via guarantee payment.
 
