@@ -12,30 +12,35 @@ from pyramid.security import Allow
 from zope.interface import implementer
 
 from openprocurement.auctions.core.includeme import IAwardingNextCheck
-from openprocurement.auctions.core.models import (
+from openprocurement.auctions.core.models.schema import (
     Auction as BaseAuction,
-    get_auction,
+    Bid as BaseBid,
+    Feature,
+    IAuction,
+    Identifier,
+    IsoDateTimeType,
+    ListType,
     Lot,
     Period,
-    Question as BaseQuestion,
     ProcuringEntity as flashProcuringEntity,
-    Feature,
-    validate_items_uniq,
-    validate_features_uniq, validate_lots_uniq,
-    schematics_embedded_role, IsoDateTimeType,
-    IAuction,
+    Question as BaseQuestion,
+    RectificationPeriod,
     calc_auction_end_time,
-    edit_role,
-    Administrator_role,
+    dgfCDB2AdditionalClassification,
+    dgfCDB2CPVCAVClassification,
+    dgfCDB2Complaint as Complaint,
     dgfCDB2Document as Document,
     dgfCDB2Item as Item,
     dgfOrganization as Organization,
-    dgfCDB2Complaint as Complaint,
-    Identifier,
-    ListType,
-    dgfCDB2CPVCAVClassification,
-    dgfCDB2AdditionalClassification,
-    Bid as BaseBid
+    get_auction,
+    schematics_embedded_role,
+    validate_features_uniq,
+    validate_items_uniq,
+    validate_lots_uniq,
+)
+from openprocurement.auctions.core.models.roles import (
+    Administrator_role,
+    edit_role,
 )
 from openprocurement.auctions.core.plugins.awarding.v2_1.models import Award
 from openprocurement.auctions.core.plugins.contracting.v2_1.models import Contract
@@ -146,10 +151,6 @@ class AuctionAuctionPeriod(Period):
         auction = get_auction(data['__parent__'])
         if not auction.revisions and not startDate:
             raise ValidationError(u'This field is required.')
-
-            
-class RectificationPeriod(Period):
-    invalidationDate = IsoDateTimeType()
 
 
 create_role = (blacklist(
