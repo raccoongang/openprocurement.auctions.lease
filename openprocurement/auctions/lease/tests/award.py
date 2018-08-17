@@ -91,7 +91,7 @@ for i in test_bids:
     bid['tenderers'] = [test_financial_organization]
     test_financial_bids.append(bid)
 
-
+@unittest.skip("option not available")
 class CreateAuctionAwardTest(BaseAuctionWebTest):
     #initial_data = auction_data
     initial_status = 'active.qualification'

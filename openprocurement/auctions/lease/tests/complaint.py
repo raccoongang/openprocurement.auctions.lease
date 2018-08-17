@@ -16,10 +16,9 @@ from openprocurement.auctions.lease.tests.base import (
 )
 
 
-
+@unittest.skip("option not available")
 class AuctionComplaintResourceTest(BaseAuctionWebTest, AuctionComplaintResourceTestMixin):
     pass
-
 
 
 @unittest.skip("option not available")
@@ -29,6 +28,7 @@ class AuctionLotAwardComplaintResourceTest(BaseAuctionWebTest):
     test_create_auction_complaint_lot = snitch(create_auction_complaint_lot)
 
 
+@unittest.skip("option not available")
 class AuctionComplaintDocumentResourceTest(BaseAuctionWebTest, InsiderAuctionComplaintDocumentResourceTestMixin):
 
     def setUp(self):
