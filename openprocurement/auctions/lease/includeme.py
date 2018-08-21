@@ -21,13 +21,13 @@ from openprocurement.auctions.lease.adapters import (
     AuctionLeaseManagerAdapter
 )
 from openprocurement.auctions.lease.constants import (
+    DEFAULT_LEVEL_OF_ACCREDITATION,
     DEFAULT_PROCUREMENT_METHOD_TYPE_LEASE,
     VIEW_LOCATIONS
 )
 from openprocurement.auctions.lease.models import (
     Auction,
     ILeaseAuction,
-    propertyLease
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -70,3 +70,8 @@ def includeme_lease(config, plugin_map):
     LOGGER.info("Included openprocurement.auctions.lease.property plugin",
                 extra={'MESSAGE_ID': 'included_plugin'})
 
+    # add accreditation level
+    if not plugin_map.get('accreditation'):
+        config.registry.accreditation['auction'][Auction._internal_type] = DEFAULT_LEVEL_OF_ACCREDITATION
+    else:
+        config.registry.accreditation['auction'][Auction._internal_type] = plugin_map['accreditation']
