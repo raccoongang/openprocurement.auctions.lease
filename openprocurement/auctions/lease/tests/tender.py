@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import re
 import unittest
 # from calendar import monthrange
 # from copy import deepcopy
@@ -9,9 +8,23 @@ import unittest
 # import pytz
 
 from openprocurement.auctions.lease.models import propertyLease
-from openprocurement.auctions.lease.tests.base import test_auction_maximum_data, test_auction_data, test_financial_auction_data, test_organization, test_financial_organization, BaseWebTest, BaseAuctionWebTest, DEFAULT_ACCELERATION, test_bids, test_financial_bids
+from openprocurement.auctions.lease.tests.base import (
+    test_auction_maximum_data,
+    test_auction_data,
+    test_financial_auction_data,
+    test_organization,
+    test_financial_organization,
+    BaseWebTest,
+    BaseAuctionWebTest,
+    DEFAULT_ACCELERATION,
+    test_bids,
+    test_financial_bids
+)
 
 from openprocurement.auctions.core.tests.base import snitch
+from openprocurement.auctions.core.tests.tender import (
+    ExtractCredentialsMixin
+)
 from openprocurement.auctions.core.tests.blanks.tender_blanks import (
     simple_add_auction
 )
@@ -70,12 +83,14 @@ class AuctionTest(BaseWebTest):
     test_create_role = snitch(create_role)
     test_edit_role = snitch(edit_role)
 
+
 class AuctionLeaseResourceTest(BaseWebTest):
     initial_data = test_auction_data
     initial_organization = test_organization
     initial_status = 'active.tendering'
 
     test_create_auction_lease_invalid = snitch(create_auction_lease_invalid)
+
 
 class AuctionResourceTest(BaseWebTest):
     initial_data = test_auction_data
@@ -127,10 +142,13 @@ class AuctionProcessTest(BaseAuctionWebTest):
     test_one_invalid_bid_auction = snitch(one_invalid_bid_auction)
     test_first_bid_auction = snitch(first_bid_auction)
 
-
-    #setUp = BaseWebTest.setUp
+    # setUp = BaseWebTest.setUp
     def setUp(self):
         super(AuctionProcessTest.__bases__[0], self).setUp()
+
+
+class AuctionExtractCredentialsTest(BaseAuctionWebTest, ExtractCredentialsMixin):
+    pass
 
 
 def suite():
@@ -140,6 +158,7 @@ def suite():
     suite.addTest(unittest.makeSuite(AuctionLeaseResourceTest))
     suite.addTest(unittest.makeSuite(AuctionFieldsEditingTest))
     suite.addTest(unittest.makeSuite(AuctionTest))
+    suite.addTest(unittest.makeSuite(AuctionExtractCredentialsTest))
     return suite
 
 
