@@ -12,7 +12,7 @@ from openprocurement.auctions.core.validation import (
     validate_auction_auction_data,
 )
 
-from openprocurement.auctions.lease.utils import (
+from openprocurement.auctions.core.plugins.awarding.base.utils import (
     invalidate_bids_under_threshold
 )
 

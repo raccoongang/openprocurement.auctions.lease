@@ -112,15 +112,6 @@ def check_status(request):
                 return
 
 
-def invalidate_bids_under_threshold(auction):
-    """Invalidate bids that lower value.amount + minimalStep.amount"""
-    value_threshold = round(auction['value']['amount'] +
-                            auction['minimalStep']['amount'], 2)
-    for bid in auction['bids']:
-        if bid['value']['amount'] < value_threshold:
-            bid['status'] = 'invalid'
-
-
 def get_auction_creation_date(data):
     auction_creation_date = (data.get('revisions')[0].date if data.get('revisions') else get_now())
     return auction_creation_date
