@@ -99,13 +99,6 @@ def create_auction_lease_invalid(self):
     self.assertEqual(response.json['status'], 'error')
     self.assertRegexpMatches(response.json['errors'][0]['description'], u'The only possible value for tenderPeriod.endDate is*')
 
-    auction_data = deepcopy(self.initial_data)
-    auction_start_date = now + timedelta(days=30)
-    auction_data['tenderPeriod'] = {'endDate': calculate_business_date(auction_start_date, -timedelta(days=4), context=auction_data, working_days=True).isoformat()}
-    auction_data['auctionPeriod'] = {'startDate': auction_start_date.isoformat()}
-    response = self.app.post_json(request_path, {'data': auction_data}, status=201)
-    self.assertEqual(response.status, '201 Created')
-
 
 def create_auction_validation_accelerated(self):
     request_path = '/auctions'
