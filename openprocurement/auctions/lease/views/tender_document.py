@@ -7,6 +7,7 @@ from openprocurement.auctions.core.utils import (
     apply_patch,
     opresource,
     get_now,
+    generate_rectificationPeriod_tender_period_margin,
 )
 from openprocurement.auctions.core.validation import (
     validate_file_update,
@@ -15,7 +16,7 @@ from openprocurement.auctions.core.validation import (
 )
 
 from openprocurement.auctions.lease.utils import (
-    upload_file, get_file, invalidate_bids_data, generate_rectificationPeriod
+    upload_file, get_file, invalidate_bids_data,
 )
 
 
@@ -61,7 +62,9 @@ class AuctionDocumentResource(APIResource):
         document = upload_file(self.request)
         if self.request.authenticated_role != "auction":
             if not self.request.auction.rectificationPeriod:
-                self.request.auction.rectificationPeriod = generate_rectificationPeriod(self.request.auction)
+                self.request.auction.rectificationPeriod = generate_rectificationPeriod_tender_period_margin(
+                    self.request.auction
+                )
             invalidate_bids_data(self.request.auction)
         self.context.documents.append(document)
         if save_auction(self.request):
@@ -96,7 +99,9 @@ class AuctionDocumentResource(APIResource):
         document = upload_file(self.request)
         if self.request.authenticated_role != "auction":
             if not self.request.auction.rectificationPeriod:
-                self.request.auction.rectificationPeriod = generate_rectificationPeriod(self.request.auction)
+                self.request.auction.rectificationPeriod = generate_rectificationPeriod_tender_period_margin(
+                    self.request.auction
+                )
             invalidate_bids_data(self.request.auction)
         self.request.validated['auction'].documents.append(document)
         if save_auction(self.request):
@@ -112,7 +117,9 @@ class AuctionDocumentResource(APIResource):
         apply_patch(self.request, save=False, src=self.request.context.serialize())
         if self.request.authenticated_role != "auction":
             if not self.request.auction.rectificationPeriod:
-                self.request.auction.rectificationPeriod = generate_rectificationPeriod(self.request.auction)
+                self.request.auction.rectificationPeriod = generate_rectificationPeriod_tender_period_margin(
+                    self.request.auction
+                )
             invalidate_bids_data(self.request.auction)
         if save_auction(self.request):
             self.LOGGER.info('Updated auction document {}'.format(self.request.context.id),

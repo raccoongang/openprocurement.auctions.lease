@@ -131,15 +131,3 @@ def invalidate_bids_data(auction):
     for bid in auction.bids:
         setattr(bid, "status", "invalid")
     auction.rectificationPeriod.invalidationDate = get_now()
-
-
-def generate_rectificationPeriod(auction):
-    now = get_now()
-    if not auction.rectificationPeriod:
-        period = type(auction).rectificationPeriod.model_class()
-    period.startDate = period.startDate or now
-    if not period.endDate:
-        calculated_endDate = calculate_business_date(auction.tenderPeriod.endDate, -MINIMAL_PERIOD_FROM_RECTIFICATION_END, auction)
-        period.endDate = calculated_endDate if calculated_endDate > now else now
-    period.invalidationDate = None
-    return period

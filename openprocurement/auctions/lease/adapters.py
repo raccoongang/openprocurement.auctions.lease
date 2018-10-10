@@ -8,12 +8,15 @@ from openprocurement.auctions.core.plugins.awarding.v2_1.adapters import (
     AwardingV2_1ConfiguratorMixin
 )
 from openprocurement.auctions.core.utils import (
-    TZ, calculate_business_date, get_request_from_root, get_now,
+    TZ,
+    calculate_business_date,
+    generate_rectificationPeriod_tender_period_margin,
+    get_now,
+    get_request_from_root,
 )
 from openprocurement.api.utils import (
     set_specific_hour,
 )
-from .utils import generate_rectificationPeriod
 from .constants import MANDATORY_ADDITIONAL_CLASSIFICATOR
 
 
@@ -45,7 +48,7 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
             auction.enquiryPeriod = type(auction).enquiryPeriod.model_class()
         auction.enquiryPeriod.endDate = end_date
         if not auction.rectificationPeriod:
-            auction.rectificationPeriod = generate_rectificationPeriod(auction)
+            auction.rectificationPeriod = generate_rectificationPeriod_tender_period_margin(auction)
         auction.tenderPeriod.startDate = auction.enquiryPeriod.startDate = auction.rectificationPeriod.startDate = auction.date = now
         auction.auctionPeriod.startDate = None
         auction.auctionPeriod.endDate = None
