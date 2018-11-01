@@ -119,7 +119,7 @@ Schema
     All qualifications (disqualifications and awards).
 
 :contracts:
-    List of :ref:`Contract` objects
+    List of :ref:`contract` objects
 
 :enquiryPeriod:
    :ref:`period`
@@ -199,7 +199,7 @@ ContractTerms
 Schema
 ------
 
-:contractType:
+:Type:
     string, required
 
     The only value for this field is ``lease``.

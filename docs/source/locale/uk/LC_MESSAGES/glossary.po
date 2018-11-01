@@ -1,0 +1,156 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openprocurement.auctions.lease 1.1.1-sale\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-30 12:13+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Glossary"
+msgstr "Глосарій"
+
+msgid "Tender Procedure"
+msgstr "Тендерна Процедура"
+
+msgid "a process which includes:"
+msgstr "процес, який включає:"
+
+msgid "lease tender procedure initialization by an Organizer;"
+msgstr "ініціалізацію Організатором тендерної процедури оренди;"
+
+msgid "initial bids proposals by Participants (Bidders);"
+msgstr "надання початкових ставок Учасниками (Bidders);"
+
+msgid "auction (3 rounds);"
+msgstr "аукціон (3 раунди);"
+
+msgid "qualification (awarding) - identifying of the winner;"
+msgstr "кваліфікація (авардинг, awarding) - визначення переможця;"
+
+msgid "payment;"
+msgstr "платіж;"
+
+msgid "contract signing;"
+msgstr "підписання договору;"
+
+msgid "Organizer"
+msgstr "Організатор"
+
+msgid "lease procedure initiator"
+msgstr "ініціатор процедури оренди"
+
+msgid "Minimum number of qualified bids [``minNumberOfQualifiedBids``]"
+msgstr ""
+"Мінімальна кількість кваліфікованих ставок [``minNumberOfQualifiedBids``]"
+
+msgid "minimum desired participants' count to consider procedure successful"
+msgstr ""
+"мінімальна бажана кількість учасників для того, щоб процедура вважалася "
+"успішною"
+
+msgid "Invalidation date [``invalidationDate``]"
+msgstr "Дата інвалідації [``invalidationDate``]"
+
+msgid ""
+"date when the last editing was made by an Organizer (initial bids "
+"invalidation occurs)"
+msgstr ""
+"дата останнього редагування Організатором (початкові ставки стають "
+"невалідними)"
+
+msgid "Valid bid"
+msgstr "Валідна ставка"
+
+msgid ""
+"a bid which value is equal or greater then a value of ``value.amount + "
+"minimalStep``"
+msgstr ""
+"ставка із значенням, що дорівнює або вище за значення ``value.amount + "
+"minimalStep``"
+
+msgid "CAV-PS"
+msgstr "CAV-PS"
+
+msgid "the main classifier"
+msgstr "основний класифікатор"
+
+msgid "CPVS (Common Procurement Vocabulary)"
+msgstr "CPVS (Common Procurement Vocabulary)"
+
+msgid "additional (secondary) classifier"
+msgstr "додатковий (допоміжний) класифікатор"
+
+msgid "Tender Procedure life cycle"
+msgstr "Життєвий цикл Тендерної Процедури"
+
+msgid "consists of the following periods:"
+msgstr "складається з наступних періодів:"
+
+msgid ""
+"``tenderPeriod`` - the time period during which tender ``bids`` are "
+"accepting;"
+msgstr ""
+"``tenderPeriod`` - період, протягом якого приймаються ставки ``bids``;"
+
+msgid ""
+"``enquiryPeriod`` - the time period during which participants can ask "
+"``questions`` to clarify tender's terms;"
+msgstr ""
+"``enquiryPeriod`` - період, протягом якого учасники можуть ставити запитання"
+" ``questions`` для уточнення умов тендеру;"
+
+msgid ""
+"``rectificationPeriod`` - the time period during which an Organizer can "
+"perform changes to tender terms;"
+msgstr ""
+"``rectificationPeriod`` - період, протягом якого Організатор може змінювати "
+"умови тендеру;"
+
+msgid "``auctionPeriod`` - the time period of ``auction`` itself;"
+msgstr ""
+"``auctionPeriod`` - період, протягом якого саме відбувається аукціон "
+"``auction``;"
+
+msgid ""
+"``verificationPeriod`` - the time period during which an Organizer "
+"identifies a winner;"
+msgstr ""
+"``verificationPeriod`` - період, протягом якого Організатор визначає "
+"переможця;"
+
+msgid ""
+"``paymentPeriod`` - the time period during which Participant (Winner) "
+"performs payment;"
+msgstr ""
+"``paymentPeriod`` - період, протягом якого Учасник-переможець (Winner) "
+"провадить платіж;"
+
+msgid ""
+"``signingPeriod`` - the time period of downloading and activating of "
+"Contract by an Organizer;"
+msgstr ""
+"``signingPeriod`` - період, протягом якого Організатор завантажує і активує "
+"Контракт;Contract by an Organizer;"
+
+msgid ""
+"``tenderPeriod`` has to be at least 5 days longer than "
+"``rectificationPeriod``;"
+msgstr ""
+"``tenderPeriod`` має бути щонайменше на 5 днів довшим за "
+"``rectificationPeriod``;"
+
+msgid ""
+"as a result of verification process is auction ``Protocol`` (confirmed and "
+"downloaded by an Organizer);"
+msgstr ""
+"результатом процесу верифікації є Протокол Аукціону ``Protocol`` "
+"(затверджений і завантажений Організатором);"
+
+msgid "every period has its ``startDate`` and ``endDate``."
+msgstr ""
+"кожен період має свою початкову ``startDate`` і кінцеву ``endDate`` дати."

@@ -1,4 +1,4 @@
-POST /api/2.3/auctions/301d66e275cb4861ba502c1eaafa88ae/documents?acc_token=ccf4d45ff9524ec9ae87f38c43d7b0a3 HTTP/1.0
+POST /api/2.4/auctions/bf6575a30f2c4465ae43e06981df3b5a/documents?acc_token=686740317fd249638e3ee0420d268ebf HTTP/1.0
 Authorization: Basic YnJva2VyOg==
 Content-Length: 160
 Content-Type: application/json
@@ -14,8 +14,9 @@ Host: api-sandbox.ea.openprocurement.org
 
 
 201 Created
-Content-Type: application/json; charset=UTF-8
-Location: http://api-sandbox.ea.openprocurement.org/api/2.3/auctions/301d66e275cb4861ba502c1eaafa88ae/documents/b31139eea309435592a725e115dc90ed
+Content-Type: application/json
+Location: http://api-sandbox.ea.openprocurement.org/api/2.4/auctions/bf6575a30f2c4465ae43e06981df3b5a/documents/f322908bc35041ca898fddc2f640e5d1
+X-Content-Type-Options: nosniff
 
 {
   "data": {
@@ -23,10 +24,10 @@ Location: http://api-sandbox.ea.openprocurement.org/api/2.3/auctions/301d66e275c
     "format": "offline/on-site-examination", 
     "accessDetails": "Familiar with asset: days, time, address", 
     "documentOf": "tender", 
-    "datePublished": "2017-11-30T16:56:26.520040+02:00", 
+    "datePublished": "2018-07-05T15:44:44.337012+03:00", 
     "documentType": "x_dgfAssetFamiliarization", 
-    "dateModified": "2017-11-30T16:56:26.520067+02:00", 
-    "id": "b31139eea309435592a725e115dc90ed"
+    "dateModified": "2018-07-05T15:44:44.337032+03:00", 
+    "id": "f322908bc35041ca898fddc2f640e5d1"
   }
 }
 

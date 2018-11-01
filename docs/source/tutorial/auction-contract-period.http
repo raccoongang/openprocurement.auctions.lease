@@ -1,21 +1,22 @@
-PATCH /api/2.3/auctions/301d66e275cb4861ba502c1eaafa88ae/contracts/ada81c2080f143a387863faae3db1f81?acc_token=ccf4d45ff9524ec9ae87f38c43d7b0a3 HTTP/1.0
+PATCH /api/2.4/auctions/bf6575a30f2c4465ae43e06981df3b5a/contracts/bf54ce84c6e6418382f49614f55d0101?acc_token=686740317fd249638e3ee0420d268ebf HTTP/1.0
 Authorization: Basic YnJva2VyOg==
-Content-Length: 106
+Content-Length: 118
 Content-Type: application/json
 Host: api-sandbox.ea.openprocurement.org
 
 {
   "data": {
     "period": {
-      "startDate": "2017-11-30T16:56:17.205813", 
-      "endDate": "2018-11-30T16:56:17.205813"
+      "startDate": "2018-07-05T15:44:37.150620+03:00", 
+      "endDate": "2019-07-05T15:44:37.150620+03:00"
     }
   }
 }
 
 
 200 OK
-Content-Type: application/json; charset=UTF-8
+Content-Type: application/json
+X-Content-Type-Options: nosniff
 
 {
   "data": {
@@ -24,10 +25,17 @@ Content-Type: application/json; charset=UTF-8
       {
         "description": "Земля для військовослужбовців", 
         "classification": {
-          "scheme": "CPV", 
+          "scheme": "CAV-PS", 
           "description": "Земельні ділянки", 
-          "id": "66113000-5"
+          "id": "04121000-2"
         }, 
+        "additionalClassifications": [
+          {
+            "scheme": "CPVS", 
+            "id": "PA01-7", 
+            "description": "This field is required."
+          }
+        ], 
         "address": {
           "postalCode": "79000", 
           "countryName": "Україна", 
@@ -35,12 +43,16 @@ Content-Type: application/json; charset=UTF-8
           "region": "м. Київ", 
           "locality": "м. Київ"
         }, 
-        "id": "6abd12c929084367ac08d9d9138ccab4", 
+        "quantity": 5.001, 
+        "id": "34d79ae5dcdb4eb4b61dba5d6a4000d7", 
         "unit": {
           "code": "44617100-9", 
           "name": "item"
         }, 
-        "quantity": 5
+        "contractPeriod": {
+          "startDate": "2018-07-07T15:44:36.881991+03:00", 
+          "endDate": "2018-07-10T15:44:36.881991+03:00"
+        }
       }
     ], 
     "suppliers": [
@@ -66,18 +78,18 @@ Content-Type: application/json; charset=UTF-8
       }
     ], 
     "period": {
-      "startDate": "2017-11-30T16:56:17.205813+02:00", 
-      "endDate": "2018-11-30T16:56:17.205813+02:00"
+      "startDate": "2018-07-05T15:44:37.150620+03:00", 
+      "endDate": "2019-07-05T15:44:37.150620+03:00"
     }, 
     "value": {
       "currency": "UAH", 
       "amount": 501.0, 
       "valueAddedTaxIncluded": true
     }, 
-    "date": "2017-11-30T16:56:28.528529+02:00", 
-    "awardID": "add0cbb7aa114e7cb6f5e127071f8b53", 
-    "id": "ada81c2080f143a387863faae3db1f81", 
-    "contractID": "UA-PS-2017-11-30-000001-1"
+    "date": "2018-07-05T15:44:46.426889+03:00", 
+    "awardID": "c525bd6997924149a071ab0d845875f0", 
+    "id": "bf54ce84c6e6418382f49614f55d0101", 
+    "contractID": "UA-EA-2018-07-05-000001-1"
   }
 }
 

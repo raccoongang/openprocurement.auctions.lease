@@ -1,53 +1,50 @@
-PATCH /api/2.3/auctions/aad622eb435a443e8a7afd5432c5d4e6?acc_token=8f2c28a574a647ab8f3dfaeadbbbadb2 HTTP/1.0
+PATCH /api/2.4/auctions/bf6575a30f2c4465ae43e06981df3b5a?acc_token=686740317fd249638e3ee0420d268ebf HTTP/1.0
 Authorization: Basic YnJva2VyOg==
-Content-Length: 2076
+Content-Length: 2514
 Content-Type: application/json
 Host: api-sandbox.ea.openprocurement.org
 
 {
   "data": {
+    "lotIdentifier": "219560", 
+    "contractTerms": {
+      "type": "lease", 
+      "leaseTerms": {
+        "escalationClauses": [
+          {
+            "conditions": "conditions description", 
+            "escalationPeriodicity": "P5M", 
+            "escalationStepPercentage": 0.1
+          }
+        ], 
+        "leaseDuration": "P10Y", 
+        "taxHolidays": [
+          {
+            "taxHolidaysDuration": "P5M", 
+            "conditions": "conditions description", 
+            "value": {
+              "currency": "UAH", 
+              "amount": 100.0, 
+              "valueAddedTaxIncluded": true
+            }
+          }
+        ]
+      }
+    }, 
     "title": "футляри до державних нагород", 
     "minimalStep": {
       "currency": "UAH", 
       "amount": 35
     }, 
-    "procurementMethodDetails": "quick, accelerator=1440", 
+    "auctionPeriod": {
+      "startDate": "2018-07-19"
+    }, 
     "tenderAttempts": 1, 
-    "procurementMethodType": "dgfOtherAssets", 
+    "procurementMethodType": "propertyLease", 
     "value": {
       "currency": "UAH", 
       "amount": 100
     }, 
-    "dgfID": "219560", 
-    "auctionPeriod": {
-      "startDate": "2017-12-04"
-    }, 
-    "items": [
-      {
-        "description": "Земля для військовослужбовців", 
-        "classification": {
-          "scheme": "CPV", 
-          "id": "66113000-5", 
-          "description": "Земельні ділянки"
-        }, 
-        "address": {
-          "countryName": "Україна", 
-          "postalCode": "79000", 
-          "region": "м. Київ", 
-          "streetAddress": "вул. Банкова 1", 
-          "locality": "м. Київ"
-        }, 
-        "contractPeriod": {
-          "startDate": "2017-11-22T15:29:31.486546", 
-          "endDate": "2017-11-25T15:29:31.486546"
-        }, 
-        "unit": {
-          "code": "44617100-9", 
-          "name": "item"
-        }, 
-        "quantity": 5.001
-      }
-    ], 
     "procuringEntity": {
       "contactPoint": {
         "name": "Державне управління справами", 
@@ -66,19 +63,53 @@ Host: api-sandbox.ea.openprocurement.org
         "streetAddress": "вул. Банкова, 11, корпус 1", 
         "locality": "м. Київ"
       }
-    }
+    }, 
+    "items": [
+      {
+        "description": "Земля для військовослужбовців", 
+        "classification": {
+          "scheme": "CAV-PS", 
+          "id": "04121000-2", 
+          "description": "Земельні ділянки"
+        }, 
+        "additionalClassifications": [
+          {
+            "scheme": "CPVS", 
+            "id": "PA01-7", 
+            "description": "This field is required."
+          }
+        ], 
+        "address": {
+          "countryName": "Україна", 
+          "postalCode": "79000", 
+          "region": "м. Київ", 
+          "streetAddress": "вул. Банкова 1", 
+          "locality": "м. Київ"
+        }, 
+        "contractPeriod": {
+          "startDate": "2018-07-07T15:44:36.881991", 
+          "endDate": "2018-07-10T15:44:36.881991"
+        }, 
+        "unit": {
+          "code": "44617100-9", 
+          "name": "item"
+        }, 
+        "quantity": 5.001
+      }
+    ]
   }
 }
 
 
 403 Forbidden
-Content-Type: application/json; charset=UTF-8
+Content-Type: application/json
+X-Content-Type-Options: nosniff
 
 {
   "status": "error", 
   "errors": [
     {
-      "description": "Auction can be edited only during the rectification period: from (2017-11-06T15:29:31.491067+02:00) to (2017-11-20T15:28:31.491067+02:00).",
+      "description": "Auction can be edited only during the rectification period: from (2018-06-21T15:44:43.833441+03:00) to (2018-06-29T15:44:43.833441+03:00).", 
       "location": "body", 
       "name": "data"
     }

@@ -1,21 +1,22 @@
-GET /api/2.3/auctions/301d66e275cb4861ba502c1eaafa88ae HTTP/1.0
+GET /api/2.4/auctions/bf6575a30f2c4465ae43e06981df3b5a HTTP/1.0
 Authorization: Basic YnJva2VyOg==
 Host: api-sandbox.ea.openprocurement.org
 
 
 200 OK
-Content-Type: application/json; charset=UTF-8
+Content-Type: application/json
+X-Content-Type-Options: nosniff
 
 {
   "data": {
     "procurementMethod": "open", 
-    "auctionID": "UA-PS-2017-11-30-000001", 
+    "auctionID": "UA-EA-2018-07-05-000001", 
     "enquiryPeriod": {
-      "startDate": "2017-11-30T16:56:25.617199+02:00", 
-      "endDate": "2017-12-13T23:59:50+02:00"
+      "startDate": "2018-07-05T15:44:43.531351+03:00", 
+      "endDate": "2018-07-18T20:00:00+03:00"
     }, 
     "submissionMethod": "electronicAuction", 
-    "next_check": "2017-12-13T23:59:50+02:00", 
+    "next_check": "2018-07-18T20:00:00+03:00", 
     "procuringEntity": {
       "contactPoint": {
         "name": "Державне управління справами", 
@@ -36,22 +37,51 @@ Content-Type: application/json; charset=UTF-8
       }
     }, 
     "owner": "broker", 
-    "id": "301d66e275cb4861ba502c1eaafa88ae", 
+    "id": "bf6575a30f2c4465ae43e06981df3b5a", 
     "title": "футляри до державних нагород", 
     "tenderAttempts": 1, 
-    "procurementMethodDetails": "quick, accelerator=1440", 
-    "dateModified": "2017-11-30T16:56:25.621767+02:00", 
+    "dateModified": "2018-07-05T15:44:43.541215+03:00", 
     "status": "active.tendering", 
     "tenderPeriod": {
-      "startDate": "2017-11-30T16:56:25.617199+02:00", 
-      "endDate": "2017-12-13T23:59:50+02:00"
+      "startDate": "2018-07-05T15:44:43.531351+03:00", 
+      "endDate": "2018-07-18T20:00:00+03:00"
     }, 
     "auctionPeriod": {
-      "shouldStartAfter": "2017-12-14T00:00:00+02:00"
+      "shouldStartAfter": "2018-07-19T00:00:00+03:00"
     }, 
-    "procurementMethodType": "dgfOtherAssets", 
-    "dgfID": "219560", 
-    "date": "2017-11-30T16:56:25.617199+02:00", 
+    "procurementMethodType": "propertyLease", 
+    "date": "2018-07-05T15:44:43.531351+03:00", 
+    "lotIdentifier": "219560", 
+    "rectificationPeriod": {
+      "startDate": "2018-07-05T15:44:43.531351+03:00", 
+      "endDate": "2018-07-13T20:00:00+03:00"
+    }, 
+    "contractTerms": {
+      "type": "lease", 
+      "leaseTerms": {
+        "escalationClauses": [
+          {
+            "escalationPeriodicity": "P5M", 
+            "conditions": "conditions description", 
+            "escalationStepPercentage": 0.1, 
+            "id": "2ca4bc6c445e46459bda9c85019dcd33"
+          }
+        ], 
+        "leaseDuration": "P10Y", 
+        "taxHolidays": [
+          {
+            "taxHolidaysDuration": "P5M", 
+            "conditions": "conditions description", 
+            "id": "d235e459369d465da4e7771e6573239b", 
+            "value": {
+              "currency": "UAH", 
+              "amount": 100.0, 
+              "valueAddedTaxIncluded": true
+            }
+          }
+        ]
+      }
+    }, 
     "minimalStep": {
       "currency": "UAH", 
       "amount": 35.0, 
@@ -61,10 +91,17 @@ Content-Type: application/json; charset=UTF-8
       {
         "description": "Земля для військовослужбовців", 
         "classification": {
-          "scheme": "CPV", 
+          "scheme": "CAV-PS", 
           "description": "Земельні ділянки", 
-          "id": "66113000-5"
+          "id": "04121000-2"
         }, 
+        "additionalClassifications": [
+          {
+            "scheme": "CPVS", 
+            "id": "PA01-7", 
+            "description": "This field is required."
+          }
+        ], 
         "address": {
           "postalCode": "79000", 
           "countryName": "Україна", 
@@ -72,12 +109,16 @@ Content-Type: application/json; charset=UTF-8
           "region": "м. Київ", 
           "locality": "м. Київ"
         }, 
-        "id": "6abd12c929084367ac08d9d9138ccab4", 
+        "quantity": 5.001, 
+        "id": "34d79ae5dcdb4eb4b61dba5d6a4000d7", 
         "unit": {
           "code": "44617100-9", 
           "name": "item"
         }, 
-        "quantity": 5
+        "contractPeriod": {
+          "startDate": "2018-07-07T15:44:36.881991+03:00", 
+          "endDate": "2018-07-10T15:44:36.881991+03:00"
+        }
       }
     ], 
     "value": {

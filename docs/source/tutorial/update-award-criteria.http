@@ -1,12 +1,12 @@
-PUT /api/2.3/auctions/301d66e275cb4861ba502c1eaafa88ae/documents/3385ba24fb704db79cb8a70561e023c7?acc_token=ccf4d45ff9524ec9ae87f38c43d7b0a3 HTTP/1.0
+PUT /api/2.4/auctions/bf6575a30f2c4465ae43e06981df3b5a/documents/1ee1b150bb7c4d4197379afa2e86f40a?acc_token=686740317fd249638e3ee0420d268ebf HTTP/1.0
 Authorization: Basic YnJva2VyOg==
-Content-Length: 336
+Content-Length: 340
 Content-Type: application/json
 Host: api-sandbox.ea.openprocurement.org
 
 {
   "data": {
-    "url": "http://public.docs-sandbox.ea.openprocurement.org/get/9840d23dc3194951a561e6b3d959fac0?KeyID=8473a74a&Signature=zV0b0U6S2LivauIlHbmy3NjVsbCTyEtgWFhrVYM3rEVniUg%2FJnfwZc3BruHog0KupIa2qItySihDKH2sVU1UAQ%3D%3D", 
+    "url": "http://public.docs-sandbox.ea.openprocurement.org/get/2bb32e6b501c48f29534ca6f1629ab98?KeyID=172d32c8&Signature=mUW9IV0tpvgHdF5RwppGUXfHGhmBxAXx76HSQMIbmjy0cFpgFcMdE5dIz%2B8%2BYHWO1Cz4OExhfcQiKR4qKIT%2FBA%3D%3D", 
     "title": "AwardCriteria-2.pdf", 
     "hash": "md5:00000000000000000000000000000000", 
     "format": "application/pdf"
@@ -15,18 +15,19 @@ Host: api-sandbox.ea.openprocurement.org
 
 
 200 OK
-Content-Type: application/json; charset=UTF-8
+Content-Type: application/json
+X-Content-Type-Options: nosniff
 
 {
   "data": {
     "hash": "md5:00000000000000000000000000000000", 
     "format": "application/pdf", 
-    "url": "http://public.docs-sandbox.ea.openprocurement.org/get/9840d23dc3194951a561e6b3d959fac0?KeyID=8473a74a&Signature=vJlSrjCYsuQhptjoPNewJOzwmvXFcLc5HA8pIMybY%252B0qd7VYuGlhFpTPnwpMtpFEnblx87Fz%252BXuJ9x%2FBELicCg%253D%253D", 
+    "url": "http://public.docs-sandbox.ea.openprocurement.org/get/2bb32e6b501c48f29534ca6f1629ab98?KeyID=172d32c8&Signature=MQp%2F0yv3CvwcJgO7%2F1SbsWjgCBayJX7KKJn3xcScfae%252B3iWRPtoum0egzO7KQ5bWCI%252BN3DyYsVMs%2FiFdhiKtBg%253D%253D", 
     "title": "AwardCriteria-2.pdf", 
     "documentOf": "tender", 
-    "datePublished": "2017-11-30T16:56:26.157156+02:00", 
-    "dateModified": "2017-11-30T16:56:26.221784+02:00", 
-    "id": "3385ba24fb704db79cb8a70561e023c7"
+    "datePublished": "2018-07-05T15:44:44.029815+03:00", 
+    "dateModified": "2018-07-05T15:44:44.085971+03:00", 
+    "id": "1ee1b150bb7c4d4197379afa2e86f40a"
   }
 }
 
