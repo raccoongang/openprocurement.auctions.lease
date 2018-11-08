@@ -509,7 +509,7 @@ def create_auction_generated(self):
         u'procurementMethodType', u'id', u'date', u'dateModified', u'auctionID', u'status', u'enquiryPeriod',
         u'tenderPeriod', u'minimalStep', u'items', u'value', u'procuringEntity', u'next_check', u'lotIdentifier',
         u'procurementMethod', u'awardCriteria', u'submissionMethod', u'title', u'owner', u'auctionPeriod',
-        u'tenderAttempts', u'rectificationPeriod', u'contractTerms'
+        u'tenderAttempts', u'rectificationPeriod', u'contractTerms', u'minNumberOfQualifiedBids'
     ]))
     self.assertNotEqual(data['id'], auction['id'])
     self.assertNotEqual(data['doc_id'], auction['id'])
@@ -527,7 +527,8 @@ def create_auction(self):
     auction = response.json['data']
     self.assertEqual(set(auction) - set(self.initial_data), set([
         u'id', u'dateModified', u'auctionID', u'date', u'status', u'procurementMethod', u'rectificationPeriod',
-        u'awardCriteria', u'submissionMethod', u'next_check', u'owner', u'enquiryPeriod', u'tenderPeriod'
+        u'awardCriteria', u'submissionMethod', u'next_check', u'owner', u'enquiryPeriod', u'tenderPeriod',
+        u'minNumberOfQualifiedBids'
     ]))
     self.assertIn(auction['id'], response.headers['Location'])
 
