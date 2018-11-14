@@ -46,7 +46,7 @@ def edit_role(self):
         'description', 'description_en', 'description_ru',
         'features', 'hasEnquiries', 'items', 'procuringEntity',
         'value', 'minimalStep', 'guarantee', 'tenderAttempts', 'title_en', 'lotIdentifier', 'title_ru',
-        'title'
+        'title', 'contractTerms'
     ])
     if SANDBOX_MODE:
         fields.add('procurementMethodDetails')

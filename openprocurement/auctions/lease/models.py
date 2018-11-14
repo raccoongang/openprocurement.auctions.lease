@@ -221,7 +221,7 @@ class Auction(BaseAuction):
     class Options:
         roles = {
             'create': create_role,
-            'edit_active.tendering': (blacklist('enquiryPeriod', 'tenderPeriod', 'rectificationPeriod', 'auction_value', 'auction_minimalStep', 'auction_guarantee', 'eligibilityCriteria', 'eligibilityCriteria_en', 'eligibilityCriteria_ru', 'minNumberOfQualifiedBids', 'contractTerms') + edit_role),
+            'edit_active.tendering': (blacklist('enquiryPeriod', 'tenderPeriod', 'rectificationPeriod', 'auction_value', 'auction_minimalStep', 'auction_guarantee', 'eligibilityCriteria', 'eligibilityCriteria_en', 'eligibilityCriteria_ru', 'minNumberOfQualifiedBids') + edit_role),
             'Administrator': (whitelist('rectificationPeriod') + Administrator_role),
         }
 
