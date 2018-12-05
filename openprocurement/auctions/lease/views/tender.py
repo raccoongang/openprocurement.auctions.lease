@@ -15,6 +15,7 @@ from openprocurement.auctions.core.validation import (
 from openprocurement.auctions.lease.utils import (
     check_status,
     invalidate_bids_data,
+    append_additional_classificator
 )
 from openprocurement.auctions.lease.validation import (
     validate_rectification_period_editing,
@@ -194,6 +195,7 @@ class AuctionResource(APIResource):
             if auction.status == 'active.tendering' and self.request.authenticated_role == 'auction_owner':
                 if not auction.rectificationPeriod:
                     auction.rectificationPeriod = generate_rectificationPeriod_tender_period_margin(auction)
+                append_additional_classificator(auction)
                 invalidate_bids_data(auction)
             save_auction(self.request)
         self.LOGGER.info('Updated auction {}'.format(auction.id),

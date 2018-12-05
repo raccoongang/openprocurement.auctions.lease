@@ -13,7 +13,8 @@ from openprocurement.auctions.core.utils import (
 from .constants import (
     DOCUMENT_TYPE_URL_ONLY,
     DOCUMENT_TYPE_OFFLINE,
-    MINIMAL_PERIOD_FROM_RECTIFICATION_END
+    MINIMAL_PERIOD_FROM_RECTIFICATION_END,
+    MANDATORY_ADDITIONAL_CLASSIFICATOR
 )
 from openprocurement.auctions.core.interfaces import IAuctionManager
 
@@ -131,3 +132,14 @@ def invalidate_bids_data(auction):
     for bid in auction.bids:
         setattr(bid, "status", "invalid")
     auction.rectificationPeriod.invalidationDate = get_now()
+
+
+def append_additional_classificator(auction):
+    mandatory_additional_classificator = type(auction).items.model_class.additionalClassifications.model_class(
+        MANDATORY_ADDITIONAL_CLASSIFICATOR)
+    for item in auction['items']:
+        for additionalClassification in item['additionalClassifications']:
+            if (additionalClassification['scheme'] == MANDATORY_ADDITIONAL_CLASSIFICATOR['scheme'] and additionalClassification['id'] == MANDATORY_ADDITIONAL_CLASSIFICATOR['id']):
+                break
+        else:
+            item['additionalClassifications'].append(mandatory_additional_classificator)
