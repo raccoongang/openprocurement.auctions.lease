@@ -34,13 +34,13 @@ class AuctionLeaseManagerAdapter(AuctionManagerAdapter):
         pause_between_periods = start_date - (set_specific_hour(start_date, hour=20) - timedelta(days=1))
         end_date = calculate_business_date(start_date, -pause_between_periods, auction)
         if auction.tenderPeriod and auction.tenderPeriod.endDate:
-            four_workingDays_before_startDate = calculate_business_date(start_date, -timedelta(days=4), auction, working_days=True, specific_hour=20)
-            if auction.tenderPeriod.endDate.date() != four_workingDays_before_startDate.date():
-                request.errors.add('body', 'data', 'The only possible value for tenderPeriod.endDate is {}'.format(four_workingDays_before_startDate))
+            three_workingDays_before_startDate = calculate_business_date(start_date, -timedelta(days=3), auction, working_days=True, specific_hour=20)
+            if auction.tenderPeriod.endDate.date() != three_workingDays_before_startDate.date():
+                request.errors.add('body', 'data', 'The only possible value for tenderPeriod.endDate is {}'.format(three_workingDays_before_startDate))
                 request.errors.status = 422
                 return
             else:
-                auction.tenderPeriod.endDate = four_workingDays_before_startDate
+                auction.tenderPeriod.endDate = three_workingDays_before_startDate
         else:
             auction.tenderPeriod = type(auction).tenderPeriod.model_class()
             auction.tenderPeriod.endDate = end_date
