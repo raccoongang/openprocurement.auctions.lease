@@ -187,7 +187,7 @@ class TaxHolidays(Model):
 class EscalationClauses(Model):
     id = MD5Type(required=True, default=lambda: uuid4().hex)
     escalationPeriodicity = IsoDurationType(required=True)
-    escalationStepPercentage = DecimalType(precision=-2, min_value=Decimal('0'), max_value=Decimal('1.00'))
+    escalationStepPercentage = DecimalType(precision=-4, min_value=Decimal('0'), max_value=Decimal('1'))
     conditions = StringType(required=True)
     conditions_en = StringType()
     conditions_ru = StringType()

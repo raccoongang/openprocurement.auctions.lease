@@ -35,7 +35,7 @@ class ContractTermsTest(unittest.TestCase):
          "escalationClauses": [
             {
                 "escalationPeriodicity": "P5M",
-                "escalationStepPercentage": 0.1,
+                "escalationStepPercentage": 0.1055,
                 "conditions": "conditions description"
             }
         ]
